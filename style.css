@@ -1,0 +1,1048 @@
+/* =====================================================
+   BUANG GARISAN HITAM BERKELIP (TAP HIGHLIGHT)
+===================================================== */
+*, *::before, *::after {
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    position: relative;
+}
+
+button:focus, a:focus, input:focus, div:focus {
+    outline: none;
+}
+
+.features-load-error {
+    margin: 0;
+    padding: 2rem 1.25rem;
+    color: #64748b;
+    background: #eef8ff;
+    text-align: center;
+    font-size: .85rem;
+}
+
+
+/* =========================================================
+   RCASH PREMIUM ADMINISTRATION GLASS OVERLAY
+   ========================awawssdawwa================================= */
+
+.admin-glass-overlay {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto 28px;
+    padding: 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+
+    border-radius: 26px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,0.72),
+            rgba(219,234,254,0.48),
+            rgba(224,242,254,0.42)
+        );
+
+    border: 1px solid rgba(255,255,255,0.85);
+
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+
+    box-shadow:
+        0 18px 45px rgba(30,64,175,0.13),
+        inset 0 1px 0 rgba(255,255,255,0.9);
+
+    overflow: hidden;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+/* Touch effect */
+.admin-glass-overlay:active {
+    transform: scale(0.975);
+
+    box-shadow:
+        0 10px 25px rgba(30,64,175,0.18),
+        inset 0 1px 0 rgba(255,255,255,0.9);
+}
+
+/* Ambient glow */
+.admin-glass-overlay::before {
+    content: "";
+    position: absolute;
+
+    width: 150px;
+    height: 150px;
+
+    top: -70px;
+    right: -50px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(59,130,246,0.28),
+            transparent 70%
+        );
+
+    filter: blur(18px);
+    pointer-events: none;
+}
+
+.admin-overlay-icon {
+    width: 48px;
+    height: 48px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+
+    color: #2563eb;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,0.9),
+            rgba(219,234,254,0.65)
+        );
+
+    border: 1px solid rgba(255,255,255,0.9);
+
+    box-shadow:
+        0 8px 20px rgba(37,99,235,0.12);
+}
+
+.admin-overlay-icon svg {
+    width: 25px;
+    height: 25px;
+}
+
+.admin-overlay-content {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    text-align: left;
+}
+
+.admin-overlay-label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #2563eb;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    letter-spacing: 1.2px;
+}
+
+.admin-overlay-content h1 {
+    margin: 0;
+
+    color: #0f172a;
+
+    font-size: 18px;
+    line-height: 1.25;
+
+    font-weight: 800;
+    letter-spacing: -0.3px;
+}
+
+.admin-overlay-content h1 span {
+    display: block;
+
+    background:
+        linear-gradient(
+            90deg,
+            #2563eb,
+            #06b6d4,
+            #0ea5e9
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+}
+
+.admin-overlay-content p {
+    margin-top: 8px;
+
+    color: #64748b;
+
+    font-size: 11px;
+    line-height: 1.55;
+}
+
+.admin-overlay-status {
+    position: absolute;
+
+    right: 14px;
+    top: 14px;
+
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    font-size: 8px;
+    font-weight: 800;
+
+    color: #059669;
+
+    background: rgba(236,253,245,0.72);
+
+    border: 1px solid rgba(167,243,208,0.65);
+
+    padding: 5px 8px;
+
+    border-radius: 999px;
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.status-dot {
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: #10b981;
+
+    box-shadow:
+        0 0 8px rgba(16,185,129,0.8);
+
+    animation: statusPulse 1.8s ease-in-out infinite;
+}
+
+@media (max-width: 480px) {
+    #mainPage > main {
+        width: 100%;
+        max-width: 28rem;
+        min-width: 0;
+    }
+
+    .admin-glass-overlay,
+    .r-cash-news {
+        width: calc(100% - 1rem);
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .admin-glass-overlay {
+        padding: 18px;
+        gap: 10px;
+    }
+
+    .admin-overlay-content {
+        min-width: 0;
+        padding-right: 0;
+    }
+
+    .admin-overlay-content h1,
+    .admin-overlay-content p {
+        overflow-wrap: anywhere;
+    }
+
+    .admin-overlay-content h1 {
+        font-size: 16px;
+    }
+
+    .admin-overlay-content p {
+        font-size: 10px;
+    }
+
+    .admin-overlay-status {
+        top: 10px;
+        right: 10px;
+        max-width: 42%;
+        padding: 4px 6px;
+        font-size: 7px;
+        white-space: nowrap;
+    }
+}
+
+@keyframes statusPulse {
+    0%,100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: .45;
+        transform: scale(.75);
+    }
+}
+
+
+/* =========================================================
+   RCASH NEWS — PREMIUM GLASSMORPHISM
+   ========================================================= */
+
+.rcash-news {
+    position: relative;
+
+    width: 100%;
+    max-width: 420px;
+
+    margin-top: 26px;
+
+    padding: 22px 18px 18px;
+
+    border-radius: 30px;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,0.76),
+            rgba(219,234,254,0.55),
+            rgba(224,242,254,0.42)
+        );
+
+    border: 1px solid rgba(255,255,255,0.85);
+
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+
+    box-shadow:
+        0 25px 60px rgba(37,99,235,0.15),
+        inset 0 1px 0 rgba(255,255,255,0.9);
+}
+
+
+/* Background glow */
+
+.rcash-news::before {
+    content: "";
+
+    position: absolute;
+
+    width: 220px;
+    height: 220px;
+
+    top: -100px;
+    right: -70px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(59,130,246,0.30),
+            transparent 70%
+        );
+
+    filter: blur(25px);
+
+    animation:
+        newsGlow 6s ease-in-out infinite alternate;
+
+    pointer-events: none;
+}
+
+.rcash-news::after {
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    bottom: -100px;
+    left: -70px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(14,165,233,0.25),
+            transparent 70%
+        );
+
+    filter: blur(25px);
+
+    animation:
+        newsGlow 5s ease-in-out infinite alternate-reverse;
+
+    pointer-events: none;
+}
+
+@keyframes newsGlow {
+
+    from {
+        transform: translate3d(0,0,0);
+    }
+
+    to {
+        transform: translate3d(-18px,16px,0);
+    }
+
+}
+
+
+/* =========================================================
+   NEWS HEADER
+   ========================================================= */
+
+.news-header {
+    position: relative;
+
+    z-index: 3;
+
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    margin-bottom: 17px;
+}
+
+.news-brand-icon {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    color: #2563eb;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.9),
+            rgba(219,234,254,.7)
+        );
+
+    border: 1px solid rgba(255,255,255,.9);
+
+    box-shadow:
+        0 8px 20px rgba(37,99,235,.12);
+}
+
+.news-brand-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+.news-heading {
+    flex: 1;
+
+    text-align: left;
+}
+
+.news-kicker {
+    display: block;
+
+    color: #2563eb;
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 1.4px;
+
+    margin-bottom: 2px;
+}
+
+.news-heading h2 {
+    margin: 0;
+
+    color: #0f172a;
+
+    font-size: 18px;
+    line-height: 1.1;
+
+    font-weight: 900;
+}
+
+.news-heading p {
+    margin: 3px 0 0;
+
+    color: #64748b;
+
+    font-size: 9px;
+}
+
+.news-live-status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    padding: 5px 8px;
+
+    border-radius: 999px;
+
+    color: #0284c7;
+
+    background: rgba(224,242,254,.72);
+
+    border: 1px solid rgba(186,230,253,.7);
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: .5px;
+}
+
+.news-live-status span {
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: #0ea5e9;
+
+    box-shadow:
+        0 0 8px rgba(14,165,233,.8);
+
+    animation: statusPulse 1.8s infinite;
+}
+
+
+/* =========================================================
+   SLIDER
+   ========================================================= */
+
+.news-slider {
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+
+    overflow: hidden;
+
+    border-radius: 22px;
+}
+
+.news-track {
+    display: flex;
+
+    width: 100%;
+
+    transform: translateX(0);
+
+    transition:
+        transform .65s cubic-bezier(.22,.61,.36,1);
+
+    will-change: transform;
+}
+
+.news-item {
+    position: relative;
+
+    flex: 0 0 100%;
+
+    width: 100%;
+
+    min-height: 190px;
+
+    box-sizing: border-box;
+
+    padding: 20px;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.82),
+            rgba(239,246,255,.62)
+        );
+
+    border: 1px solid rgba(255,255,255,.9);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 14px 35px rgba(15,23,42,.08),
+        inset 0 1px 0 rgba(255,255,255,.9);
+
+    overflow: hidden;
+}
+
+.news-item::after {
+    content: "";
+
+    position: absolute;
+
+    width: 110px;
+    height: 110px;
+
+    right: -45px;
+    bottom: -55px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(37,99,235,.15),
+            transparent 70%
+        );
+
+    filter: blur(15px);
+
+    pointer-events: none;
+}
+
+.news-item-top {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    margin-bottom: 14px;
+}
+
+.news-icon {
+    width: 34px;
+    height: 34px;
+
+    border-radius: 11px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255,255,255,.75);
+
+    border: 1px solid rgba(255,255,255,.9);
+
+    box-shadow:
+        0 5px 15px rgba(15,23,42,.08);
+}
+
+.news-icon svg {
+    width: 17px;
+    height: 17px;
+}
+
+.latest-icon {
+    color: #2563eb;
+}
+
+.security-icon {
+    color: #16a34a;
+}
+
+.info-icon {
+    color: #0284c7;
+}
+
+.important-icon {
+    color: #dc2626;
+}
+
+.feature-icon {
+    color: #7c3aed;
+}
+
+.update-icon {
+    color: #0891b2;
+}
+
+
+/* News Labels */
+
+.news-label {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 5px 10px;
+
+    border-radius: 999px;
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: .7px;
+
+    background: rgba(255,255,255,.72);
+
+    border: 1px solid rgba(148,163,184,.18);
+
+    box-shadow:
+        0 4px 12px rgba(15,23,42,.06);
+}
+
+.latest {
+    color: #2563eb;
+}
+
+.security {
+    color: #16a34a;
+}
+
+.info {
+    color: #0284c7;
+}
+
+.important {
+    color: #dc2626;
+}
+
+.feature {
+    color: #7c3aed;
+}
+
+.notice {
+    color: #0891b2;
+}
+
+
+/* News Text */
+
+.news-item h3 {
+    position: relative;
+    z-index: 2;
+
+    margin: 0 0 8px;
+
+    color: #0f172a;
+
+    font-size: 15px;
+    line-height: 1.35;
+
+    font-weight: 850;
+
+    letter-spacing: -.15px;
+}
+
+.news-item p {
+    position: relative;
+    z-index: 2;
+
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+
+/* Footer */
+
+.news-footer {
+    position: absolute;
+
+    left: 20px;
+    right: 20px;
+    bottom: 17px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding-top: 11px;
+
+    border-top: 1px solid rgba(148,163,184,.15);
+
+    color: #2563eb;
+
+    font-size: 8px;
+    font-weight: 800;
+
+    z-index: 2;
+}
+
+.news-footer svg {
+    width: 14px;
+    height: 14px;
+}
+
+
+/* =========================================================
+   SLIDER DOTS
+   ========================================================= */
+
+.news-slider-indicators {
+    position: relative;
+
+    z-index: 5;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 5px;
+
+    margin-top: 14px;
+}
+
+.news-dot {
+    width: 6px;
+    height: 6px;
+
+    padding: 0;
+
+    border: 0;
+
+    border-radius: 999px;
+
+    background: rgba(100,116,139,.25);
+
+    cursor: pointer;
+
+    transition:
+        width .35s ease,
+        background .35s ease,
+        transform .35s ease;
+}
+
+.news-dot.active {
+    width: 20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #2563eb,
+            #06b6d4
+        );
+
+    box-shadow:
+        0 0 10px rgba(37,99,235,.3);
+}
+
+.news-dot:active {
+    transform: scale(.8);
+}
+
+
+/* Mobile */
+
+@media (max-width: 380px) {
+
+    .rcash-news {
+        padding: 19px 14px 15px;
+        border-radius: 25px;
+    }
+
+    .admin-glass-overlay {
+        padding: 20px 17px;
+    }
+
+    .admin-overlay-content h1 {
+        font-size: 16px;
+    }
+
+    .news-item {
+        min-height: 200px;
+        padding: 17px;
+    }
+
+}
+
+/* =========================================================
+   RCASH PREMIUM PAGE LOADING PROGRESS
+   ========================================================= */
+
+#pageTransitionSpinner {
+    transition: opacity .3s ease;
+}
+
+#pageLoadingProgress {
+    width: 0%;
+    min-width: 0%;
+    will-change: width;
+
+    box-shadow:
+        0 0 12px rgba(37,99,235,.30);
+
+    background-size: 200% 100%;
+
+    animation:
+        loadingGradient 2s linear infinite;
+}
+
+@keyframes loadingGradient {
+
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 200% 50%;
+    }
+
+}
+
+#pageLoadingPercentage {
+    min-width: 32px;
+    text-align: right;
+}
+
+#pageLoadingStatus {
+    min-height: 15px;
+
+    transition:
+        opacity .2s ease,
+        transform .2s ease;
+}
+
+/* =========================================================
+   RCASH PREMIUM STATUS BADGE
+   ========================================================= */
+
+.rcash-status-badge {
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 8px 12px;
+
+    border-radius: 999px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.88),
+            rgba(239,246,255,.72)
+        );
+
+    border: 1px solid rgba(255,255,255,.95);
+
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    box-shadow:
+        0 8px 24px rgba(37,99,235,.10),
+        inset 0 1px 0 rgba(255,255,255,.95);
+
+    color: #475569;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    letter-spacing: .7px;
+
+    text-transform: uppercase;
+
+    overflow: hidden;
+}
+
+/* LIVE indicator */
+
+.rcash-status-dot {
+    width: 7px;
+    height: 7px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #10b981;
+
+    box-shadow:
+        0 0 0 3px rgba(16,185,129,.12),
+        0 0 10px rgba(16,185,129,.65);
+
+    animation: rcashStatusPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes rcashStatusPulse {
+
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(.72);
+        opacity: .55;
+    }
+
+}
+
+/* LIVE pill */
+
+.rcash-status-live {
+    padding: 3px 6px;
+
+    border-radius: 999px;
+
+    color: #047857;
+
+    background: rgba(236,253,245,.85);
+
+    border: 1px solid rgba(167,243,208,.75);
+
+    font-size: 7px;
+    font-weight: 900;
+
+    letter-spacing: .8px;
+}
+
+/* Subtle shine */
+
+.rcash-status-badge::after {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -80%;
+
+    width: 50%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.65),
+            transparent
+        );
+
+    transform: skewX(-20deg);
+
+    animation: rcashBadgeShine 4.5s ease-in-out infinite;
+
+    pointer-events: none;
+}
+
+@keyframes rcashBadgeShine {
+
+    0%, 65% {
+        left: -80%;
+    }
+
+    100% {
+        left: 140%;
+    }
+
+}
+
+/* =====================================================
+   KUNCI SAIZ IKON FEATURE CARD 
+===================================================== */
+.live-icon svg {
+    width: 32px !important;
+    height: 32px !important;
+    stroke-width: 1.5 !important;
+}
+
+/* Jika ikon masih nampak besar, kecilkan angka 32px kepada 24px */
+
