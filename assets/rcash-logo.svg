@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 110" role="img" aria-label="R-CASH logo">
+  <defs>
+    <linearGradient id="g1" x1="0" x2="1">
+      <stop offset="0%" stop-color="#20d2b4"/>
+      <stop offset="100%" stop-color="#6f3bd2"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0" x2="1">
+      <stop offset="0%" stop-color="#b7f9ee"/>
+      <stop offset="100%" stop-color="#e7d9ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="340" height="110" rx="18" fill="#081b17"/>
+  <g transform="translate(20 20)">
+    <rect x="0" y="0" width="70" height="70" rx="18" fill="url(#g1)"/>
+    <path d="M22 50V22h8l8 11 8-11h8v28h-8V35l-8 11-8-11v15z" fill="#06130f" opacity="0.9"/>
+    <circle cx="53" cy="19" r="7" fill="#b7f9ee" opacity="0.9"/>
+  </g>
+  <g transform="translate(110 25)">
+    <text x="0" y="26" font-size="30" font-family="Poppins, Arial, sans-serif" font-weight="700" fill="#f3f7f5">R-CASH</text>
+    <text x="0" y="52" font-size="12" font-family="Poppins, Arial, sans-serif" fill="#91d7ca" letter-spacing="3">DIGITAL PAYMENTS</text>
+    <rect x="0" y="62" width="110" height="4" rx="2" fill="url(#g2)"/>
+  </g>
+</svg>

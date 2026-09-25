@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 500" role="img" aria-label="R-CASH payment banner desktop">
+  <defs>
+    <linearGradient id="bgDesk" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#0d1f1a"/>
+      <stop offset="50%" stop-color="#0d1a36"/>
+      <stop offset="100%" stop-color="#0b1220"/>
+    </linearGradient>
+    <linearGradient id="accentDesk" x1="0" x2="1">
+      <stop offset="0%" stop-color="#20d2b4"/>
+      <stop offset="100%" stop-color="#7a5bff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="500" fill="url(#bgDesk)"/>
+  <circle cx="1340" cy="120" r="180" fill="#1ee0b2" opacity="0.12"/>
+  <circle cx="1100" cy="420" r="200" fill="#6d4eea" opacity="0.12"/>
+  <g opacity="0.9">
+    <rect x="900" y="90" width="500" height="220" rx="28" fill="#0b152c" stroke="#3fe7cc" stroke-opacity="0.5"/>
+    <rect x="940" y="130" width="200" height="140" rx="20" fill="#0f2339" stroke="#70ead2" stroke-opacity="0.5"/>
+    <circle cx="1040" cy="195" r="44" fill="url(#accentDesk)"/>
+    <path d="M1015 212l18-18 12 12 26-28 16 15-42 45-34-26z" fill="#081915"/>
+    <rect x="1180" y="150" width="180" height="20" rx="10" fill="#20d2b4" opacity="0.8"/>
+    <rect x="1180" y="185" width="150" height="18" rx="9" fill="#d8e7ff" opacity="0.65"/>
+    <rect x="1180" y="218" width="190" height="18" rx="9" fill="#d8e7ff" opacity="0.45"/>
+    <rect x="1180" y="252" width="130" height="18" rx="9" fill="#d8e7ff" opacity="0.32"/>
+  </g>
+  <g transform="translate(110 115)">
+    <text x="0" y="84" font-size="62" font-family="Poppins, Arial, sans-serif" font-weight="800" fill="#eafaf6">Selamat Datang</text>
+    <text x="0" y="150" font-size="72" font-family="Poppins, Arial, sans-serif" font-weight="800" fill="#20d2b4">ke R-CASH</text>
+    <text x="0" y="212" font-size="28" font-family="Poppins, Arial, sans-serif" fill="#cfe9e4">Pembayaran digital yang cepat, selamat dan mudah.</text>
+    <g transform="translate(0 255)">
+      <rect x="0" y="0" width="230" height="62" rx="31" fill="url(#accentDesk)"/>
+      <text x="115" y="39" text-anchor="middle" font-size="24" font-family="Poppins, Arial, sans-serif" font-weight="700" fill="#071613">Mulakan</text>
+    </g>
+  </g>
+</svg>
