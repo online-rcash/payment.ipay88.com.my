@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#071b14" />
-  <meta name="description" content="Sistem pembayaran digital baharu R-Cash yang selamat dan responsif." />
+  <meta name="description" content="Sistem pembayaran digital baharu R-CASH yang selamat dan responsif." />
   <title>R-CASH — Secure Repayment Loan System</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,6 +12,535 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* =========================================================
+       R-CASH UI ADDITIONS
+       Banner + Demo Testimonials + Professional Footer
+       Tidak mengubah fungsi authentication atau payment.
+    ========================================================= */
+
+    :root {
+      --rc-purple: #6f3bd2;
+      --rc-purple-2: #5024a8;
+      --rc-teal: #20d2b4;
+      --rc-teal-2: #0fae96;
+      --rc-ink: #101828;
+      --rc-muted: #667085;
+      --rc-line: #e7eaf0;
+      --rc-soft: #f7f8fb;
+      --rc-gold: #f5b301;
+    }
+
+    /* Auth page can grow vertically without breaking the existing login shell. */
+    .auth-page-upgrade {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 46px;
+    }
+
+    /* -------------------------
+       LOGIN BANNER
+    ------------------------- */
+    .rc-login-banner {
+      position: relative;
+      width: 100%;
+      height: 158px;
+      margin: 0 0 22px;
+      overflow: hidden;
+      border-radius: 16px;
+      background:
+        radial-gradient(circle at 85% 20%, rgba(32,210,180,.42), transparent 27%),
+        radial-gradient(circle at 72% 86%, rgba(111,59,210,.46), transparent 30%),
+        linear-gradient(135deg, #180d2c, #0c2d2b);
+      isolation: isolate;
+    }
+
+    .rc-login-banner picture,
+    .rc-login-banner img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .rc-login-banner img {
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .rc-login-banner-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(90deg,
+          rgba(9, 8, 18, .90) 0%,
+          rgba(9, 8, 18, .72) 48%,
+          rgba(9, 8, 18, .18) 100%);
+    }
+
+    .rc-login-banner-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      max-width: 78%;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      text-align: left;
+      color: #fff;
+    }
+
+    .rc-login-banner-label {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      margin-bottom: 7px;
+      padding: 3px 8px;
+      border: 1px solid rgba(255,255,255,.20);
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      color: #d8fff8;
+      font-size: .58rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .rc-login-banner h2 {
+      margin: 0;
+      color: #fff;
+      font-size: clamp(1.02rem, 4vw, 1.3rem);
+      line-height: 1.18;
+      letter-spacing: -.02em;
+    }
+
+    .rc-login-banner p {
+      max-width: 290px;
+      margin: 7px 0 11px;
+      color: #e4e7ec;
+      font-size: .70rem;
+      line-height: 1.55;
+    }
+
+    .rc-login-banner-button {
+      min-height: 34px;
+      padding: 7px 12px;
+      border: 0;
+      border-radius: 9px;
+      background: linear-gradient(135deg, var(--rc-teal), #6ff1dc);
+      color: #07221e;
+      font-size: .68rem;
+      font-weight: 800;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform .2s ease, box-shadow .2s ease;
+      box-shadow: 0 8px 20px rgba(32,210,180,.18);
+    }
+
+    .rc-login-banner-button:hover {
+      transform: translateY(-1px);
+    }
+
+    .rc-login-banner-button:focus-visible,
+    .rc-testimonial-card:focus-within,
+    .rc-footer a:focus-visible {
+      outline: 3px solid #ffd166;
+      outline-offset: 3px;
+    }
+
+    /* -------------------------
+       LOGIN TESTIMONIALS
+    ------------------------- */
+    .rc-login-testimonials {
+      width: 100%;
+      color: #fff;
+    }
+
+    .rc-testimonial-heading {
+      max-width: 690px;
+      margin: 0 auto 23px;
+      text-align: center;
+    }
+
+    .rc-testimonial-heading .eyebrow {
+      margin-bottom: 8px;
+    }
+
+    .rc-testimonial-heading h2 {
+      margin: 0 0 8px;
+      color: #fff;
+      font-size: clamp(1.55rem, 5vw, 2.25rem);
+      letter-spacing: -.035em;
+    }
+
+    .rc-testimonial-heading > p {
+      margin: 0;
+      color: #9bb6a7;
+      font-size: .82rem;
+      line-height: 1.7;
+    }
+
+    .rc-demo-notice {
+      width: fit-content;
+      max-width: 100%;
+      margin: 14px auto 0;
+      padding: 8px 11px;
+      border: 1px solid rgba(255, 209, 102, .32);
+      border-radius: 10px;
+      background: rgba(255, 209, 102, .08);
+      color: #ffe6a7;
+      font-size: .66rem;
+      line-height: 1.5;
+    }
+
+    .rc-testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .rc-testimonial-card {
+      min-height: 265px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 18px;
+      background: linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.035));
+      box-shadow: 0 16px 42px rgba(0,0,0,.13);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition: transform .2s ease, border-color .2s ease;
+    }
+
+    .rc-testimonial-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(32,210,180,.30);
+    }
+
+    .rc-testimonial-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .rc-quote {
+      color: var(--rc-teal);
+      font-family: Georgia, serif;
+      font-size: 2.5rem;
+      line-height: .75;
+    }
+
+    .rc-demo-chip {
+      padding: 5px 7px;
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 999px;
+      background: rgba(255,255,255,.05);
+      color: #a8c0b1;
+      font-size: .55rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .rc-testimonial-card blockquote {
+      flex: 1;
+      margin: 18px 0 16px;
+      color: #dcebe2;
+      font-size: .78rem;
+      line-height: 1.75;
+    }
+
+    .rc-stars {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 18px;
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .rc-star-on { color: var(--rc-gold); }
+    .rc-star-off { color: #58675f; }
+
+    .rc-customer {
+      padding-top: 15px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+
+    .rc-avatar {
+      width: 40px;
+      height: 40px;
+      flex: 0 0 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--rc-purple), var(--rc-teal));
+      color: #fff;
+      font-size: .68rem;
+      font-weight: 800;
+    }
+
+    .rc-customer-copy {
+      display: grid;
+      gap: 2px;
+    }
+
+    .rc-customer-copy strong {
+      font-size: .75rem;
+      color: #fff;
+    }
+
+    .rc-customer-copy span {
+      color: #87a092;
+      font-size: .61rem;
+    }
+
+    .rc-sr-only {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
+
+    /* -------------------------
+       FULL FOOTER
+    ------------------------- */
+    .rc-footer {
+      background:
+        radial-gradient(circle at 8% 10%, rgba(111,59,210,.10), transparent 25%),
+        radial-gradient(circle at 90% 20%, rgba(32,210,180,.08), transparent 28%),
+        #050d0a;
+      border-top: 1px solid rgba(255,255,255,.08);
+      color: #aabdb2;
+    }
+
+    .rc-footer-main {
+      width: min(1180px, calc(100% - 38px));
+      margin: 0 auto;
+      padding: 58px 0 38px;
+      display: grid;
+      grid-template-columns: 1.35fr 1fr 1fr 1.25fr;
+      gap: 40px;
+    }
+
+    .rc-footer-logo {
+      width: 150px;
+      max-height: 55px;
+      object-fit: contain;
+      display: block;
+      margin-bottom: 15px;
+    }
+
+    .rc-footer-brand p {
+      max-width: 315px;
+      margin: 0;
+      color: #819b8c;
+      font-size: .75rem;
+      line-height: 1.75;
+    }
+
+    .rc-footer h3 {
+      margin: 0 0 16px;
+      color: #fff;
+      font-size: .78rem;
+    }
+
+    .rc-footer-links-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .rc-footer a {
+      color: #8da698;
+      font-size: .72rem;
+      text-decoration: none;
+      transition: color .2s ease;
+    }
+
+    .rc-footer a:hover {
+      color: var(--rc-teal);
+    }
+
+    .rc-contact-list {
+      display: grid;
+      gap: 13px;
+    }
+
+    .rc-contact-item {
+      display: grid;
+      gap: 3px;
+    }
+
+    .rc-contact-item strong {
+      color: #dcebe2;
+      font-size: .65rem;
+    }
+
+    .rc-contact-item span,
+    .rc-contact-item a {
+      color: #819b8c;
+      font-size: .70rem;
+      line-height: 1.55;
+    }
+
+    .rc-footer-security {
+      width: min(1180px, calc(100% - 38px));
+      margin: 0 auto;
+      padding: 14px 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 13px;
+      background: rgba(255,255,255,.025);
+      color: #8ca497;
+    }
+
+    .rc-footer-security svg {
+      width: 18px;
+      flex: 0 0 18px;
+      fill: var(--rc-teal);
+    }
+
+    .rc-footer-security p {
+      margin: 0;
+      font-size: .66rem;
+      line-height: 1.55;
+    }
+
+    .rc-footer-bottom {
+      width: min(1180px, calc(100% - 38px));
+      margin: 26px auto 0;
+      padding: 20px 0 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      border-top: 1px solid rgba(255,255,255,.07);
+      color: #647a6e;
+      font-size: .65rem;
+    }
+
+    .rc-footer-bottom p {
+      margin: 0;
+    }
+
+    .rc-footer-bottom-links {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    /* Make placeholder contact fields obvious before production. */
+    .rc-placeholder {
+      color: #f3c96b !important;
+    }
+
+    /* -------------------------
+       TABLET / MOBILE
+    ------------------------- */
+    @media (max-width: 900px) {
+      .rc-testimonial-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .rc-testimonial-card:last-child {
+        grid-column: 1 / -1;
+        max-width: calc(50% - 7px);
+        width: 100%;
+        justify-self: center;
+      }
+
+      .rc-footer-main {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 650px) {
+      .auth-page-upgrade {
+        gap: 34px;
+      }
+
+      .rc-login-banner {
+        height: 140px;
+      }
+
+      .rc-login-banner-content {
+        max-width: 88%;
+        padding: 15px;
+      }
+
+      .rc-login-banner h2 {
+        font-size: .98rem;
+      }
+
+      .rc-login-banner p {
+        max-width: 225px;
+        margin: 5px 0 8px;
+        font-size: .62rem;
+      }
+
+      .rc-login-banner-button {
+        min-height: 31px;
+        padding: 6px 10px;
+        font-size: .61rem;
+      }
+
+      .rc-testimonial-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .rc-testimonial-card,
+      .rc-testimonial-card:last-child {
+        min-height: auto;
+        max-width: none;
+        grid-column: auto;
+      }
+
+      .rc-footer-main {
+        grid-template-columns: 1fr;
+        gap: 31px;
+      }
+
+      .rc-footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .rc-login-banner-button,
+      .rc-testimonial-card,
+      .rc-footer a {
+        transition: none;
+      }
+
+      .rc-login-banner-button:hover,
+      .rc-testimonial-card:hover {
+        transform: none;
+      }
+    }
+  </style>
+
 </head>
 
 <body>
@@ -20,6 +549,7 @@
 
   <!-- LOGIN OVERLAY -->
   <section id="authScreen" class="auth-screen" aria-hidden="false">
+    <div class="auth-page-upgrade">
     <div class="auth-shell">
       <div class="auth-brand">
         <img src="assets/rcash-logo.png" alt="R-CASH" class="auth-logo">
@@ -30,6 +560,30 @@
       </div>
 
       <div class="auth-card glass-card">
+
+        <!-- R-CASH LOGIN BANNER -->
+        <div class="rc-login-banner" aria-label="R-CASH payment welcome banner">
+          <picture>
+            <source media="(max-width: 650px)" srcset="assets/images/login-banner-mobile.webp">
+            <img
+              src="assets/images/login-banner-desktop.webp"
+              width="1600"
+              height="500"
+              alt="Ilustrasi pembayaran digital R-CASH yang selamat dan mudah."
+              decoding="async"
+              fetchpriority="high"
+              onerror="this.parentElement.style.display='none'"
+            >
+          </picture>
+          <div class="rc-login-banner-overlay"></div>
+          <div class="rc-login-banner-content">
+            <span class="rc-login-banner-label">R-CASH DIGITAL</span>
+            <h2>Selamat Datang ke R-CASH</h2>
+            <p>Log masuk untuk meneruskan pembayaran anda.</p>
+            <a class="rc-login-banner-button" href="#googleLoginBtn">Mulakan Sekarang</a>
+          </div>
+        </div>
+
         <div class="language-row">
           <select id="languageSelect" aria-label="Language">
             <option value="ms">🇲🇾 Bahasa Malaysia</option>
@@ -81,6 +635,20 @@
         </div>
       </div>
     </div>
+
+    <!-- DEMO TESTIMONIALS: NOT REAL CUSTOMER REVIEWS -->
+    <section class="rc-login-testimonials" aria-labelledby="rcTestimonialTitle">
+      <div class="rc-testimonial-heading">
+        <span class="eyebrow">CONTOH PAPARAN</span>
+        <h2 id="rcTestimonialTitle">Apa Kata Pelanggan Kami</h2>
+        <p>Pengalaman pengguna membantu kami terus memperbaiki perkhidmatan R-CASH.</p>
+        <div class="rc-demo-notice" role="note">
+          Semua ulasan di bawah ialah contoh/demo dan bukan testimonial pelanggan sebenar.
+        </div>
+      </div>
+      <div id="rcTestimonialGrid" class="rc-testimonial-grid"></div>
+    </section>
+    </div>
   </section>
 
   <!-- MAIN APP -->
@@ -91,14 +659,14 @@
       </a>
 
       <nav class="desktop-nav">
-        <a href="#home">Home</a>
-        <a href="#updates">Updates</a>
-        <a href="#payment-guide">Payment Guide</a>
-        <a href="#security">Security</a>
+        <a href="#home">Utama</a>
+        <a href="#updates">Kemas Kini</a>
+        <a href="#payment-guide">Cara Pembayaran</a>
+        <a href="#security">Keselamatan</a>
       </nav>
 
       <div class="nav-actions">
-        <button id="openPaymentBtnTop" class="btn btn-primary btn-sm">Make Payment</button>
+        <button id="openPaymentBtnTop" class="btn btn-primary btn-sm">Buat Pembayaran</button>
         <button id="logoutBtn" class="icon-btn" aria-label="Log out" title="Log out">
           <svg viewBox="0 0 24 24"><path d="M10 17l1.4-1.4L8.8 13H18v-2H8.8l2.6-2.6L10 7l-5 5 5 5zm9-14H5a2 2 0 00-2 2v4h2V5h14v14H5v-4H3v4a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2z"/></svg>
         </button>
@@ -110,32 +678,32 @@
         <div class="hero-copy">
           <div class="live-label">
             <span class="live-dot"></span>
-            DIGITAL • SECURE • ONLINE
-            <strong>ON GOING</strong>
+            DIGITAL • SELAMAT • MUDAH
+            <strong>ONLINE</strong>
           </div>
-          <span class="eyebrow">DIGITAL ADMINISTRATION</span>
-          <h1>Efficient Administration <span>Control System</span></h1>
-          <p>Semua proses pelanggan diurus secara digital untuk pengalaman yang lebih cepat, tersusun dan mudah digunakan.</p>
+          <span class="eyebrow">PEMBAYARAN DIGITAL R-CASH</span>
+          <h1>Bayaran Lebih Mudah, <span>Teratur dan Selamat</span></h1>
+          <p>Urus pembayaran melalui aliran yang jelas dan mesra telefon untuk pengalaman yang lebih mudah.</p>
 
           <div class="hero-actions">
-            <button id="openPaymentBtnHero" class="btn btn-primary">Continue to Payment</button>
-            <a href="#payment-guide" class="btn btn-ghost">How It Works</a>
+            <button id="openPaymentBtnHero" class="btn btn-primary">Teruskan Pembayaran</button>
+            <a href="#payment-guide" class="btn btn-ghost">Cara Ia Berfungsi</a>
           </div>
 
           <div class="trust-row">
-            <div><strong>24/7</strong><span>Digital Access</span></div>
-            <div><strong>SSL</strong><span>Secure Session</span></div>
-            <div><strong>MYR</strong><span>Local Payment</span></div>
+            <div><strong>24/7</strong><span>Akses Digital</span></div>
+            <div><strong>SSL</strong><span>Sesi Selamat</span></div>
+            <div><strong>MYR</strong><span>Bayaran Malaysia</span></div>
           </div>
         </div>
 
         <div class="hero-panel glass-card">
           <div class="panel-header">
             <div>
-              <span class="eyebrow">SYSTEM STATUS</span>
+              <span class="eyebrow">STATUS SISTEM</span>
               <h3>R-CASH Digital</h3>
             </div>
-            <span class="status-online">Online</span>
+            <span class="status-online">Beroperasi</span>
           </div>
 
           <div class="metric-grid">
@@ -143,25 +711,25 @@
               <span class="metric-icon">
                 <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 17.9V18h-2v1.9A8 8 0 014.1 13H6v-2H4.1A8 8 0 0111 4.1V6h2V4.1A8 8 0 0119.9 11H18v2h1.9A8 8 0 0113 19.9z"/></svg>
               </span>
-              <div><strong>Secure</strong><span>Protected workflow</span></div>
+              <div><strong>Selamat</strong><span>Aliran pembayaran terlindung</span></div>
             </div>
             <div class="metric">
               <span class="metric-icon">
                 <svg viewBox="0 0 24 24"><path d="M7 2h10a2 2 0 012 2v16a2 2 0 01-2 2H7a2 2 0 01-2-2V4a2 2 0 012-2zm0 4v12h10V6H7zm4 13h2v1h-2v-1z"/></svg>
               </span>
-              <div><strong>Mobile First</strong><span>Optimised for phone</span></div>
+              <div><strong>Mesra Telefon</strong><span>Direka untuk skrin mudah alih</span></div>
             </div>
             <div class="metric">
               <span class="metric-icon">
                 <svg viewBox="0 0 24 24"><path d="M12 1l3 6 6 .9-4.5 4.4 1 6.2L12 15.6 6.5 18.5l1-6.2L3 7.9 9 7l3-6z"/></svg>
               </span>
-              <div><strong>Fast</strong><span>Simple customer journey</span></div>
+              <div><strong>Ringkas</strong><span>Langkah mudah difahami</span></div>
             </div>
             <div class="metric">
               <span class="metric-icon">
                 <svg viewBox="0 0 24 24"><path d="M12 2l7 3v6c0 5-3.4 9.7-7 11-3.6-1.3-7-6-7-11V5l7-3zm-1 13l5-5-1.4-1.4L11 12.2 9.4 10.6 8 12l3 3z"/></svg>
               </span>
-              <div><strong>Verified</strong><span>Receipt confirmation</span></div>
+              <div><strong>Pengesahan</strong><span>Bukti bayaran boleh dimuat naik</span></div>
             </div>
           </div>
         </div>
@@ -171,29 +739,29 @@
         <div class="section-heading">
           <div>
             <span class="eyebrow">R-CASH NEWS</span>
-            <h2>Latest Updates</h2>
+            <h2>Kemas Kini Terkini</h2>
           </div>
-          <span class="section-kicker">Systems & services</span>
+          <span class="section-kicker">Perkhidmatan & makluman</span>
         </div>
 
         <div class="news-grid">
           <article class="news-card glass-card">
             <div class="tag-row"><span class="tag tag-live">LIVE</span><span class="tag">NEW</span></div>
-            <h3>Digital Payment System</h3>
+            <h3>Sistem Pembayaran Digital</h3>
             <p>Antaramuka pembayaran yang dibina untuk transaksi lebih jelas dan mudah dijejaki.</p>
-            <span class="card-foot">Digital Experience</span>
+            <span class="card-foot">Pengalaman Digital</span>
           </article>
           <article class="news-card glass-card">
             <div class="tag-row"><span class="tag tag-security">SECURITY</span></div>
-            <h3>Firebase Authentication</h3>
-            <p>Sokongan Google Sign-In dan Email/Password melalui konfigurasi Firebase anda sendiri.</p>
-            <span class="card-foot">Account Security</span>
+            <h3>Akses Akaun Selamat</h3>
+            <p>Log masuk menggunakan kaedah yang tersedia untuk mengakses akaun dan meneruskan urusan pembayaran.</p>
+            <span class="card-foot">Keselamatan Akaun</span>
           </article>
           <article class="news-card glass-card">
             <div class="tag-row"><span class="tag">NOTICE</span></div>
-            <h3>Advance Notice</h3>
-            <p>Gunakan ruangan ini untuk notis maintenance, kemas kini pembayaran atau pengumuman pelanggan.</p>
-            <span class="card-foot">Customer Notice</span>
+            <h3>Makluman Pelanggan</h3>
+            <p>Semak notis penting berkaitan perkhidmatan, pembayaran dan kemas kini yang berkaitan dengan akaun anda.</p>
+            <span class="card-foot">Notis Pelanggan</span>
           </article>
         </div>
       </section>
@@ -220,7 +788,7 @@
           <article class="feature-card">
             <span class="feature-number">03</span>
             <h3>Keselamatan Akaun</h3>
-            <p>Authentication dipisahkan daripada data pembayaran dan menggunakan provider rasmi.</p>
+            <p>Akses akaun dan urusan pembayaran dipisahkan untuk membantu melindungi maklumat pengguna.</p>
           </article>
           <article class="feature-card">
             <span class="feature-number">04</span>
@@ -229,13 +797,13 @@
           </article>
           <article class="feature-card">
             <span class="feature-number">05</span>
-            <h3>Receipt Upload</h3>
-            <p>Pelanggan boleh memilih resit daripada telefon sebelum membuat submission.</p>
+            <h3>Muat Naik Resit</h3>
+            <p>Pelanggan boleh memilih bukti pembayaran daripada telefon untuk dihantar bagi tujuan semakan.</p>
           </article>
           <article class="feature-card">
             <span class="feature-number">06</span>
             <h3>24/7 Digital</h3>
-            <p>Frontend statik boleh dihoskan melalui GitHub Pages, Netlify atau Cloudflare Pages.</p>
+            <p>Akses pembayaran digital boleh digunakan melalui telefon, tablet atau komputer pada bila-bila masa.</p>
           </article>
         </div>
       </section>
@@ -252,7 +820,7 @@
         <div class="steps">
           <article class="step"><span>01</span><div><h3>Isi Maklumat</h3><p>Masukkan nama, MyKad, telefon, Loan/CUST ID dan jumlah.</p></div></article>
           <article class="step"><span>02</span><div><h3>Sahkan Maklumat</h3><p>Semak semua data sebelum pergi ke halaman pembayaran.</p></div></article>
-          <article class="step"><span>03</span><div><h3>Pilih Kaedah</h3><p>Pilih DuitNow QR atau kaedah lain apabila payment gateway sebenar disambungkan.</p></div></article>
+          <article class="step"><span>03</span><div><h3>Pilih Kaedah</h3><p>Pilih kaedah pembayaran yang tersedia dan ikuti arahan yang dipaparkan.</p></div></article>
           <article class="step"><span>04</span><div><h3>Buat Pembayaran</h3><p>Imbas QR menggunakan aplikasi bank/e-wallet yang menyokong DuitNow.</p></div></article>
           <article class="step"><span>05</span><div><h3>Muat Naik Resit</h3><p>Hantar bukti transaksi untuk semakan dan kemas kini.</p></div></article>
         </div>
@@ -266,28 +834,95 @@
           <div>
             <span class="eyebrow">KESELAMATAN AKAUN</span>
             <h2>Notis Keselamatan</h2>
-            <p>Pastikan pembayaran dibuat hanya melalui domain rasmi anda. Jangan minta pelanggan berkongsi OTP, password perbankan atau TAC.</p>
+            <p>Pastikan pembayaran dibuat hanya melalui laman rasmi R-CASH. Jangan kongsikan OTP, TAC atau kata laluan perbankan kepada sesiapa.</p>
             <div class="security-list">
-              <span>✓ Verify domain sebelum membayar</span>
-              <span>✓ Gunakan payment gateway rasmi untuk transaksi automatik</span>
-              <span>✓ Jangan simpan password bank atau TAC pelanggan</span>
+              <span>✓ Semak alamat laman sebelum membuat bayaran</span>
+              <span>✓ Gunakan hanya kaedah pembayaran yang dipaparkan oleh R-CASH</span>
+              <span>✓ Jangan kongsikan kata laluan bank, OTP atau TAC</span>
             </div>
           </div>
         </div>
       </section>
     </main>
 
-    <footer class="footer">
-      <div>
-        <img src="assets/rcash-logo.png" alt="R-CASH" class="footer-logo">
-        <p>R-CASH Secure Repayment Portal</p>
+    <footer class="rc-footer" id="contact-footer">
+      <div class="rc-footer-main">
+
+        <div class="rc-footer-brand">
+          <img src="assets/rcash-logo.png" alt="R-CASH" class="rc-footer-logo">
+          <p>
+            Platform pembayaran digital yang membantu pengguna membuat,
+            menghantar bukti dan menyemak maklumat bayaran dengan lebih mudah.
+          </p>
+        </div>
+
+        <div>
+          <h3>R-CASH</h3>
+          <nav class="rc-footer-links-list" aria-label="Pautan R-CASH">
+            <a href="#home">Utama</a>
+            <a href="#home">Tentang Kami</a>
+            <a href="#payment-guide">Cara Pembayaran</a>
+            <a href="#updates">Soalan Lazim</a>
+            <a href="#payment-guide">Semak Status Bayaran</a>
+          </nav>
+        </div>
+
+        <div>
+          <h3>Bantuan & Polisi</h3>
+          <nav class="rc-footer-links-list" aria-label="Bantuan dan polisi">
+            <a href="#contact-footer">Hubungi Kami</a>
+            <a href="terms-and-conditions.html">Terma dan Syarat</a>
+            <a href="privacy-policy.html">Dasar Privasi</a>
+            <a href="refund-policy.html">Polisi Bayaran Balik</a>
+            <a href="complaints-policy.html">Polisi Aduan</a>
+          </nav>
+        </div>
+
+        <div>
+          <h3>Hubungi Kami</h3>
+          <div class="rc-contact-list">
+            <div class="rc-contact-item">
+              <strong>Alamat</strong>
+              <span class="rc-placeholder">[MASUKKAN ALAMAT SYARIKAT SEBENAR]</span>
+            </div>
+
+            <div class="rc-contact-item">
+              <strong>E-mel</strong>
+              <a class="rc-placeholder" href="mailto:EMAIL_SEBENAR">[MASUKKAN E-MEL RASMI]</a>
+            </div>
+
+            <div class="rc-contact-item">
+              <strong>Telefon</strong>
+              <a class="rc-placeholder" href="tel:NOMBOR_SEBENAR">[MASUKKAN NOMBOR TELEFON]</a>
+            </div>
+
+            <div class="rc-contact-item">
+              <strong>Waktu Operasi</strong>
+              <span class="rc-placeholder">[MASUKKAN WAKTU OPERASI SEBENAR]</span>
+            </div>
+          </div>
+        </div>
+
       </div>
-      <div class="footer-links">
-        <a href="privacy-policy.html">Privacy Policy</a>
-        <a href="terms-and-conditions.html">Terms & Conditions</a>
-        <a href="#security">Security</a>
+
+      <div class="rc-footer-security">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2l7 3v6c0 5-3.4 9.7-7 11-3.6-1.3-7-6-7-11V5l7-3zm-1 13l5-5-1.4-1.4L11 12.2 9.4 10.6 8 12l3 3z"/>
+        </svg>
+        <p>
+          R-CASH tidak sepatutnya meminta kata laluan perbankan, OTP atau TAC anda.
+          Pastikan anda berada di laman rasmi sebelum membuat sebarang pembayaran.
+        </p>
       </div>
-      <p>© 2026 R-CASH. All rights reserved.</p>
+
+      <div class="rc-footer-bottom">
+        <p>© 2026 R-CASH. Hak cipta terpelihara.</p>
+        <div class="rc-footer-bottom-links">
+          <a href="privacy-policy.html">Privasi</a>
+          <a href="terms-and-conditions.html">Terma</a>
+          <a href="#security">Keselamatan</a>
+        </div>
+      </div>
     </footer>
   </div>
 
@@ -368,25 +1003,25 @@
           <div class="qr-placeholder">
             <div class="qr-grid" aria-hidden="true"></div>
             <strong>DUITNOW QR</strong>
-            <small>Replace with your official dynamic/static QR</small>
+            <small>QR rasmi pembayaran akan dipaparkan di sini.</small>
           </div>
           <div class="qr-info">
-            <span>Amount to Pay</span>
+            <span>Jumlah Bayaran</span>
             <strong id="qrAmount">RM 0.00</strong>
-            <p>Untuk transaksi automatik, sambungkan payment gateway/provider rasmi di backend.</p>
+            <p>Pastikan jumlah dan butiran pembayaran adalah betul sebelum membuat transaksi.</p>
           </div>
         </div>
 
         <label class="upload-box" for="receiptFile">
           <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zm7-18l-5.5 5.5 1.4 1.4L11 5.8V16h2V5.8l3.1 3.1 1.4-1.4L12 2z"/></svg>
-          <strong>Upload Payment Receipt</strong>
+          <strong>Muat Naik Resit Pembayaran</strong>
           <span id="receiptName">PNG, JPG or PDF</span>
           <input id="receiptFile" type="file" accept="image/*,.pdf" required>
         </label>
 
         <div class="form-actions">
           <button id="backToStep1" class="btn btn-ghost" type="button">Back</button>
-          <button id="submitReceiptBtn" class="btn btn-primary" type="button">Submit Payment</button>
+          <button id="submitReceiptBtn" class="btn btn-primary" type="button">Hantar Bukti Bayaran</button>
         </div>
       </section>
 
@@ -395,11 +1030,11 @@
         <div class="success-icon">
           <svg viewBox="0 0 24 24"><path d="M9.5 16.2L5.8 12.5 4.4 13.9l5.1 5.1L20 8.5l-1.4-1.4-9.1 9.1z"/></svg>
         </div>
-        <span class="eyebrow">PAYMENT SUBMITTED</span>
-        <h2>Payment receipt received</h2>
-        <p>Resit anda telah diterima pada bahagian frontend. Sambungkan database, email API atau webhook untuk submission sebenar.</p>
+        <span class="eyebrow">BUKTI BAYARAN DIHANTAR</span>
+        <h2>Resit pembayaran telah diterima</h2>
+        <p>Resit anda telah diterima untuk semakan. Status pembayaran akan dikemas kini selepas proses pengesahan selesai.</p>
         <div id="successReference" class="reference-box"></div>
-        <button class="btn btn-primary" type="button" data-close-payment>Back to Home</button>
+        <button class="btn btn-primary" type="button" data-close-payment>Kembali ke Utama</button>
       </section>
     </div>
   </div>
@@ -411,5 +1046,93 @@
   <script src="firebase-config.js"></script>
   <script src="auth.js"></script>
   <script src="script.js"></script>
+
+  <script>
+    /* =========================================================
+       R-CASH TESTIMONIAL DATA
+       DEMO ONLY — tukar kepada review sebenar sebelum production.
+    ========================================================= */
+    const rcashTestimonials = [
+      {
+        name: "Nur Aisyah",
+        initials: "NA",
+        review: "Proses bayaran sangat mudah dan tidak mengambil masa yang lama. Saya juga terus menerima pengesahan selepas transaksi selesai.",
+        rating: 5,
+        demo: true
+      },
+      {
+        name: "Ahmad Hakim",
+        initials: "AH",
+        review: "Paparan website ringkas dan mudah difahami. Saya tidak perlu menghubungi pihak sokongan untuk membuat bayaran.",
+        rating: 5,
+        demo: true
+      },
+      {
+        name: "Siti Farhana",
+        initials: "SF",
+        review: "Pengalaman menggunakan R-CASH sangat lancar. Maklumat bayaran juga mudah untuk disemak semula.",
+        rating: 4,
+        demo: true
+      }
+    ];
+
+    function rcEscape(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function rcStars(rating) {
+      const safe = Math.max(0, Math.min(5, Number(rating) || 0));
+      let output = "";
+
+      for (let i = 1; i <= 5; i++) {
+        output += '<span class="' +
+          (i <= safe ? 'rc-star-on' : 'rc-star-off') +
+          '" aria-hidden="true">' +
+          (i <= safe ? '★' : '☆') +
+          '</span>';
+      }
+
+      return `
+        <div class="rc-stars" aria-label="Rating ${safe} daripada 5 bintang">
+          ${output}
+          <span class="rc-sr-only">Rating ${safe} daripada 5 bintang</span>
+        </div>
+      `;
+    }
+
+    function renderRCashTestimonials() {
+      const grid = document.getElementById("rcTestimonialGrid");
+      if (!grid) return;
+
+      grid.innerHTML = rcashTestimonials.map(item => `
+        <article class="rc-testimonial-card">
+          <div class="rc-testimonial-top">
+            <span class="rc-quote" aria-hidden="true">“</span>
+            ${item.demo ? '<span class="rc-demo-chip">Demo</span>' : ''}
+          </div>
+
+          <blockquote>${rcEscape(item.review)}</blockquote>
+
+          ${rcStars(item.rating)}
+
+          <div class="rc-customer">
+            <div class="rc-avatar" aria-hidden="true">${rcEscape(item.initials)}</div>
+            <div class="rc-customer-copy">
+              <strong>${rcEscape(item.name)}</strong>
+              <span>${item.demo ? 'Contoh testimonial' : 'Pelanggan'}</span>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    document.addEventListener("DOMContentLoaded", renderRCashTestimonials);
+  </script>
+
 </body>
 </html>
