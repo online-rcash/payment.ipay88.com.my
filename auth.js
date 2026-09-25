@@ -17,42 +17,28 @@
     if (!status) return;
 
     status.textContent = message;
-
-    if (type === "error") {
-      status.style.color = "#ff9e9e";
-    } else if (type === "success") {
-      status.style.color = "#35f28b";
-    } else {
-      status.style.color = "#ffd479";
-    }
+    status.style.color =
+      type === "error" ? "#ff9e9e" :
+      type === "success" ? "#35f28b" :
+      "#ffd479";
   }
 
+  // Google OAuth is the only supported authentication method.
+  // Keep legacy email elements hidden if an older index.html still contains them.
   function hideEmailLogin() {
-    if (emailToggleBtn) emailToggleBtn.style.display = "none";
-    if (emailForm) emailForm.style.display = "none";
-    if (divider) divider.style.display = "none";
+    [emailToggleBtn, emailForm, divider].forEach((element) => {
+      if (element) element.remove();
+    });
   }
 
   function decodeJwtPayload(token) {
     try {
       const payload = token.split(".")[1];
-
-      const normalized = payload
-        .replace(/-/g, "+")
-        .replace(/_/g, "/");
-
-      const padded =
-        normalized + "=".repeat((4 - (normalized.length % 4)) % 4);
-
+      const normalized = payload.replace(/-/g, "+").replace(/_/g, "/");
+      const padded = normalized + "=".repeat((4 - (normalized.length % 4)) % 4);
       const binary = atob(padded);
-
-      const bytes = Uint8Array.from(binary, (char) =>
-        char.charCodeAt(0)
-      );
-
-      const decoded = new TextDecoder().decode(bytes);
-
-      return JSON.parse(decoded);
+      const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
+      return JSON.parse(new TextDecoder().decode(bytes));
     } catch (error) {
       console.error("Gagal membaca Google ID token:", error);
       return null;
@@ -61,25 +47,17 @@
 
   function handleGoogleCredential(response) {
     if (!response?.credential) {
-      setStatus(
-        "Log masuk Google tidak berjaya. Sila cuba lagi.",
-        "error"
-      );
+      setStatus("Log masuk Google tidak berjaya. Sila cuba lagi.", "error");
       return;
     }
 
     const payload = decodeJwtPayload(response.credential);
-
     if (!payload?.sub || !payload?.email) {
-      setStatus(
-        "Maklumat akaun Google tidak dapat dibaca.",
-        "error"
-      );
+      setStatus("Maklumat akaun Google tidak dapat dibaca.", "error");
       return;
     }
 
     currentCredential = response.credential;
-
     currentUser = {
       id: payload.sub,
       name: payload.name || payload.given_name || "Google User",
@@ -89,16 +67,11 @@
     };
 
     setStatus("Log masuk berjaya.", "success");
+    window.dispatchEvent(new CustomEvent("rcash:google-login", {
+      detail: currentUser
+    }));
 
-    window.dispatchEvent(
-      new CustomEvent("rcash:google-login", {
-        detail: currentUser
-      })
-    );
-
-    if (window.RCashUI?.showApp) {
-      window.RCashUI.showApp();
-    }
+    if (window.RCashUI?.showApp) window.RCashUI.showApp();
   }
 
   function initializeGoogleSignIn() {
@@ -126,36 +99,26 @@
     }
 
     const googleContainer = document.createElement("div");
-
     googleContainer.id = "googleOfficialButton";
     googleContainer.style.width = "100%";
     googleContainer.style.display = "flex";
     googleContainer.style.justifyContent = "center";
     googleContainer.style.alignItems = "center";
-
     googleBtn.replaceWith(googleContainer);
 
     requestAnimationFrame(() => {
-      const containerWidth =
-        googleContainer.getBoundingClientRect().width;
+      const containerWidth = googleContainer.getBoundingClientRect().width;
+      const buttonWidth = Math.max(250, Math.min(400, Math.floor(containerWidth || 360)));
 
-      const buttonWidth = Math.max(
-        250,
-        Math.min(400, Math.floor(containerWidth || 360))
-      );
-
-      google.accounts.id.renderButton(
-        googleContainer,
-        {
-          type: "standard",
-          theme: "outline",
-          size: "large",
-          text: "continue_with",
-          shape: "rectangular",
-          logo_alignment: "left",
-          width: buttonWidth
-        }
-      );
+      google.accounts.id.renderButton(googleContainer, {
+        type: "standard",
+        theme: "outline",
+        size: "large",
+        text: "continue_with",
+        shape: "rectangular",
+        logo_alignment: "left",
+        width: buttonWidth
+      });
     });
 
     setStatus("");
@@ -164,40 +127,18 @@
   async function signOut() {
     currentUser = null;
     currentCredential = null;
-
-    if (window.google?.accounts?.id) {
-      google.accounts.id.disableAutoSelect();
-    }
-
+    google.accounts?.id?.disableAutoSelect();
     setStatus("");
-
-    window.dispatchEvent(
-      new CustomEvent("rcash:logout")
-    );
-
-    if (window.RCashUI?.showAuth) {
-      window.RCashUI.showAuth();
-    }
+    window.dispatchEvent(new CustomEvent("rcash:logout"));
+    if (window.RCashUI?.showAuth) window.RCashUI.showAuth();
   }
 
   window.RCashAuth = {
     signOut,
-
-    getUser() {
-      return currentUser;
-    },
-
-    getCredential() {
-      return currentCredential;
-    },
-
-    isSignedIn() {
-      return Boolean(currentUser && currentCredential);
-    }
+    getUser: () => currentUser,
+    getCredential: () => currentCredential,
+    isSignedIn: () => Boolean(currentUser && currentCredential)
   };
 
-  window.addEventListener(
-    "load",
-    initializeGoogleSignIn
-  );
+  window.addEventListener("load", initializeGoogleSignIn);
 })();
