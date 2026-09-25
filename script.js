@@ -187,3 +187,95 @@
   // For a fresh template, keep the login screen visible.
   // Auth state is managed by auth.js.
 })();
+
+function renderRCashTestimonials() {
+
+  const grid =
+    document.getElementById(
+      "rcTestimonialGrid"
+    );
+
+  if (!grid) return;
+
+
+  grid.innerHTML =
+    rcashTestimonials
+      .map(item => `
+
+        <article class="rc-testimonial-card">
+
+          <div class="rc-testimonial-top">
+
+            <!-- QUOTE SVG -->
+            <div
+              class="rc-quote-icon"
+              aria-hidden="true"
+            >
+
+              <svg
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M7.2 6C4.9 6 3 7.9 3 10.2V18h7.4v-7H6.8v-.8c0-.8.7-1.5 1.5-1.5H10V6H7.2Zm9.6 0c-2.3 0-4.2 1.9-4.2 4.2V18H20v-7h-3.6v-.8c0-.8.7-1.5 1.5-1.5h1.7V6h-2.8Z"
+                />
+              </svg>
+
+            </div>
+
+
+            <!-- CUSTOMER STATUS -->
+            <span class="rc-customer-status">
+
+              <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  d="M12 2 4 5v6c0 5.2 3.4 9.5 8 11 4.6-1.5 8-5.8 8-11V5l-8-3Zm-1 13.2-3-3 1.4-1.4 1.6 1.6 4-4 1.4 1.4-5.4 5.4Z"
+                />
+              </svg>
+
+              Pelanggan R-CASH
+
+            </span>
+
+          </div>
+
+
+          <blockquote>
+            ${rcEscape(item.review)}
+          </blockquote>
+
+
+          ${rcStars(item.rating)}
+
+
+          <div class="rc-customer">
+
+            <div
+              class="rc-avatar"
+              aria-hidden="true"
+            >
+              ${rcEscape(item.initials)}
+            </div>
+
+
+            <div class="rc-customer-copy">
+
+              <strong>
+                ${rcEscape(item.name)}
+              </strong>
+
+              <span>
+                Pengguna R-CASH
+              </span>
+
+            </div>
+
+          </div>
+
+        </article>
+
+      `)
+      .join("");
+}
