@@ -509,3 +509,875 @@ input:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(53,242,139,.09)}
   .auth-logo { width: 165px; }
   .nav-logo { width: 120px; }
 }
+
+/* =========================================================
+   DUITJOM UI UPGRADE
+   Banner + Testimonial + Footer
+========================================================= */
+
+:root {
+    --dj-primary: #2563eb;
+    --dj-primary-dark: #1d4ed8;
+    --dj-accent: #06b6d4;
+
+    --dj-navy: #0f172a;
+    --dj-text: #1e293b;
+    --dj-muted: #64748b;
+
+    --dj-border: #e2e8f0;
+    --dj-bg: #f8fafc;
+
+    --dj-gold: #f59e0b;
+
+    --dj-radius: 18px;
+
+    --dj-shadow:
+        0 16px 45px rgba(15, 23, 42, 0.08);
+}
+
+
+/* ACCESSIBILITY */
+
+.dj-sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+
+/* =========================================================
+   LOGIN BANNER
+========================================================= */
+
+.dj-login-banner {
+    position: relative;
+
+    width: 100%;
+    height: 160px;
+
+    margin-bottom: 24px;
+
+    overflow: hidden;
+
+    border-radius: 16px;
+
+    background: #0f172a;
+
+    isolation: isolate;
+}
+
+
+.dj-login-banner-media {
+    position: absolute;
+    inset: 0;
+    display: block;
+}
+
+
+.dj-login-banner-media img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+    object-position: center;
+
+    border-radius: inherit;
+}
+
+
+.dj-login-banner-overlay {
+    position: absolute;
+    inset: 0;
+
+    z-index: 1;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(15, 23, 42, 0.88) 0%,
+            rgba(15, 23, 42, 0.68) 46%,
+            rgba(15, 23, 42, 0.12) 100%
+        );
+}
+
+
+.dj-login-banner-content {
+    position: relative;
+
+    z-index: 2;
+
+    height: 100%;
+
+    max-width: 75%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    padding: 20px 22px;
+
+    color: #ffffff;
+
+    text-align: left;
+}
+
+
+.dj-login-banner-badge {
+    display: inline-flex;
+    align-items: center;
+
+    margin-bottom: 6px;
+
+    padding: 4px 8px;
+
+    border: 1px solid rgba(255, 255, 255, 0.24);
+
+    border-radius: 999px;
+
+    background:
+        rgba(255, 255, 255, 0.12);
+
+    backdrop-filter: blur(8px);
+
+    color: #e0f2fe;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
+}
+
+
+.dj-login-banner h2 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 19px;
+    font-weight: 800;
+
+    line-height: 1.2;
+}
+
+
+.dj-login-banner p {
+    margin: 6px 0 11px;
+
+    max-width: 290px;
+
+    color: #e2e8f0;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+
+.dj-login-banner-button {
+    min-height: 34px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 7px 13px;
+
+    border-radius: 9px;
+
+    background: #ffffff;
+
+    color: var(--dj-primary-dark);
+
+    font-size: 10px;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.dj-login-banner-button:hover {
+    background: #eff6ff;
+
+    transform: translateY(-1px);
+}
+
+
+.dj-login-banner-button:focus-visible {
+    outline: 3px solid #fbbf24;
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   TESTIMONIAL SECTION
+========================================================= */
+
+.dj-testimonials {
+    width: 100%;
+
+    padding: 72px 20px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffffff,
+            #f8fafc
+        );
+
+    color: var(--dj-text);
+}
+
+
+.dj-testimonials-container {
+    width: 100%;
+
+    max-width: 1180px;
+
+    margin: 0 auto;
+}
+
+
+.dj-section-heading {
+    max-width: 680px;
+
+    margin: 0 auto 35px;
+
+    text-align: center;
+}
+
+
+.dj-section-eyebrow {
+    display: inline-block;
+
+    margin-bottom: 8px;
+
+    color: var(--dj-primary);
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 0.12em;
+
+    text-transform: uppercase;
+}
+
+
+.dj-section-heading h2 {
+    margin: 0 0 10px;
+
+    color: var(--dj-navy);
+
+    font-size: clamp(26px, 4vw, 36px);
+
+    font-weight: 800;
+
+    line-height: 1.15;
+
+    letter-spacing: -0.03em;
+}
+
+
+.dj-section-heading > p {
+    margin: 0;
+
+    color: var(--dj-muted);
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+
+.dj-demo-warning {
+    margin: 16px auto 0;
+
+    max-width: 590px;
+
+    padding: 10px 14px;
+
+    border: 1px solid #fde68a;
+
+    border-radius: 10px;
+
+    background: #fffbeb;
+
+    color: #92400e;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+
+.dj-testimonial-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+
+.dj-testimonial-card {
+    min-height: 290px;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 26px;
+
+    border: 1px solid var(--dj-border);
+
+    border-radius: 20px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 8px 28px rgba(15, 23, 42, 0.055);
+
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        border-color 0.22s ease;
+}
+
+
+.dj-testimonial-card:hover {
+    transform: translateY(-3px);
+
+    border-color: #bfdbfe;
+
+    box-shadow:
+        0 16px 40px rgba(15, 23, 42, 0.09);
+}
+
+
+.dj-testimonial-top {
+    min-height: 44px;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+
+.dj-quote-icon {
+    color: #bfdbfe;
+
+    font-family: Georgia, serif;
+
+    font-size: 44px;
+
+    font-weight: 700;
+
+    line-height: 0.8;
+}
+
+
+.dj-demo-label {
+    padding: 5px 8px;
+
+    border-radius: 999px;
+
+    background: #f1f5f9;
+
+    color: #64748b;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.06em;
+}
+
+
+.dj-testimonial-card blockquote {
+    flex: 1;
+
+    margin: 18px 0;
+
+    color: #334155;
+
+    font-size: 14px;
+
+    line-height: 1.75;
+}
+
+
+.dj-rating {
+    display: flex;
+
+    gap: 2px;
+
+    margin-bottom: 20px;
+}
+
+
+.dj-star {
+    color: #cbd5e1;
+
+    font-size: 18px;
+
+    line-height: 1;
+}
+
+
+.dj-star.active {
+    color: var(--dj-gold);
+}
+
+
+.dj-customer {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid #f1f5f9;
+}
+
+
+.dj-avatar {
+    width: 42px;
+    height: 42px;
+
+    flex: 0 0 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--dj-primary),
+            var(--dj-accent)
+        );
+
+    color: white;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+
+.dj-customer > div:last-child {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+
+.dj-customer strong {
+    color: var(--dj-navy);
+
+    font-size: 13px;
+}
+
+
+.dj-customer span {
+    color: #94a3b8;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.dj-footer {
+    width: 100%;
+
+    background: #0b1120;
+
+    color: #cbd5e1;
+
+    font-size: 13px;
+}
+
+
+.dj-footer-container {
+    width: calc(100% - 40px);
+
+    max-width: 1180px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        1.3fr 1fr 1fr 1.2fr;
+
+    gap: 48px;
+
+    padding: 62px 0 46px;
+}
+
+
+.dj-footer-logo {
+    width: auto;
+
+    max-width: 145px;
+
+    max-height: 44px;
+
+    object-fit: contain;
+
+    display: block;
+
+    margin-bottom: 18px;
+}
+
+
+.dj-footer-brand p {
+    max-width: 320px;
+
+    margin: 0;
+
+    color: #94a3b8;
+
+    line-height: 1.75;
+}
+
+
+.dj-company-registration {
+    margin-top: 18px !important;
+
+    font-size: 11px;
+}
+
+
+.dj-footer-column h3 {
+    margin: 0 0 18px;
+
+    color: #ffffff;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+
+.dj-footer-column nav {
+    display: flex;
+    flex-direction: column;
+
+    gap: 11px;
+}
+
+
+.dj-footer a {
+    color: #94a3b8;
+
+    text-decoration: none;
+
+    transition: color 0.2s ease;
+}
+
+
+.dj-footer a:hover {
+    color: #ffffff;
+}
+
+
+.dj-footer a:focus-visible {
+    outline: 2px solid #60a5fa;
+
+    outline-offset: 3px;
+
+    border-radius: 3px;
+}
+
+
+.dj-footer-contact {
+    display: flex;
+    flex-direction: column;
+
+    gap: 14px;
+}
+
+
+.dj-contact-item {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+.dj-contact-label {
+    color: #ffffff;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+
+.dj-contact-item > span:last-child,
+.dj-contact-item a {
+    color: #94a3b8;
+
+    line-height: 1.55;
+}
+
+
+.dj-footer-trust {
+    width: calc(100% - 40px);
+
+    max-width: 1180px;
+
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 15px 18px;
+
+    border: 1px solid rgba(148, 163, 184, 0.16);
+
+    border-radius: 12px;
+
+    background:
+        rgba(255, 255, 255, 0.025);
+
+    color: #94a3b8;
+}
+
+
+.dj-footer-trust svg {
+    flex: 0 0 auto;
+
+    color: #38bdf8;
+}
+
+
+.dj-footer-trust p {
+    margin: 0;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+
+.rc-footer-bottom {
+    width: calc(100% - 40px);
+
+    max-width: 1180px;
+
+    margin: 30px auto 0;
+
+    padding: 23px 0 30px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 20px;
+
+    border-top:
+        1px solid rgba(148, 163, 184, 0.12);
+
+    color: #64748b;
+
+    font-size: 11px;
+}
+
+
+.rc-footer-bottom p {
+    margin: 0;
+}
+
+
+.rc-footer-bottom-links {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 18px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .rc-testimonial-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+
+    .rc-footer-container {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 38px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 640px) {
+
+    .rc-login-banner {
+        height: 140px;
+
+        border-radius: 14px;
+
+        margin-bottom: 20px;
+    }
+
+
+    .rc-login-banner-media img {
+        object-position: center center;
+    }
+
+
+    .rc-login-banner-overlay {
+        background:
+            linear-gradient(
+                90deg,
+                rgba(15, 23, 42, 0.91),
+                rgba(15, 23, 42, 0.65),
+                rgba(15, 23, 42, 0.18)
+            );
+    }
+
+
+    .rc-login-banner-content {
+        max-width: 86%;
+
+        padding: 16px;
+    }
+
+
+    .rc-login-banner h2 {
+        font-size: 16px;
+    }
+
+
+    .rc-login-banner p {
+        max-width: 230px;
+
+        font-size: 10px;
+    }
+
+
+    .rc-login-banner-button {
+        min-height: 32px;
+
+        padding: 6px 11px;
+    }
+
+
+    .rc-testimonials {
+        padding:
+            55px 16px;
+    }
+
+
+    .rc-section-heading {
+        margin-bottom: 26px;
+    }
+
+
+    .rc-testimonial-grid {
+        grid-template-columns: 1fr;
+
+        gap: 14px;
+    }
+
+
+    .rc-testimonial-card {
+        min-height: auto;
+
+        padding: 22px;
+    }
+
+
+    .rc-footer-container {
+        width: calc(100% - 32px);
+
+        grid-template-columns: 1fr;
+
+        gap: 35px;
+
+        padding:
+            48px 0 35px;
+    }
+
+
+    .rc-footer-brand p {
+        max-width: none;
+    }
+
+
+    .rc-footer-trust {
+        width: calc(100% - 32px);
+
+        align-items: flex-start;
+    }
+
+
+    .rc-footer-bottom {
+        width: calc(100% - 32px);
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 13px;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .rc-login-banner-button,
+    .rc-testimonial-card,
+    .rc-footer a {
+        transition: none;
+    }
+
+
+    .rc-testimonial-card:hover,
+    .rc-login-banner-button:hover {
+        transform: none;
+    }
+}
