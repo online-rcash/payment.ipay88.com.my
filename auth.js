@@ -1,115 +1,203 @@
 (() => {
+  "use strict";
+
+  const GOOGLE_CLIENT_ID =
+    "246834525616-hlbjha10qjgi4cp6tpgdrisqe2fajrte.apps.googleusercontent.com";
+
   const status = document.querySelector("#authStatus");
   const googleBtn = document.querySelector("#googleLoginBtn");
-  const form = document.querySelector("#emailAuthForm");
-  const registerBtn = document.querySelector("#registerBtn");
+  const emailToggleBtn = document.querySelector("#toggleEmailBtn");
+  const emailForm = document.querySelector("#emailAuthForm");
+  const divider = document.querySelector(".divider");
 
-  function setStatus(message, type = "info") {
+  let currentUser = null;
+  let currentCredential = null;
+
+  function setStatus(message = "", type = "info") {
     if (!status) return;
+
     status.textContent = message;
-    status.style.color = type === "error" ? "#ff9e9e" : type === "success" ? "#35f28b" : "#ffd479";
-  }
 
-  function configReady(config) {
-    return config &&
-      config.apiKey &&
-      !config.apiKey.startsWith("YOUR_") &&
-      config.authDomain &&
-      !config.authDomain.startsWith("YOUR_");
-  }
-
-  const config = window.R-CASH_FIREBASE_CONFIG;
-
-  // Demo mode keeps the template testable before Firebase is configured.
-  if (!window.firebase || !configReady(config)) {
-    setStatus("Firebase belum dikonfigurasi — demo login aktif.");
-
-    googleBtn?.addEventListener("click", () => {
-      localStorage.setItem("rcash-demo-session", "1");
-      window.RCashUI?.showApp();
-    });
-
-    form?.addEventListener("submit", (event) => {
-      event.preventDefault();
-      localStorage.setItem("rcash-demo-session", "1");
-      window.RCashUI?.showApp();
-    });
-
-    registerBtn?.addEventListener("click", () => {
-      localStorage.setItem("rcash-demo-session", "1");
-      window.RCashUI?.showApp();
-    });
-
-    if (localStorage.getItem("rcash-demo-session") === "1") {
-      window.addEventListener("DOMContentLoaded", () => window.RCashUI?.showApp());
+    if (type === "error") {
+      status.style.color = "#ff9e9e";
+    } else if (type === "success") {
+      status.style.color = "#35f28b";
+    } else {
+      status.style.color = "#ffd479";
     }
-
-    window.RCashAuth = {
-      signOut: async () => {
-        localStorage.removeItem("rcash-demo-session");
-        window.RCashUI?.showAuth();
-      }
-    };
-    return;
   }
 
-  firebase.initializeApp(config);
-  const auth = firebase.auth();
-  const provider = new firebase.auth.GoogleAuthProvider();
-  provider.setCustomParameters({ prompt: "select_account" });
+  function hideEmailLogin() {
+    if (emailToggleBtn) emailToggleBtn.style.display = "none";
+    if (emailForm) emailForm.style.display = "none";
+    if (divider) divider.style.display = "none";
+  }
 
-  googleBtn?.addEventListener("click", async () => {
-    setStatus("Opening Google sign-in...");
+  function decodeJwtPayload(token) {
     try {
-      await auth.signInWithPopup(provider);
-      setStatus("Signed in successfully.", "success");
+      const payload = token.split(".")[1];
+
+      const normalized = payload
+        .replace(/-/g, "+")
+        .replace(/_/g, "/");
+
+      const padded =
+        normalized + "=".repeat((4 - (normalized.length % 4)) % 4);
+
+      const binary = atob(padded);
+
+      const bytes = Uint8Array.from(binary, (char) =>
+        char.charCodeAt(0)
+      );
+
+      const decoded = new TextDecoder().decode(bytes);
+
+      return JSON.parse(decoded);
     } catch (error) {
-      console.error(error);
-      setStatus(error.message || "Google sign-in failed.", "error");
+      console.error("Gagal membaca Google ID token:", error);
+      return null;
     }
-  });
+  }
 
-  form?.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const email = document.querySelector("#authEmail")?.value.trim();
-    const password = document.querySelector("#authPassword")?.value || "";
-
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-      setStatus("Signed in successfully.", "success");
-    } catch (error) {
-      console.error(error);
-      setStatus(error.message || "Email sign-in failed.", "error");
-    }
-  });
-
-  registerBtn?.addEventListener("click", async () => {
-    const email = document.querySelector("#authEmail")?.value.trim();
-    const password = document.querySelector("#authPassword")?.value || "";
-
-    if (!email || password.length < 6) {
-      setStatus("Masukkan email dan password sekurang-kurangnya 6 aksara.", "error");
+  function handleGoogleCredential(response) {
+    if (!response?.credential) {
+      setStatus(
+        "Log masuk Google tidak berjaya. Sila cuba lagi.",
+        "error"
+      );
       return;
     }
 
-    try {
-      await auth.createUserWithEmailAndPassword(email, password);
-      setStatus("Account created successfully.", "success");
-    } catch (error) {
-      console.error(error);
-      setStatus(error.message || "Account registration failed.", "error");
-    }
-  });
+    const payload = decodeJwtPayload(response.credential);
 
-  auth.onAuthStateChanged((user) => {
-    if (user) {
-      window.RCashUI?.showApp();
-    } else {
-      window.RCashUI?.showAuth();
+    if (!payload?.sub || !payload?.email) {
+      setStatus(
+        "Maklumat akaun Google tidak dapat dibaca.",
+        "error"
+      );
+      return;
     }
-  });
+
+    currentCredential = response.credential;
+
+    currentUser = {
+      id: payload.sub,
+      name: payload.name || payload.given_name || "Google User",
+      email: payload.email,
+      picture: payload.picture || "",
+      emailVerified: Boolean(payload.email_verified)
+    };
+
+    setStatus("Log masuk berjaya.", "success");
+
+    window.dispatchEvent(
+      new CustomEvent("rcash:google-login", {
+        detail: currentUser
+      })
+    );
+
+    if (window.RCashUI?.showApp) {
+      window.RCashUI.showApp();
+    }
+  }
+
+  function initializeGoogleSignIn() {
+    hideEmailLogin();
+
+    if (!window.google?.accounts?.id) {
+      setStatus(
+        "Google Sign-In tidak dapat dimuatkan. Sila muat semula halaman.",
+        "error"
+      );
+      return;
+    }
+
+    google.accounts.id.initialize({
+      client_id: GOOGLE_CLIENT_ID,
+      callback: handleGoogleCredential,
+      ux_mode: "popup",
+      context: "signin",
+      auto_select: false
+    });
+
+    if (!googleBtn) {
+      console.error("Butang #googleLoginBtn tidak dijumpai.");
+      return;
+    }
+
+    const googleContainer = document.createElement("div");
+
+    googleContainer.id = "googleOfficialButton";
+    googleContainer.style.width = "100%";
+    googleContainer.style.display = "flex";
+    googleContainer.style.justifyContent = "center";
+    googleContainer.style.alignItems = "center";
+
+    googleBtn.replaceWith(googleContainer);
+
+    requestAnimationFrame(() => {
+      const containerWidth =
+        googleContainer.getBoundingClientRect().width;
+
+      const buttonWidth = Math.max(
+        250,
+        Math.min(400, Math.floor(containerWidth || 360))
+      );
+
+      google.accounts.id.renderButton(
+        googleContainer,
+        {
+          type: "standard",
+          theme: "outline",
+          size: "large",
+          text: "continue_with",
+          shape: "rectangular",
+          logo_alignment: "left",
+          width: buttonWidth
+        }
+      );
+    });
+
+    setStatus("");
+  }
+
+  async function signOut() {
+    currentUser = null;
+    currentCredential = null;
+
+    if (window.google?.accounts?.id) {
+      google.accounts.id.disableAutoSelect();
+    }
+
+    setStatus("");
+
+    window.dispatchEvent(
+      new CustomEvent("rcash:logout")
+    );
+
+    if (window.RCashUI?.showAuth) {
+      window.RCashUI.showAuth();
+    }
+  }
 
   window.RCashAuth = {
-    signOut: () => auth.signOut()
+    signOut,
+
+    getUser() {
+      return currentUser;
+    },
+
+    getCredential() {
+      return currentCredential;
+    },
+
+    isSignedIn() {
+      return Boolean(currentUser && currentCredential);
+    }
   };
+
+  window.addEventListener(
+    "load",
+    initializeGoogleSignIn
+  );
 })();
