@@ -1,0 +1,733 @@
+/* =========================================================
+   GLOBAL STYLES — DuitJom Fintech Theme
+   ========================================================= */
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background-color: #f8fafc;
+  color: #0f172a;
+  margin: 0;
+  padding: 2rem 1rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+a, button {
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+input, button {
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  border: 1px solid #e2e8f0;
+}
+
+/* =========================================================
+   DUITJOM AUTH BANNER — fintech design (light, high-contrast)
+   ========================================================= */
+.auth-banner {
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  padding: 2rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, #f8fafc, #ffffff);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  text-align: center;
+  color: #0f172a;
+}
+
+.auth-banner h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #1d4ed8;
+}
+
+.auth-banner p {
+  margin: 0.5rem 0 0;
+  color: #64748b;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.banner-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.625rem;
+  margin-top: 1.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+/* =========================================================
+   DUITJOM AUTH LOGIN CONTAINER — moved to bottom
+   ========================================================= */
+#auth-login-container {
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+/* Butang Google Sign-In */
+.login-provider-button {
+  width: 100%;
+  background: #ffffff;
+  color: #4b5563;
+  border: 1px solid #d1d5db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.login-provider-button:hover {
+  background: #f9fafb;
+}
+
+/* Tab Kaedah Log Masuk (Email/Phone/TOTP) */
+.login-methods {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.login-method {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #64748b;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-radius: 0.625rem;
+  cursor: pointer;
+}
+
+.login-method.active {
+  background: #1d4ed8;
+  color: #ffffff;
+  border-color: #1d4ed8;
+}
+
+/* Input dan Butang Log Masuk */
+.login-input {
+  width: 100%;
+  margin-bottom: 1rem;
+  background: #f8fafc;
+}
+
+.login-button {
+  width: 100%;
+  background: #1d4ed8;
+  color: #ffffff;
+  border: none;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.login-button:hover {
+  background: #1e40af;
+}
+
+.magic-link {
+  display: block;
+  text-align: center;
+  color: #64748b;
+  font-size: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.magic-link:hover {
+  color: #1d4ed8;
+}
+
+/* Sembunyikan panel yang tidak aktif */
+.login-panel.hidden {
+  display: none;
+}
+
+/* =========================================================
+   RESPONSIVE DESIGN — mobile-friendly
+   ========================================================= */
+@media (max-width: 640px) {
+  body {
+    padding: 1rem;
+  }
+
+  .auth-banner {
+    padding: 1.5rem;
+  }
+
+  .auth-banner h1 {
+    font-size: 1.25rem;
+  }
+
+  #auth-login-container {
+    padding: 1rem;
+  }
+}
+
+/* ===== POPUP NOTIS PENYELENGGARAAN BARU ===== */
+.notification-overlay {
+    display: none; /* Sembunyikan secara lalai, akan ditukar ke 'flex' oleh JS */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Latar belakang gelap */
+    z-index: 1000;
+    justify-content: center; /* Pusat secara mendatar */
+    align-items: center; /* Pusat secara menegak */
+    padding: 20px; /* Padding keseluruhan untuk skrin kecil */
+    box-sizing: border-box;
+}
+
+.notification-popup-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 450px; /* Lebar maksimum popup */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    position: relative; /* Untuk positioning ikon tutup */
+    font-family: Arial, sans-serif; /* Font yang lebih umum */
+    color: #333;
+    line-height: 1.5;
+    box-sizing: border-box;
+}
+
+.close-icon-container {
+    position: absolute;
+    top: 15px;
+    left: 15px; /* Posisikan ke kiri atas */
+}
+
+.close-popup-button {
+    color: #888;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1; /* Pastikan 'x' tidak terlalu tinggi */
+    display: inline-block;
+    padding: 0 5px; /* Sedikit padding untuk memudahkan klik */
+}
+
+.close-popup-button:hover,
+.close-popup-button:focus {
+    color: #333;
+}
+
+.popup-logo-placeholder {
+    margin-top: 10px; /* Jarak dari butang tutup */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.popup-logo-placeholder .logo-text {
+    display: inline-block;
+    border: 1px solid #ccc;
+    padding: 15px 25px;
+    font-size: 1.2em;
+    color: #555;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+/* Jika anda menggunakan <img> untuk logo, gayakan di sini */
+/* .popup-logo-placeholder img {
+    max-width: 80px;
+    height: auto;
+} */
+
+.popup-title {
+    font-size: 1.6em;
+    color: #d9534f; /* Warna merah untuk notis penting */
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.popup-subtitle {
+    font-size: 1.3em;
+    color: #555;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.popup-divider {
+    border: 0;
+    height: 1px;
+    background-color: #eee;
+    margin: 25px 0;
+}
+
+.popup-paragraph {
+    font-size: 0.95em;
+    margin-bottom: 15px;
+    color: #444;
+}
+
+.popup-contact-email {
+    font-size: 1em;
+    font-weight: bold;
+    color: #007bff; /* Warna biru untuk emel */
+    margin: 20px 0;
+    word-break: break-all; /* Pastikan emel panjang tidak melimpah */
+}
+
+.popup-actions {
+    display: flex;
+    flex-wrap: wrap; /* Untuk responsif pada skrin kecil */
+    justify-content: center;
+    gap: 15px; /* Jarak antara butang */
+    margin-top: 30px;
+}
+
+.popup-action-button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    text-decoration: none; /* Untuk link */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    min-width: 150px; /* Lebar minimum untuk butang */
+    box-sizing: border-box;
+}
+
+.popup-action-button.close-btn {
+    background-color: #6c757d; /* Kelabu */
+    color: white;
+}
+
+.popup-action-button.close-btn:hover {
+    background-color: #5a6268;
+}
+
+.popup-action-button.support-btn {
+    background-color: #007bff; /* Biru */
+    color: white;
+}
+
+.popup-action-button.support-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Responsif untuk skrin kecil */
+@media (max-width: 500px) {
+    .notification-popup-content {
+        padding: 20px;
+    }
+    .popup-title {
+        font-size: 1.4em;
+    }
+    .popup-subtitle {
+        font-size: 1.1em;
+    }
+    .popup-action-button {
+        width: 100%; /* Butang penuh lebar pada skrin kecil */
+        min-width: unset;
+    }
+    .popup-actions {
+        flex-direction: column; /* Susun butang secara menegak */
+    }
+}
+
+.popup-logo {
+    display: block;
+    max-width: 150px;
+    height: auto;
+    margin: 0 auto 20px;
+}
+
+/* =========================================================
+   MAINTENANCE NOTICE — image with responsive clickable areas
+   ========================================================= */
+.maintenance-notification-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right))
+    max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+  background: rgba(7, 18, 38, 0.72);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  overscroll-behavior: contain;
+}
+.maintenance-notification-overlay[aria-hidden="false"] { display: flex; }
+body.maintenance-popup-open { overflow: hidden; }
+.maintenance-popup {
+  position: relative;
+  box-sizing: border-box;
+  width: min(100%, 32rem);
+  max-height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  border: 0;
+  border-radius: 1.2rem;
+  background: #d8f4ff;
+  box-shadow: 0 24px 70px rgba(2, 12, 27, 0.4);
+  scrollbar-width: thin;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.maintenance-popup:focus { outline: none; }
+.maintenance-poster { position: relative; width: 100%; }
+.maintenance-poster-image {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  margin: 0;
+  border: 0;
+}
+.maintenance-hotspot {
+  position: absolute;
+  display: block;
+  box-sizing: border-box;
+  min-width: 44px;
+  min-height: 44px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0.25);
+}
+.maintenance-hotspot:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: -3px;
+  box-shadow: 0 0 0 3px #0846a6;
+}
+/* Positions are percentages of the original 1024 x 1536 image. */
+.maintenance-hotspot-close {
+  top: 1%;
+  right: 1.4%;
+  width: 9%;
+  height: 5.8%;
+}
+.maintenance-hotspot-email {
+  left: 79.8%;
+  top: 76.8%;
+  width: 27.5%;
+  height: 4.8%;
+  transform: translate(-50%, -50%);
+}
+.maintenance-hotspot-website {
+  left: 79.8%;
+  top: 85.2%;
+  width: 27.5%;
+  height: 4.6%;
+  transform: translate(-50%, -50%);
+}
+.maintenance-hotspot-contact {
+  left: 50.2%;
+  top: 93.6%;
+  width: 46%;
+  height: 7%;
+  transform: translate(-50%, -50%);
+}
+.maintenance-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+
+
+/* =========================================================
+   LOGIN SHELL — animated colour background, mobile-first
+   ========================================================= */
+body.login-page {
+  padding: 72px 0 0;
+  align-items: stretch;
+  background: #f4f8ff;
+}
+
+#firebaseAuthContainer.login-shell {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  width: min(100%, 28rem);
+  margin: 0 auto;
+  padding: clamp(.75rem, 3vw, 1.2rem);
+  border: 1px solid rgba(255, 255, 255, .72);
+  border-radius: 2rem;
+  background: linear-gradient(145deg, rgba(255,255,255,.72), rgba(232,242,255,.6));
+  box-shadow: 0 24px 70px rgba(37, 99, 235, .13);
+}
+
+.login-live-background {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: linear-gradient(135deg, #eaf3ff 0%, #f9fbff 48%, #e8fff8 100%);
+}
+
+.login-live-background::before {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,.28) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.28) 1px, transparent 1px);
+  background-size: 28px 28px;
+  content: "";
+  opacity: .48;
+}
+
+.login-live-orb {
+  position: absolute;
+  display: block;
+  width: 15rem;
+  height: 15rem;
+  border-radius: 999px;
+  filter: blur(8px);
+  opacity: .58;
+  transform: translate3d(0, 0, 0);
+  animation: loginOrbFloat 12s ease-in-out infinite alternate;
+}
+.login-live-orb-one { top: -6rem; left: -5rem; background: #8ec5ff; }
+.login-live-orb-two { right: -6rem; bottom: -7rem; background: #79e6c2; animation-delay: -4s; animation-duration: 15s; }
+.login-live-orb-three { top: 36%; left: 40%; width: 9rem; height: 9rem; background: #c9a7ff; opacity: .24; animation-delay: -7s; animation-duration: 18s; }
+
+@keyframes loginOrbFloat {
+  0% { transform: translate3d(-8px, 8px, 0) scale(.94); }
+  50% { transform: translate3d(18px, -14px, 0) scale(1.06); }
+  100% { transform: translate3d(-4px, 18px, 0) scale(1); }
+}
+
+#firebaseAuthContainer.login-shell > :not(.login-live-background) { position: relative; z-index: 1; }
+
+#firebaseAuthContainer .login-card {
+  padding: clamp(1.1rem, 4vw, 1.65rem);
+  border: 1px solid rgba(255,255,255,.88);
+  border-radius: 1.45rem;
+  background: rgba(255,255,255,.84);
+  box-shadow: 0 16px 45px rgba(15, 23, 42, .1), inset 0 1px 0 rgba(255,255,255,.8);
+  backdrop-filter: blur(18px);
+}
+
+#firebaseAuthContainer .login-kicker {
+  margin: 0 0 .55rem;
+  color: #2563eb;
+  font-size: .63rem;
+  font-weight: 800;
+  letter-spacing: .16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+#firebaseAuthContainer .login-title { margin: 0; color: #0f172a; font-size: clamp(1.45rem, 6vw, 1.85rem); font-weight: 800; letter-spacing: -.035em; line-height: 1.15; }
+#firebaseAuthContainer .login-subtitle { margin: .65rem 0 1.25rem; color: #64748b; font-size: .82rem; line-height: 1.6; }
+#firebaseAuthContainer .login-divider { display: flex; align-items: center; gap: .7rem; margin: 1.1rem 0; color: #94a3b8; font-size: .68rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+#firebaseAuthContainer .login-divider::before, #firebaseAuthContainer .login-divider::after { flex: 1; height: 1px; background: #e2e8f0; content: ""; }
+#firebaseAuthContainer .login-provider-button, #firebaseAuthContainer .login-primary-button, #firebaseAuthContainer .login-secondary-button { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 2.9rem; gap: .55rem; border-radius: .85rem; font-size: .78rem; font-weight: 750; transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, border-color .18s ease; }
+#firebaseAuthContainer .login-provider-button { border: 1px solid #dbe4f0; background: rgba(255,255,255,.86); color: #334155; }
+#firebaseAuthContainer .login-provider-button:hover { border-color: #bfdbfe; background: #fff; box-shadow: 0 8px 20px rgba(37,99,235,.1); transform: translateY(-1px); }
+#firebaseAuthContainer .login-primary-button { border: 1px solid #2563eb; background: linear-gradient(135deg, #2563eb, #4f46e5); color: #fff; box-shadow: 0 9px 20px rgba(37,99,235,.2); }
+#firebaseAuthContainer .login-primary-button:hover { box-shadow: 0 12px 24px rgba(37,99,235,.27); transform: translateY(-1px); }
+#firebaseAuthContainer .login-secondary-button { border: 1px solid #dbe4f0; background: #fff; color: #475569; }
+#firebaseAuthContainer .login-panel { display: flex; flex-direction: column; gap: .55rem; }
+/* Keep inactive forms/cards hidden even when the layout rule uses display:flex. */
+#firebaseAuthContainer .login-panel.hidden,
+#firebaseAuthContainer .login-panel[hidden],
+#firebaseAuthContainer .login-card.hidden,
+#firebaseAuthContainer .login-card[hidden] { display: none; }
+#firebaseAuthContainer .login-link-button {
+  border: 0;
+  padding: .35rem 0;
+  background: transparent;
+  box-shadow: none;
+  color: #2563eb;
+  font: inherit;
+  font-size: .75rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+#firebaseAuthContainer .login-link-button:hover { text-decoration: underline; }
+#firebaseAuthContainer .login-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .4rem 1rem;
+  margin-top: 1rem;
+}
+#firebaseAuthContainer .login-links.text-center { justify-content: center; }
+#firebaseAuthContainer .login-panel label { color: #334155; font-size: .72rem; font-weight: 700; }
+#firebaseAuthContainer .login-panel input { width: 100%; min-height: 2.85rem; padding: .7rem .85rem; border: 1px solid #dbe4f0; border-radius: .8rem; background: rgba(248,250,252,.9); color: #0f172a; font-size: .82rem; }
+#firebaseAuthContainer .login-panel input:focus { border-color: #60a5fa; outline: 0; box-shadow: 0 0 0 3px rgba(96,165,250,.18); }
+#firebaseAuthContainer .login-footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: .45rem; margin-top: 1rem; }
+#firebaseAuthContainer .login-link, #firebaseAuthContainer .login-forgot-link { border: 0; background: transparent; color: #2563eb; font-size: .72rem; font-weight: 700; }
+#firebaseAuthContainer .login-forgot-link { display: block; margin: .85rem auto 0; text-align: center; }
+#firebaseAuthContainer .login-link-sep { color: #cbd5e1; }
+#firebaseAuthContainer .login-message { min-height: 1.2rem; margin: .75rem .25rem 0; font-size: .72rem; line-height: 1.45; text-align: center; }
+
+/* Navigation drawer used by the existing hamburger control. */
+.sidebar-overlay { position: fixed; inset: 0; z-index: 60; display: flex; justify-content: flex-end; background: rgba(15,23,42,.42); backdrop-filter: blur(5px); transition: opacity .25s ease; }
+.sidebar-menu { display: flex; flex-direction: column; width: min(22rem, calc(100vw - 1rem)); height: 100%; padding: 1.25rem; overflow-y: auto; border-left: 1px solid rgba(255,255,255,.72); background: rgba(255,255,255,.95); box-shadow: -18px 0 45px rgba(15,23,42,.16); transition: transform .3s ease; }
+.sidebar-overlay.opacity-0 .sidebar-menu { transform: translateX(100%); }
+.sidebar-overlay:not(.opacity-0) .sidebar-menu { transform: translateX(0); }
+.sidebar-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-bottom: 1.2rem; border-bottom: 1px solid #eaf0f7; }
+.sidebar-brand { display: flex; align-items: center; gap: .7rem; }
+.sidebar-logo { width: 2.6rem; height: 2.6rem; object-fit: contain; }
+.sidebar-brand-kicker { margin: 0; color: #2563eb; font-size: .58rem; font-weight: 800; letter-spacing: .16em; }
+.sidebar-brand h2 { margin: .15rem 0 0; color: #0f172a; font-size: 1rem; font-weight: 800; }
+.sidebar-close { display: grid; width: 2.5rem; height: 2.5rem; place-items: center; border: 1px solid #e2e8f0; border-radius: .75rem; background: #f8fafc; color: #475569; }
+.sidebar-close:hover { background: #eff6ff; color: #2563eb; }
+.sidebar-nav { display: grid; gap: .45rem; padding: 1.25rem 0; }
+.sidebar-nav-item { display: flex; align-items: center; width: 100%; gap: .8rem; padding: .85rem .9rem; border: 1px solid transparent; border-radius: .8rem; background: transparent; color: #475569; font-size: .82rem; font-weight: 700; text-align: left; }
+.sidebar-nav-item:hover, .sidebar-nav-item.is-active { border-color: #dbeafe; background: #eff6ff; color: #1d4ed8; }
+.sidebar-nav-item i { width: 1rem; text-align: center; }
+.sidebar-footer { display: flex; flex-wrap: wrap; gap: .7rem 1rem; margin-top: auto; padding-top: 1rem; border-top: 1px solid #eaf0f7; }
+.sidebar-footer a { color: #64748b; font-size: .68rem; text-decoration: none; }
+.sidebar-footer a:hover { color: #2563eb; }
+
+@media (max-width: 480px) {
+  #firebaseAuthContainer.login-shell { border-radius: 1.4rem; }
+  #firebaseAuthContainer .login-card { border-radius: 1.1rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .login-live-orb, .sidebar-menu { animation: none; transition-duration: .01ms; }
+}
+
+.login-secondary-button {
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: 1px solid #0070f3;
+    color: #0070f3;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.login-secondary-button:hover:not(:disabled) {
+    background: #f0f6ff;
+}
+.login-secondary-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* =========================================================
+   ALTERNATE ACCOUNT LINKS
+   "Register Account" and "Forget Password" are real anchors
+   (<a href>), never submit buttons, so they keep native link
+   behaviour: keyboard activation, screen-reader link role,
+   middle-click and "open in new tab".
+   ========================================================= */
+.auth-switch-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem 0.5rem;
+  margin-top: 1.15rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eaf0f7;
+  text-align: center;
+}
+
+.auth-switch-link {
+  /* inline-flex + min-height keeps a 44px touch target on mobile */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.35rem 0.4rem;
+  border-radius: 0.5rem;
+  color: #2563eb;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.4;
+  text-decoration: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(37, 99, 235, 0.12);
+}
+
+.auth-switch-link:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.auth-switch-link:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 1px;
+  text-decoration: underline;
+}
+
+.auth-switch-link:active {
+  color: #1e40af;
+}
+
+.auth-switch-sep {
+  color: #cbd5e1;
+  font-size: 0.7rem;
+  user-select: none;
+}
+
+/* Stack the two links on very narrow screens so labels never wrap awkwardly. */
+@media (max-width: 360px) {
+  .auth-switch-links {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .auth-switch-sep {
+    display: none;
+  }
+
+  .auth-switch-link {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-switch-link {
+    transition: none;
+  }
+}
+
+
+/* Inline email verification: six boxes fit comfortably on a narrow phone. */
+#firebaseAuthContainer .login-otp-fieldset { min-width: 0; padding: 0; border: 0; margin: .7rem 0 0; }
+#firebaseAuthContainer .login-otp-fieldset legend,
+#firebaseAuthContainer #emailLoginForm label { font-size: .875rem; font-weight: 700; color: #334155; margin-bottom: .5rem; }
+#firebaseAuthContainer .login-otp-digits { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .4rem; }
+#firebaseAuthContainer .login-otp-digits input { min-width: 0; padding: .65rem 0; text-align: center; font-size: 1.25rem; font-weight: 700; border-radius: .6rem; }
+#firebaseAuthContainer #emailInput { font-size: 1rem; }
+#firebaseAuthContainer .login-otp-resend { text-align: right; margin: .2rem 0 .4rem; }
+#firebaseAuthContainer .login-otp-resend button { font-size: .875rem; text-decoration: underline; }
+#firebaseAuthContainer button:disabled { cursor: not-allowed; opacity: .55; transform: none; }
+#firebaseAuthContainer .login-message { font-size: .875rem; }
+#firebaseAuthContainer .login-message.error { color: #b91c1c; }
+#firebaseAuthContainer .login-message.success { color: #047857; }
