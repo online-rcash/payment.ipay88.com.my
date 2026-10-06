@@ -1,0 +1,6 @@
+{
+  "name": "otp-sender-worker",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "node --test otp-worker.test.js" }
+}
