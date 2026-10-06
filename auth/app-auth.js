@@ -16,8 +16,8 @@ const userDisplay = byId("userDisplay");
 const messageBox = byId("authMessage");
 const paymentActionPanel = byId("btnPembayaranPinjaman");
 
-const WORKER_URL = "https://e-kyc.duitjom.my";
-const SESSION_KEY = "duitjom_session";
+const WORKER_URL = "https://mail.rcash.my";
+const SESSION_KEY = "rcash_session";
 const SESSION_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 let firebase = null;
@@ -459,7 +459,7 @@ function refreshLocale() {
   renderAccount();
   if (lastMessage) showMessage(lastMessage.key, lastMessage.type, lastMessage.vars, lastMessage.literal);
 }
-document.addEventListener("duitjom:locale-changed", refreshLocale);
+document.addEventListener("rcash:locale-changed", refreshLocale);
 window.addEventListener("pageshow", () => { void restoreEmailSession(); tickCountdown(); });
 refreshLocale();
 const params = new URLSearchParams(window.location.search);
