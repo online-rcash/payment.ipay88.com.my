@@ -1,1 +1,3025 @@
+<!DOCTYPE html>
+<html lang="ms">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Blog & News - R-Cash</title>
+
+    <meta
+        name="description"
+        content="Dapatkan berita, kemas kini, panduan dan informasi terkini daripada R-Cash."
+    >
+
+    <!-- =====================================================
+         GOOGLE FONT
+    ====================================================== -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+
+    font-family: "Inter", sans-serif;
+
+    color: #0f172a;
+
+    min-height: 100vh;
+
+    background:
+
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(56,189,248,0.30),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 90% 15%,
+            rgba(99,102,241,0.25),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 50% 90%,
+            rgba(14,165,233,0.18),
+            transparent 35%
+        ),
+
+        #eef8ff;
+
+    overflow-x: hidden;
+}
+
+body.menu-open {
+    overflow: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    font-family: inherit;
+}
+
+
+/* =========================================================
+   BACKGROUND ORBS
+========================================================= */
+
+.background-orb {
+
+    position: fixed;
+
+    border-radius: 50%;
+
+    filter: blur(70px);
+
+    pointer-events: none;
+
+    z-index: -1;
+
+    animation:
+        floatingOrb
+        8s
+        ease-in-out
+        infinite
+        alternate;
+}
+
+.orb-one {
+
+    width: 230px;
+    height: 230px;
+
+    background:
+        rgba(56,189,248,0.24);
+
+    top: 10%;
+    left: -90px;
+}
+
+.orb-two {
+
+    width: 270px;
+    height: 270px;
+
+    background:
+        rgba(99,102,241,0.20);
+
+    top: 50%;
+    right: -110px;
+
+    animation-delay: 2s;
+}
+
+.orb-three {
+
+    width: 180px;
+    height: 180px;
+
+    background:
+        rgba(14,165,233,0.18);
+
+    bottom: 5%;
+    left: 30%;
+
+    animation-delay: 4s;
+}
+
+@keyframes floatingOrb {
+
+    from {
+        transform:
+            translateY(-15px)
+            scale(1);
+    }
+
+    to {
+        transform:
+            translateY(20px)
+            scale(1.08);
+    }
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 500;
+
+    background:
+        rgba(255,255,255,0.80);
+
+    backdrop-filter:
+        blur(20px);
+
+    -webkit-backdrop-filter:
+        blur(20px);
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,0.85);
+
+    box-shadow:
+        0 8px 30px
+        rgba(15,23,42,0.06);
+}
+
+.navbar-inner {
+
+    max-width: 1100px;
+
+    min-height: 70px;
+
+    margin: auto;
+
+    padding:
+        0
+        20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.brand img {
+
+    height: 40px;
+
+    width: auto;
+
+    object-fit: contain;
+}
+
+.brand-name {
+
+    font-size: 18px;
+
+    font-weight: 800;
+
+    letter-spacing: -0.5px;
+
+    color: #0f172a;
+}
+
+
+/* =========================================================
+   NAV ACTIONS
+========================================================= */
+
+.nav-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.back-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    padding:
+        10px
+        15px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(255,255,255,0.80);
+
+    border:
+        1px solid
+        rgba(14,165,233,0.15);
+
+    color: #0369a1;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    transition:
+        0.25s ease;
+}
+
+.back-button:hover {
+
+    transform:
+        translateY(-2px);
+
+    background:
+        white;
+
+    box-shadow:
+        0 8px 20px
+        rgba(14,165,233,0.15);
+}
+
+
+/* =========================================================
+   HAMBURGER BUTTON
+========================================================= */
+
+.menu-button {
+
+    width: 43px;
+
+    height: 43px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border:
+        1px solid
+        rgba(14,165,233,0.15);
+
+    border-radius: 14px;
+
+    background:
+        rgba(255,255,255,0.85);
+
+    color: #0369a1;
+
+    cursor: pointer;
+
+    font-size: 17px;
+
+    transition:
+        0.25s ease;
+}
+
+.menu-button:hover {
+
+    transform:
+        translateY(-2px);
+
+    background:
+        white;
+
+    box-shadow:
+        0 10px 25px
+        rgba(14,165,233,0.14);
+}
+
+
+/* =========================================================
+   MENU OVERLAY
+========================================================= */
+
+.menu-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 800;
+
+    background:
+        rgba(15,23,42,0.38);
+
+    backdrop-filter:
+        blur(4px);
+
+    -webkit-backdrop-filter:
+        blur(4px);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+}
+
+.menu-overlay.active {
+
+    opacity: 1;
+
+    visibility: visible;
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar {
+
+    position: fixed;
+
+    top: 0;
+
+    right: 0;
+
+    z-index: 900;
+
+    width:
+        min(350px, 88vw);
+
+    height: 100vh;
+
+    padding: 25px;
+
+    background:
+        rgba(255,255,255,0.96);
+
+    backdrop-filter:
+        blur(25px);
+
+    -webkit-backdrop-filter:
+        blur(25px);
+
+    border-left:
+        1px solid
+        rgba(255,255,255,0.9);
+
+    box-shadow:
+        -20px 0 60px
+        rgba(15,23,42,0.16);
+
+    transform:
+        translateX(100%);
+
+    transition:
+        transform 0.35s
+        cubic-bezier(.4,0,.2,1);
+
+    overflow-y: auto;
+}
+
+.sidebar.active {
+
+    transform:
+        translateX(0);
+}
+
+
+/* =========================================================
+   SIDEBAR HEADER
+========================================================= */
+
+.sidebar-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding-bottom: 22px;
+
+    border-bottom:
+        1px solid
+        rgba(148,163,184,0.16);
+}
+
+.sidebar-brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.sidebar-brand img {
+
+    height: 35px;
+
+    width: auto;
+}
+
+.sidebar-brand span {
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    color: #0f172a;
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
+
+.close-menu {
+
+    width: 39px;
+
+    height: 39px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: 0;
+
+    border-radius: 12px;
+
+    background:
+        #f1f5f9;
+
+    color: #475569;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+    transition:
+        0.25s ease;
+}
+
+.close-menu:hover {
+
+    background:
+        #e2e8f0;
+
+    transform:
+        rotate(90deg);
+}
+
+
+/* =========================================================
+   SIDEBAR INTRO
+========================================================= */
+
+.sidebar-intro {
+
+    padding:
+        25px
+        4px
+        18px;
+}
+
+.sidebar-intro small {
+
+    display: block;
+
+    color: #0284c7;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.8px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 7px;
+}
+
+.sidebar-intro h3 {
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size: 25px;
+
+    line-height: 1.2;
+
+    margin-bottom: 8px;
+}
+
+.sidebar-intro p {
+
+    color: #64748b;
+
+    font-size: 11px;
+
+    line-height: 1.75;
+}
+
+
+/* =========================================================
+   SIDEBAR NAVIGATION
+========================================================= */
+
+.sidebar-nav {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+}
+
+.sidebar-link {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding:
+        13px
+        14px;
+
+    border-radius: 15px;
+
+    color: #334155;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        color 0.2s ease;
+}
+
+.sidebar-link i {
+
+    width: 20px;
+
+    text-align: center;
+
+    color: #0284c7;
+
+    font-size: 15px;
+}
+
+.sidebar-link:hover {
+
+    background:
+        rgba(14,165,233,0.08);
+
+    color: #0369a1;
+
+    transform:
+        translateX(3px);
+}
+
+
+/* =========================================================
+   APPLY LOAN
+========================================================= */
+
+.sidebar-link.apply-loan {
+
+    margin-top: 8px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0284c7,
+            #2563eb,
+            #4f46e5
+        );
+
+    box-shadow:
+        0 12px 25px
+        rgba(37,99,235,0.18);
+}
+
+.sidebar-link.apply-loan i {
+
+    color: white;
+}
+
+.sidebar-link.apply-loan:hover {
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0369a1,
+            #1d4ed8,
+            #4338ca
+        );
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* =========================================================
+   SIDEBAR FOOTER
+========================================================= */
+
+.sidebar-footer {
+
+    margin-top: 28px;
+
+    padding-top: 20px;
+
+    border-top:
+        1px solid
+        rgba(148,163,184,0.16);
+}
+
+.sidebar-footer p {
+
+    color: #94a3b8;
+
+    font-size: 9px;
+
+    line-height: 1.7;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+
+    max-width: 1000px;
+
+    margin: auto;
+
+    padding:
+        65px
+        20px
+        35px;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.luxury-label {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding:
+        8px
+        15px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(255,255,255,0.70);
+
+    border:
+        1px solid
+        rgba(14,165,233,0.18);
+
+    color: #0369a1;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+
+    box-shadow:
+        0 8px 25px
+        rgba(15,23,42,0.05);
+}
+
+.luxury-label i {
+
+    color: #0284c7;
+}
+
+
+/* =========================================================
+   HERO TITLE
+========================================================= */
+
+.hero h1 {
+
+    margin-top: 22px;
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size:
+        clamp(
+            42px,
+            8vw,
+            70px
+        );
+
+    line-height: 1.05;
+
+    letter-spacing: -2px;
+}
+
+.hero h1 span {
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #0284c7,
+            #2563eb,
+            #7c3aed
+        );
+
+    -webkit-background-clip: text;
+
+    background-clip: text;
+
+    color: transparent;
+}
+
+.hero-description {
+
+    max-width: 690px;
+
+    margin:
+        22px
+        auto
+        0;
+
+    color: #64748b;
+
+    font-size: 14px;
+
+    line-height: 1.9;
+}
+
+
+/* =========================================================
+   LIVE STATUS
+========================================================= */
+
+.live-indicator {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-top: 18px;
+
+    padding:
+        7px
+        13px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(239,68,68,0.07);
+
+    border:
+        1px solid
+        rgba(239,68,68,0.16);
+
+    color: #dc2626;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.2px;
+
+    text-transform: uppercase;
+}
+
+.live-dot {
+
+    width: 7px;
+
+    height: 7px;
+
+    border-radius: 50%;
+
+    background:
+        #ef4444;
+
+    box-shadow:
+        0 0 0 0
+        rgba(239,68,68,0.55);
+
+    animation:
+        livePulse
+        1.7s
+        infinite;
+}
+
+@keyframes livePulse {
+
+    0% {
+
+        box-shadow:
+            0 0 0 0
+            rgba(239,68,68,0.55);
+    }
+
+    70% {
+
+        box-shadow:
+            0 0 0 7px
+            rgba(239,68,68,0);
+    }
+
+    100% {
+
+        box-shadow:
+            0 0 0 0
+            rgba(239,68,68,0);
+    }
+}
+
+
+/* =========================================================
+   FEATURED
+========================================================= */
+
+.featured {
+
+    max-width: 1000px;
+
+    margin:
+        25px
+        auto
+        45px;
+
+    padding:
+        0
+        20px;
+}
+
+.featured-card {
+
+    position: relative;
+
+    overflow: hidden;
+
+    min-height: 335px;
+
+    border-radius: 30px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #0369a1,
+            #2563eb,
+            #4f46e5
+        );
+
+    box-shadow:
+        0 30px 70px
+        rgba(37,99,235,0.22);
+
+    display: flex;
+
+    align-items: flex-end;
+}
+
+.featured-glow {
+
+    position: absolute;
+
+    width: 300px;
+
+    height: 300px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,0.13);
+
+    filter: blur(15px);
+
+    right: -80px;
+
+    top: -100px;
+}
+
+.featured-glow-two {
+
+    position: absolute;
+
+    width: 190px;
+
+    height: 190px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,0.08);
+
+    filter: blur(10px);
+
+    left: 40%;
+
+    bottom: -100px;
+}
+
+.featured-content {
+
+    position: relative;
+
+    z-index: 2;
+
+    padding: 38px;
+
+    max-width: 780px;
+
+    color: white;
+}
+
+
+/* =========================================================
+   FEATURED BADGE
+========================================================= */
+
+.featured-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding:
+        7px
+        12px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(255,255,255,0.16);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.25);
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 15px;
+}
+
+.featured-badge i {
+
+    font-size: 7px;
+}
+
+
+/* =========================================================
+   FEATURED CONTENT
+========================================================= */
+
+.featured-content h2 {
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size:
+        clamp(
+            28px,
+            5vw,
+            43px
+        );
+
+    line-height: 1.15;
+
+    margin-bottom: 13px;
+}
+
+.featured-content p {
+
+    color:
+        rgba(255,255,255,0.87);
+
+    font-size: 13px;
+
+    line-height: 1.85;
+
+    max-width: 700px;
+}
+
+
+/* =========================================================
+   FEATURED BUTTON
+========================================================= */
+
+.read-featured {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 20px;
+
+    padding:
+        11px
+        17px;
+
+    border-radius: 999px;
+
+    background:
+        white;
+
+    color: #0369a1;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    transition:
+        0.25s ease;
+}
+
+.read-featured:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 10px 25px
+        rgba(0,0,0,0.15);
+}
+
+
+/* =========================================================
+   SECTION TITLE
+========================================================= */
+
+.section-title {
+
+    text-align: center;
+
+    margin:
+        65px
+        auto
+        28px;
+
+    padding:
+        0
+        20px;
+}
+
+.section-title small {
+
+    display: block;
+
+    color: #0284c7;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 8px;
+}
+
+.section-title h2 {
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size: 34px;
+
+    line-height: 1.2;
+}
+
+.section-description {
+
+    max-width: 640px;
+
+    margin:
+        10px
+        auto
+        0;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   BLOG GRID
+========================================================= */
+
+.blog-grid {
+
+    max-width: 1000px;
+
+    margin: auto;
+
+    padding:
+        0
+        20px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(0,1fr)
+        );
+
+    gap: 20px;
+}
+
+
+/* =========================================================
+   BLOG CARD
+========================================================= */
+
+.blog-card {
+
+    overflow: hidden;
+
+    border-radius: 23px;
+
+    background:
+        rgba(255,255,255,0.69);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.90);
+
+    backdrop-filter:
+        blur(18px);
+
+    -webkit-backdrop-filter:
+        blur(18px);
+
+    box-shadow:
+        0 18px 45px
+        rgba(15,23,42,0.07);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.blog-card:hover {
+
+    transform:
+        translateY(-6px);
+
+    box-shadow:
+        0 25px 55px
+        rgba(15,23,42,0.11);
+}
+
+
+/* =========================================================
+   BLOG IMAGE
+========================================================= */
+
+.blog-image {
+
+    height: 175px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #e0f2fe,
+            #dbeafe,
+            #ede9fe
+        );
+}
+
+.blog-image::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 140px;
+
+    height: 140px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,0.55);
+
+    filter: blur(5px);
+
+    right: -35px;
+
+    top: -35px;
+}
+
+.blog-image::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 80px;
+
+    height: 80px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,0.35);
+
+    left: -25px;
+
+    bottom: -30px;
+
+    filter: blur(3px);
+}
+
+.blog-image i {
+
+    position: relative;
+
+    z-index: 2;
+
+    font-size: 43px;
+
+    color: #0284c7;
+
+    opacity: 0.82;
+}
+
+
+/* =========================================================
+   BLOG CONTENT
+========================================================= */
+
+.blog-content {
+
+    padding: 23px;
+}
+
+.blog-category {
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    color: #0284c7;
+
+    letter-spacing: 1.3px;
+
+    text-transform: uppercase;
+}
+
+.blog-content h3 {
+
+    font-size: 17px;
+
+    line-height: 1.4;
+
+    margin:
+        8px
+        0
+        10px;
+}
+
+.blog-content p {
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    line-height: 1.78;
+}
+
+
+/* =========================================================
+   BLOG META
+========================================================= */
+
+.blog-meta {
+
+    margin-top: 18px;
+
+    padding-top: 14px;
+
+    border-top:
+        1px solid
+        rgba(148,163,184,0.15);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+.blog-date {
+
+    font-size: 10px;
+
+    color: #94a3b8;
+}
+
+.read-more {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    color: #0284c7;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    transition:
+        0.2s ease;
+}
+
+.read-more:hover {
+
+    color: #1d4ed8;
+
+    transform:
+        translateX(2px);
+}
+
+
+/* =========================================================
+   SECTION DIVIDER
+========================================================= */
+
+.section-divider {
+
+    max-width: 920px;
+
+    height: 1px;
+
+    margin:
+        70px
+        auto
+        0;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(148,163,184,0.25),
+            transparent
+        );
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.newsletter {
+
+    max-width: 1000px;
+
+    margin:
+        75px
+        auto;
+
+    padding:
+        0
+        20px;
+}
+
+.newsletter-card {
+
+    padding:
+        45px
+        25px;
+
+    text-align: center;
+
+    border-radius: 28px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,0.90),
+            rgba(240,249,255,0.76)
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,0.9);
+
+    box-shadow:
+        0 25px 65px
+        rgba(15,23,42,0.08);
+
+    backdrop-filter:
+        blur(20px);
+
+    -webkit-backdrop-filter:
+        blur(20px);
+}
+
+.newsletter-card h2 {
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size: 31px;
+
+    margin:
+        18px
+        0
+        10px;
+}
+
+.newsletter-card p {
+
+    max-width: 620px;
+
+    margin: auto;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    line-height: 1.85;
+}
+
+
+/* =========================================================
+   WEBSITE BUTTON
+========================================================= */
+
+.website-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    margin-top: 22px;
+
+    padding:
+        13px
+        22px;
+
+    border-radius: 999px;
+
+    color: white;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #0284c7,
+            #2563eb,
+            #4f46e5
+        );
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 15px 30px
+        rgba(37,99,235,0.22);
+
+    transition:
+        0.25s ease;
+}
+
+.website-button:hover {
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 20px 35px
+        rgba(37,99,235,0.30);
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+
+    padding:
+        35px
+        20px;
+
+    text-align: center;
+
+    background:
+        rgba(255,255,255,0.48);
+
+    border-top:
+        1px solid
+        rgba(255,255,255,0.85);
+
+    backdrop-filter:
+        blur(15px);
+
+    -webkit-backdrop-filter:
+        blur(15px);
+}
+
+footer img {
+
+    height: 32px;
+
+    margin-bottom: 10px;
+}
+
+footer p {
+
+    color: #64748b;
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 750px) {
+
+    .navbar-inner {
+
+        min-height: 64px;
+
+        padding:
+            0
+            15px;
+    }
+
+
+    .brand img {
+
+        height: 34px;
+    }
+
+
+    .brand-name {
+
+        display: none;
+    }
+
+
+    .back-button {
+
+        font-size: 10px;
+
+        padding:
+            8px
+            11px;
+    }
+
+
+    .menu-button {
+
+        width: 40px;
+
+        height: 40px;
+
+        border-radius: 12px;
+    }
+
+
+    .hero {
+
+        padding:
+            50px
+            18px
+            30px;
+    }
+
+
+    .hero h1 {
+
+        font-size: 48px;
+
+        letter-spacing: -1.5px;
+    }
+
+
+    .hero-description {
+
+        font-size: 12px;
+
+        line-height: 1.8;
+    }
+
+
+    .featured {
+
+        margin-top: 15px;
+
+        padding:
+            0
+            15px;
+    }
+
+
+    .featured-card {
+
+        min-height: 385px;
+
+        border-radius: 24px;
+    }
+
+
+    .featured-content {
+
+        padding: 26px;
+    }
+
+
+    .featured-content h2 {
+
+        font-size: 30px;
+    }
+
+
+    .featured-content p {
+
+        font-size: 12px;
+    }
+
+
+    .blog-grid {
+
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+
+        padding:
+            0
+            15px;
+    }
+
+
+    .blog-image {
+
+        height: 190px;
+    }
+
+
+    .section-title {
+
+        margin-top: 55px;
+
+        padding:
+            0
+            18px;
+    }
+
+
+    .section-title h2 {
+
+        font-size: 30px;
+    }
+
+
+    .section-description {
+
+        font-size: 11px;
+    }
+
+
+    .newsletter {
+
+        margin-top: 55px;
+
+        padding:
+            0
+            15px;
+    }
+
+
+    .newsletter-card {
+
+        padding:
+            38px
+            20px;
+    }
+
+
+    .newsletter-card h2 {
+
+        font-size: 27px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL SCREEN
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .hero h1 {
+
+        font-size: 42px;
+    }
+
+
+    .featured-content h2 {
+
+        font-size: 27px;
+    }
+
+
+    .back-button span {
+
+        display: none;
+    }
+
+
+    .sidebar {
+
+        width:
+            90vw;
+
+        padding:
+            22px;
+    }
+
+}
+
+</style>
+
+<link rel="stylesheet" href="../css/rcash-theme.css?v=20261007-purple">
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     BACKGROUND
+===================================================== -->
+
+<div class="background-orb orb-one"></div>
+
+<div class="background-orb orb-two"></div>
+
+<div class="background-orb orb-three"></div>
+
+
+<!-- =====================================================
+     MENU OVERLAY
+===================================================== -->
+
+<div
+    class="menu-overlay"
+    id="menuOverlay"
+    onclick="closeMenu()"
+></div>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside
+    class="sidebar"
+    id="sidebar"
+>
+
+
+    <!-- SIDEBAR HEADER -->
+
+    <div class="sidebar-header">
+
+
+        <a
+            href="../index.html"
+            class="sidebar-brand"
+        >
+
+            <img
+                src="/images/rcash-logo.svg"
+                alt="R-Cash Logo"
+            >
+
+            <span>
+                R-Cash
+            </span>
+
+        </a>
+
+
+        <button
+            type="button"
+            class="close-menu"
+            onclick="closeMenu()"
+            aria-label="Tutup menu"
+        >
+
+            <i class="fas fa-xmark"></i>
+
+        </button>
+
+
+    </div>
+
+
+    <!-- SIDEBAR INTRO -->
+
+    <div class="sidebar-intro">
+
+        <small>
+            Navigation
+        </small>
+
+        <h3>
+            Menu Utama
+        </h3>
+
+        <p>
+            Gunakan menu ini untuk mengakses halaman utama
+            dan maklumat penting R-Cash dengan lebih mudah.
+        </p>
+
+    </div>
+
+
+    <!-- SIDEBAR NAV -->
+
+    <nav class="sidebar-nav">
+
+
+        <!-- ABOUT US -->
+
+        <a
+            href="about-us.html"
+            class="sidebar-link"
+        >
+
+            <i class="fas fa-building"></i>
+
+            <span>
+                About Us
+            </span>
+
+        </a>
+
+
+        <!-- PRIVACY -->
+
+        <a
+            href="privacy-policy.html"
+            class="sidebar-link"
+        >
+
+            <i class="fas fa-shield-halved"></i>
+
+            <span>
+                Privacy
+            </span>
+
+        </a>
+
+
+        <!-- CONTACT -->
+
+        <a
+            href="contact-us.html"
+            class="sidebar-link"
+        >
+
+            <i class="fas fa-headset"></i>
+
+            <span>
+                Contact Us
+            </span>
+
+        </a>
+
+
+        <!-- TERMS -->
+
+        <a
+            href="terms-and-conditions.html"
+            class="sidebar-link"
+        >
+
+            <i class="fas fa-file-contract"></i>
+
+            <span>
+                Term &amp; Conditions
+            </span>
+
+        </a>
+
+
+        <!-- APPLY LOAN -->
+
+        <a
+            href="../index.html"
+            class="sidebar-link apply-loan"
+        >
+
+            <i class="fas fa-file-signature"></i>
+
+            <span>
+                Apply Loan
+            </span>
+
+        </a>
+
+
+    </nav>
+
+
+    <!-- SIDEBAR FOOTER -->
+
+    <div class="sidebar-footer">
+
+        <p>
+
+            R-Cash menyediakan pengalaman digital yang
+            ringkas, mudah dan tersusun untuk pengguna.
+
+        </p>
+
+    </div>
+
+
+</aside>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header class="navbar">
+
+
+    <div class="navbar-inner">
+
+
+        <!-- BRAND -->
+
+        <a
+            href="../index.html"
+            class="brand"
+        >
+
+            <img
+                src="/images/rcash-logo.svg"
+                alt="R-Cash Logo"
+            >
+
+            <span class="brand-name">
+                R-Cash
+            </span>
+
+        </a>
+
+
+        <!-- NAV ACTIONS -->
+
+        <div class="nav-actions">
+
+
+            <!-- BACK -->
+
+            <a
+                href="../index.html"
+                class="back-button"
+            >
+
+                <i class="fas fa-arrow-left"></i>
+
+                <span>
+                    Kembali
+                </span>
+
+            </a>
+
+
+            <!-- HAMBURGER -->
+
+            <button
+                type="button"
+                class="menu-button"
+                id="menuButton"
+                onclick="openMenu()"
+                aria-label="Buka menu"
+                aria-expanded="false"
+            >
+
+                <i class="fas fa-bars"></i>
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+
+    <div class="luxury-label">
+
+        <i class="fas fa-newspaper"></i>
+
+        R-Cash BLOG
+
+    </div>
+
+
+    <h1>
+
+        News &amp;
+        <span>Updates</span>
+
+    </h1>
+
+
+    <p class="hero-description">
+
+        Selamat datang ke ruang berita dan informasi R-Cash.
+        Dapatkan kemas kini berkaitan platform, panduan
+        penggunaan, keselamatan digital serta informasi
+        kewangan yang disusun untuk membantu pengguna
+        mendapatkan maklumat dengan lebih jelas dan teratur.
+
+    </p>
+
+
+    <!-- LIVE -->
+
+    <div class="live-indicator">
+
+        <span class="live-dot"></span>
+
+        <span>
+            LIVE
+        </span>
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     FEATURED ARTICLE
+===================================================== -->
+
+<section class="featured">
+
+
+    <div class="featured-card">
+
+
+        <div class="featured-glow"></div>
+
+        <div class="featured-glow-two"></div>
+
+
+        <div class="featured-content">
+
+
+            <div class="featured-badge">
+
+                <i class="fas fa-circle"></i>
+
+                Featured Update
+
+            </div>
+
+
+            <h2>
+
+                Selamat Datang ke
+                R-Cash News
+
+            </h2>
+
+
+            <p>
+
+                Ikuti perkembangan terkini daripada R-Cash
+                melalui ruang berita dan informasi kami.
+                Bahagian ini menyediakan kemas kini mengenai
+                perkembangan platform, informasi penting,
+                panduan penggunaan serta perkara berkaitan
+                pengalaman digital R-Cash.
+
+            </p>
+
+
+            <a
+                href="#latest-news"
+                class="read-featured"
+            >
+
+                Lihat Artikel
+
+                <i class="fas fa-arrow-down"></i>
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SENARAI 1
+     BERITA & KEMAS KINI
+===================================================== -->
+
+<section id="latest-news">
+
+
+    <div class="section-title">
+
+
+        <small>
+            Latest News
+        </small>
+
+
+        <h2>
+            Berita &amp; Kemas Kini
+        </h2>
+
+
+        <p class="section-description">
+
+            Dapatkan perkembangan terbaru berkaitan R-Cash,
+            perubahan platform, ciri digital dan informasi
+            yang penting untuk diketahui oleh pengguna.
+
+        </p>
+
+
+    </div>
+
+
+    <div class="blog-grid">
+
+
+        <!-- =================================================
+             ARTICLE 1
+        ================================================== -->
+
+        <article class="blog-card">
+
+
+            <div class="blog-image">
+
+                <i class="fas fa-bullhorn"></i>
+
+            </div>
+
+
+            <div class="blog-content">
+
+
+                <div class="blog-category">
+                    NEWS
+                </div>
+
+
+                <h3>
+                    Kemas Kini Terkini R-Cash
+                </h3>
+
+
+                <p>
+
+                    Ketahui perkembangan dan kemas kini terbaru
+                    yang diperkenalkan oleh R-Cash. Setiap
+                    perubahan dan penambahbaikan bertujuan
+                    membantu menjadikan pengalaman pengguna
+                    lebih tersusun serta memudahkan akses
+                    kepada informasi yang diperlukan.
+
+                </p>
+
+
+                <div class="blog-meta">
+
+
+                    <span class="blog-date">
+                        2026
+                    </span>
+
+
+                    <a
+                        href="https://www.r-cash.my/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="read-more"
+                    >
+
+                        Read More
+
+                        <i class="fas fa-arrow-right"></i>
+
+                    </a>
+
+
+                </div>
+
+
+            </div>
+
+
+        </article>
+
+
+        <!-- =================================================
+             ARTICLE 2
+        ================================================== -->
+
+        <article class="blog-card">
+
+
+            <div class="blog-image">
+
+                <i class="fas fa-shield-halved"></i>
+
+            </div>
+
+
+            <div class="blog-content">
+
+
+                <div class="blog-category">
+                    SECURITY
+                </div>
+
+
+                <h3>
+                    Keselamatan Dalam Dunia Digital
+                </h3>
+
+
+                <p>
+
+                    Keselamatan maklumat merupakan perkara
+                    penting ketika menggunakan perkhidmatan
+                    dalam talian. Pengguna digalakkan untuk
+                    menjaga maklumat akaun, tidak berkongsi
+                    maklumat sulit dengan pihak yang tidak
+                    dikenali dan sentiasa menyemak maklumat
+                    sebelum membuat sebarang tindakan.
+
+                </p>
+
+
+                <div class="blog-meta">
+
+
+                    <span class="blog-date">
+                        2026
+                    </span>
+
+
+                    <a
+                        href="https://www.r-cash.my/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="read-more"
+                    >
+
+                        Read More
+
+                        <i class="fas fa-arrow-right"></i>
+
+                    </a>
+
+
+                </div>
+
+
+            </div>
+
+
+        </article>
+
+
+        <!-- =================================================
+             ARTICLE 3
+        ================================================== -->
+
+        <article class="blog-card">
+
+
+            <div class="blog-image">
+
+                <i class="fas fa-mobile-screen"></i>
+
+            </div>
+
+
+            <div class="blog-content">
+
+
+                <div class="blog-category">
+                    DIGITAL
+                </div>
+
+
+                <h3>
+                    Pengalaman Digital R-Cash
+                </h3>
+
+
+                <p>
+
+                    R-Cash memberi perhatian kepada pengalaman
+                    digital pengguna melalui susunan halaman,
+                    navigasi dan informasi yang lebih teratur.
+                    Matlamatnya adalah untuk membantu pengguna
+                    memahami setiap bahagian platform dengan
+                    lebih mudah ketika mendapatkan informasi
+                    yang diperlukan.
+
+                </p>
+
+
+                <div class="blog-meta">
+
+
+                    <span class="blog-date">
+                        2026
+                    </span>
+
+
+                    <a
+                        href="https://www.r-cash.my/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="read-more"
+                    >
+
+                        Read More
+
+                        <i class="fas fa-arrow-right"></i>
+
+                    </a>
+
+
+                </div>
+
+
+            </div>
+
+
+        </article>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     DIVIDER
+===================================================== -->
+
+<div class="section-divider"></div>
+
+
+<!-- =====================================================
+     SENARAI 2
+     PANDUAN & INFORMASI
+===================================================== -->
+
+<section id="guides">
+
+
+    <div class="section-title">
+
+
+        <small>
+            Knowledge Centre
+        </small>
+
+
+        <h2>
+            Panduan &amp; Informasi
+        </h2>
+
+
+        <p class="section-description">
+
+            Koleksi panduan ringkas dan informasi berguna
+            untuk membantu pengguna memahami perkara
+            berkaitan kewangan, penggunaan platform dan
+            keselamatan dalam persekitaran digital.
+
+        </p>
+
+
+    </div>
+
+
+    <div class="blog-grid">
+
+
+        <!-- =================================================
+             ARTICLE 4
+        ================================================== -->
+
+        <article class="blog-card">
+
+
+            <div class="blog-image">
+
+                <i class="fas fa-lightbulb"></i>
+
+            </div>
+
+
+            <div class="blog-content">
+
+
+                <div class="blog-category">
+                    TIPS
+                </div>
+
+
+                <h3>
+                    Tips Menguruskan Kewangan
+                </h3>
+
+
+                <p>
+
+                    Pengurusan kewangan yang teratur boleh
+                    membantu seseorang membuat keputusan
+                    dengan lebih baik. Antara perkara yang
+                    boleh diberi perhatian termasuk menyusun
+                    komitmen, memahami kemampuan bayaran,
+                    merancang perbelanjaan dan menilai
+                    keperluan sebelum membuat keputusan.
+
+                </p>
+
+
+                <div class="blog-meta">
+
+
+                    <span class="blog-date">
+                        2026
+                    </span>
+
+
+                    <a
+                        href="https://www.r-cash.my/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="read-more"
+                    >
+
+                        Read More
+
+                        <i class="fas fa-arrow-right"></i>
+
+                    </a>
+
+
+                </div>
+
+
+            </div>
+
+
+        </article>
+
+
+        <!-- =================================================
+             ARTICLE 5
+        ================================================== -->
+
+        <article class="blog-card">
+
+
+            <div class="blog-image">
+
+                <i class="fas fa-circle-info"></i>
+
+            </div>
+
+
+            <div class="blog-content">
+
+
+                <div class="blog-category">
+                    INFORMATION
+                </div>
+
+
+                <h3>
+                    Perkara Penting Untuk Pengguna
+                </h3>
+
+
+                <p>
+
+                    Sebelum menggunakan mana-mana perkhidmatan
+                    digital, pengguna digalakkan membaca
+                    informasi yang disediakan, memahami terma
+                    yang ditetapkan dan memastikan maklumat
+                    yang diberikan adalah tepat. Memahami
+                    maklumat terlebih dahulu dapat membantu
+                    mengurangkan kekeliruan sepanjang proses.
+
+                </p>
+
+
+                <div class="blog-meta">
+
+
+                    <span class="blog-date">
+                        2026
+                    </span>
+
+
+                    <a
+                        href="https://www.r-cash.my/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="read-more"
+                    >
+
+                        Read More
+
+                        <i class="fas fa-arrow-right"></i>
+
+                    </a>
+
+
+                </div>
+
+
+            </div>
+
+
+        </article>
+
+
+        <!-- =================================================
+             ARTICLE 6
+        ================================================== -->
+
+        <article class="blog-card">
+
+
+            <div class="blog-image">
+
+                <i class="fas fa-building"></i>
+
+            </div>
+
+
+            <div class="blog-content">
+
+
+                <div class="blog-category">
+                    R-Cash
+                </div>
+
+
+                <h3>
+                    Kenali R-Cash Dengan Lebih Dekat
+                </h3>
+
+
+                <p>
+
+                    Ketahui lebih lanjut mengenai R-Cash,
+                    pendekatan kami terhadap pengalaman digital
+                    dan bagaimana informasi disusun untuk
+                    membantu pengguna mendapatkan akses kepada
+                    halaman, informasi dan perkhidmatan yang
+                    berkaitan dengan lebih mudah dan teratur.
+
+                </p>
+
+
+                <div class="blog-meta">
+
+
+                    <span class="blog-date">
+                        2026
+                    </span>
+
+
+                    <a
+                        href="about-us.html"
+                        class="read-more"
+                    >
+
+                        About Us
+
+                        <i class="fas fa-arrow-right"></i>
+
+                    </a>
+
+
+                </div>
+
+
+            </div>
+
+
+        </article>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     CTA
+===================================================== -->
+
+<section class="newsletter">
+
+
+    <div class="newsletter-card">
+
+
+        <div class="luxury-label">
+
+            <i class="fas fa-globe"></i>
+
+            R-Cash
+
+        </div>
+
+
+        <h2>
+            Mahu Ketahui Lebih Lanjut?
+        </h2>
+
+
+        <p>
+
+            Untuk mendapatkan maklumat lanjut mengenai
+            R-Cash, ciri-ciri platform serta informasi yang
+            tersedia, sila kunjungi laman web rasmi kami.
+            Anda juga boleh menggunakan menu navigasi di
+            bahagian atas untuk mendapatkan akses kepada
+            halaman penting R-Cash.
+
+        </p>
+
+
+        <a
+            href="https://www.r-cash.my"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="website-button"
+        >
+
+            Visit Official Website
+
+            <i class="fas fa-arrow-up-right-from-square"></i>
+
+        </a>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+
+    <img
+        src="/images/rcash-logo.svg"
+        alt="R-Cash Logo"
+    >
+
+
+    <p>
+
+        &copy; 2026 R-Cash.
+        Hak cipta terpelihara.
+
+    </p>
+
+
+</footer>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const sidebar =
+    document.getElementById("sidebar");
+
+const menuOverlay =
+    document.getElementById("menuOverlay");
+
+const menuButton =
+    document.getElementById("menuButton");
+
+
+/* =========================================================
+   OPEN MENU
+========================================================= */
+
+function openMenu() {
+
+    sidebar.classList.add("active");
+
+    menuOverlay.classList.add("active");
+
+    document.body.classList.add("menu-open");
+
+    menuButton.setAttribute(
+        "aria-expanded",
+        "true"
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE MENU
+========================================================= */
+
+function closeMenu() {
+
+    sidebar.classList.remove("active");
+
+    menuOverlay.classList.remove("active");
+
+    document.body.classList.remove("menu-open");
+
+    menuButton.setAttribute(
+        "aria-expanded",
+        "false"
+    );
+
+}
+
+
+/* =========================================================
+   ESC KEY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Escape" &&
+            sidebar.classList.contains("active")
+        ) {
+
+            closeMenu();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   CLOSE AFTER NAVIGATION
+========================================================= */
+
+document
+    .querySelectorAll(".sidebar-link")
+    .forEach(
+        function(link) {
+
+            link.addEventListener(
+                "click",
+                function() {
+
+                    closeMenu();
+
+                }
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   PREVENT OVERLAY CLICK FROM AFFECTING SIDEBAR
+========================================================= */
+
+sidebar.addEventListener(
+    "click",
+    function(event) {
+
+        event.stopPropagation();
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>
