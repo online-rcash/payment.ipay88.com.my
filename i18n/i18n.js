@@ -1,5 +1,5 @@
 /* =========================================================
-   DUITJOM CENTRALIZED I18N RUNTIME
+   R-Cash CENTRALIZED I18N RUNTIME
    No build step. Include after i18n/translations.js.
    ========================================================= */
 (function () {
@@ -7,15 +7,13 @@
 
   var STORAGE_KEY = "duitjom_locale";
   var dict = window.DUITJOM_I18N || { defaultLocale: "en", locales: { en: {} } };
-  var currentLocale = null;
 
   function getLocale() {
-    if (currentLocale && dict.locales[currentLocale]) return currentLocale;
     try {
       var stored = window.localStorage.getItem(STORAGE_KEY);
-      if (stored && dict.locales[stored]) return (currentLocale = stored);
+      if (stored && dict.locales[stored]) return stored;
     } catch (e) {}
-    return (currentLocale = dict.defaultLocale || "en");
+    return dict.defaultLocale || "en";
   }
 
   function lookup(locale, key) {
@@ -45,7 +43,6 @@
 
   function setLocale(locale) {
     if (!dict.locales[locale]) return;
-    currentLocale = locale;
     try {
       window.localStorage.setItem(STORAGE_KEY, locale);
     } catch (e) {}
@@ -59,9 +56,7 @@
     document.documentElement.lang = getLocale();
 
     root.querySelectorAll("[data-i18n]").forEach(function (el) {
-      var key = el.getAttribute("data-i18n");
-      var value = t(key);
-      if (value !== key) el.textContent = value;
+      el.textContent = t(el.getAttribute("data-i18n"));
     });
     root.querySelectorAll("[data-i18n-html]").forEach(function (el) {
       el.innerHTML = t(el.getAttribute("data-i18n-html"));
