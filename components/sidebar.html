@@ -1,0 +1,46 @@
+<!-- Navigation drawer. Authentication stays in the single main login card. -->
+<div id="sidebarOverlay" class="sidebar-overlay hidden opacity-0" aria-hidden="true" onclick="if (event.target === this) closeSidebar()">
+    <aside id="sidebarMenu" class="sidebar-menu translate-x-full" role="dialog" aria-modal="true" aria-labelledby="sidebarTitle">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">
+                <img src="IMG_7456.png" alt="R-Cash" class="sidebar-logo">
+                <div>
+                    <p class="sidebar-brand-kicker">R-CASH</p>
+                    <h2 id="sidebarTitle">Repayment Website</h2>
+                </div>
+            </div>
+            <button type="button" class="sidebar-close" onclick="closeSidebar()" aria-label="Close menu">
+                <i class="fas fa-xmark" aria-hidden="true"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Main navigation">
+            <button type="button" class="sidebar-nav-item is-active" onclick="sidebarHomeAction()">
+                <i class="fas fa-house" aria-hidden="true"></i>
+                <span data-i18n="sidebar.home">Home</span>
+            </button>
+            <button type="button" class="sidebar-nav-item" onclick="aboutUsAction()">
+                <i class="fas fa-circle-info" aria-hidden="true"></i>
+                <span data-i18n="sidebar.aboutUs">About Us</span>
+            </button>
+            <button type="button" class="sidebar-nav-item" onclick="blogAction()">
+                <i class="fas fa-newspaper" aria-hidden="true"></i>
+                <span data-i18n="sidebar.blog">Blog</span>
+            </button>
+            <button type="button" class="sidebar-nav-item" onclick="applyNowAction()">
+                <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                <span data-i18n="sidebar.applyNow">Apply Now</span>
+            </button>
+            <button type="button" class="sidebar-nav-item" onclick="packageAction()">
+                <i class="fas fa-layer-group" aria-hidden="true"></i>
+                <span data-i18n="sidebar.packages">Packages</span>
+            </button>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="page/privacy-policy.html" data-i18n="sidebar.privacyPolicy">Privacy Policy</a>
+            <a href="page/term-conditional.html" data-i18n="sidebar.terms">Terms &amp; Conditions</a>
+            <a href="page/data-deletion.html" data-i18n="sidebar.dataDeletion">Data Deletion</a>
+        </div>
+    </aside>
+</div>
