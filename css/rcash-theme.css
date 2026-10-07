@@ -46,3 +46,9 @@ body:not(.login-page) { background-color: var(--rcash-pale); }
 #siteFooter { background: linear-gradient(135deg, #1a1a1a, #2d2d2d); border-color: #ffffff1a; color: #ccc; }
 button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline-color: #a78bfa; }
 #pageLoadingProgress { background: linear-gradient(90deg, #a78bfa, #8b5cf6); }
+/* Email authentication controls */
+#firebaseAuthContainer #otpCode { text-align: center; font-size: 1.5rem; letter-spacing: .45rem; font-weight: 700; }
+#firebaseAuthContainer .login-message { color: #e4e4e7; font-size: .875rem; }
+#firebaseAuthContainer .login-message.error { color: #fca5a5; }
+#firebaseAuthContainer .login-panel label, #firebaseAuthContainer .login-subtitle, #firebaseAuthContainer .login-provider-button, #firebaseAuthContainer .login-primary-button, #firebaseAuthContainer .login-secondary-button { font-size: .875rem; }
+#firebaseAuthContainer button:disabled { opacity: .55; cursor: not-allowed; }
