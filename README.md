@@ -8,7 +8,7 @@ R-CASH
 
 Digital Financial Services & Payment Platform
 
-DuitJom is a modern web-based financial services platform designed to provide a clean, responsive, and user-friendly digital experience for customers who need to manage payment-related information, repayment activities, applications, and customer support.
+R-Cash is a modern web-based financial services platform designed to provide a clean, responsive, and user-friendly digital experience for customers who need to manage payment-related information, repayment activities, applications, and customer support.
 
 The project focuses on creating a professional fintech-style interface with a strong emphasis on usability, responsive design, security awareness, clear communication, and an intuitive customer journey.
 
@@ -20,9 +20,9 @@ Brand: R-CASH
 
 ⸻
 
-📌 About DuitJom
+📌 About R-Cash
 
-DuitJom is designed as a digital platform that brings various customer-facing financial workflows into one centralized web experience.
+R-Cash is designed as a digital platform that brings various customer-facing financial workflows into one centralized web experience.
 
 The platform can be used as a foundation for features such as:
 
@@ -49,7 +49,7 @@ The goal of DuitJom is to make financial-related interactions simpler, clearer, 
 
 🔐 Authentication
 
-DuitJom can support modern authentication workflows designed to provide customers with a convenient way to access the platform.
+R-Cash can support modern authentication workflows designed to provide customers with a convenient way to access the platform.
 
 Possible authentication features include:
 
@@ -82,13 +82,13 @@ Example information may include:
 
 The user interface can be connected to an external payment provider through an appropriate API or payment gateway integration.
 
-DuitJom itself should not be assumed to be a payment processor unless the appropriate licensed infrastructure and regulatory requirements have been fulfilled.
+R-Cash itself should not be assumed to be a payment processor unless the appropriate licensed infrastructure and regulatory requirements have been fulfilled.
 
 ⸻
 
 🔔 Webhook Integration
 
-DuitJom can be designed to work with webhook-enabled services.
+R-Cash can be designed to work with webhook-enabled services.
 
 A webhook allows an external service to notify DuitJom automatically when an event occurs.
 
@@ -100,7 +100,7 @@ Payment Provider
        ↓
 Webhook
        ↓
-DuitJom Backend
+R-Cash Backend
        ↓
 Update Payment Status
        ↓
