@@ -14,8 +14,8 @@
     <!-- Google Identity Services Script -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://rcash.my/">
-    <meta property="og:title" content="R-Cash - Payment Portal">
-    <meta property="og:description" content="The official R-Cash loan repayment portal. Safe, fast, and encrypted.">
+    <meta property="og:title" content="R-Cash - Official Website Repayment">
+    <meta property="og:description" content="The official R-Cash loan repayment website. Safe, fast, and encrypted.">
     <meta property="og:image" content="IMG_7456.png">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
@@ -63,13 +63,13 @@
                     </button>
                     <!-- Dropdown -->
                     <div class="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                        <button type="button" data-locale-option="en" onclick="DJ_I18N.setLocale('en')" class="lang-option w-full text-left block px-4 py-2.5 text-xs font-bold text-gray-500 hover:bg-gray-50">
+                        <button type="button" data-locale-option="en" onclick="RC_I18N.setLocale('en')" class="lang-option w-full text-left block px-4 py-2.5 text-xs font-bold text-gray-500 hover:bg-gray-50">
                             <span class="mr-2">🇺🇸</span> <span data-i18n="lang.en">English</span>
                         </button>
-                        <button type="button" data-locale-option="zh" onclick="DJ_I18N.setLocale('zh')" class="lang-option w-full text-left block px-4 py-2.5 text-xs font-bold text-gray-500 hover:bg-gray-50 border-t border-gray-50">
+                        <button type="button" data-locale-option="zh" onclick="RC_I18N.setLocale('zh')" class="lang-option w-full text-left block px-4 py-2.5 text-xs font-bold text-gray-500 hover:bg-gray-50 border-t border-gray-50">
                             <span class="mr-2">🇨🇳</span> <span data-i18n="lang.zh">中文</span>
                         </button>
-                        <button type="button" data-locale-option="ms" onclick="DJ_I18N.setLocale('ms')" class="lang-option w-full text-left block px-4 py-2.5 text-xs font-bold text-gray-500 hover:bg-gray-50 border-t border-gray-50">
+                        <button type="button" data-locale-option="ms" onclick="RC_I18N.setLocale('ms')" class="lang-option w-full text-left block px-4 py-2.5 text-xs font-bold text-gray-500 hover:bg-gray-50 border-t border-gray-50">
                             <span class="mr-2">🇲🇾</span> <span data-i18n="lang.ms">Bahasa Malaysia</span>
                         </button>
                     </div>
@@ -197,7 +197,7 @@
                 </div>
                 <div class="mt-4 flex justify-center">
                     <div id="loginTurnstileWidget" class="cf-turnstile"
-                         data-sitekey="0x4AAAAAAFDZ5bKGW2izQzbZ" data-action="auth"
+                         data-sitekey="0x4AAAAAAFDKcU-FJabEMfZl" data-action="auth"
                          data-theme="auto" data-size="flexible"
                          data-callback="onLoginTurnstileSuccess"
                          data-error-callback="onLoginTurnstileError"
@@ -619,9 +619,9 @@
                 <span data-i18n="home.loanId">Loan / CUST ID</span>
                 <span class="text-red-500">*</span>
             </label>
-            <input type="text" id="djcustInput" required data-i18n-placeholder="home.loanIdPlaceholder" placeholder="Sila masukkan ID Loan atau CUST00000 anda" autocomplete="off" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:outline-none text-sm" oninput="validateDJCust(this)">
-            <p id="djcustError" class="text-red-500 text-[11px] mt-1 hidden" data-i18n="home.loanIdError">Enter a valid "DJ" or "CUST" loan ID.</p>
-            <p class="text-[10px] text-sky-500 mt-1"><a href="https://www.r-cash.my.com/" target="_blank" rel="noopener noreferrer" data-i18n="home.loanIdHelp">Visit www.r-cash.my.com to get your Loan ID</a></p>
+            <input type="text" id="rccustInput" required data-i18n-placeholder="home.loanIdPlaceholder" placeholder="Sila masukkan ID Loan atau CUST00000 anda" autocomplete="off" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:outline-none text-sm" oninput="validateRCCust(this)">
+            <p id="rccustError" class="text-red-500 text-[11px] mt-1 hidden" data-i18n="home.loanIdError">Enter a valid "RC" or "CUST" loan ID.</p>
+            <p class="text-[10px] text-sky-500 mt-1"><a href="https://www.r-cash.my/" target="_blank" rel="noopener noreferrer" data-i18n="home.loanIdHelp">Visit www.r-cash.my to get your Loan ID</a></p>
         </div>
 
         <!-- NOMBOR TELEFON -->
@@ -669,7 +669,7 @@
     <div class="mt-4 flex justify-center">
           <div
              class="cf-turnstile"
-             data-sitekey="0x4AAAAAAFDZ5bKGW2izQzbZ"
+             data-sitekey="0x4AAAAAAFDKcU-FJabEMfZl"
              data-action="auth"
              data-theme="auto"
              data-size="flexible">
@@ -775,7 +775,7 @@
 
     const nama = document.getElementById("namaInput")?.value.trim();
     const icDigits = (document.getElementById("icInput")?.value || '').replace(/\D/g, '');
-    const loanId = (document.getElementById("djcustInput")?.value || '').trim().toUpperCase();
+    const loanId = (document.getElementById("rccustInput")?.value || '').trim().toUpperCase();
     const phone = (document.getElementById("phoneInput")?.value || '').replace(/\D/g, '');
     const amount = parseFloat(document.getElementById("amountInput")?.value || '0');
 
@@ -790,7 +790,7 @@
     if (
         !nama ||
         icDigits.length !== 12 ||
-        !/^(?:D[0-9]+|J[0-9]+|DJ[0-9]+|CUST[0-9]+)$/.test(loanId) ||
+        !/^(?:D[0-9]+|J[0-9]+|RC[0-9]+|CUST[0-9]+)$/.test(loanId) ||
         !/^1[0-9]{8,9}$/.test(phone) ||
         amount <= 0 ||
         !termsChecked
