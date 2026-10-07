@@ -3,11 +3,11 @@
 // =====================================================
 let timerInstance = null;
 let namaPelangganGlobal = "";
-let rcCustomerIdGlobal = "";
+let djCustomerIdGlobal = "";
 let amountGlobal = 0;
 
 function t(key, vars) {
-  return window.RC_I18N ? window.RC_I18N.t(key, vars) : key;
+  return window.DJ_I18N ? window.DJ_I18N.t(key, vars) : key;
 }
 
 // ---- KAWALAN SIDEBAR ----
@@ -54,7 +54,7 @@ function closeSidebar() {
 }
 
 /* =========================================================
-   DUITJOM NEWS AUTOMATIC SLIDER
+   R-Cash NEWS AUTOMATIC SLIDER
    AUTO SLIDE: 2.6 SECONDS
 ========================================================= */
 document.addEventListener("DOMContentLoaded", function () {
@@ -151,23 +151,23 @@ function generateQR() {
     if (qrGenerated) return;
     qrGenerated = true;
 
-    const rccustEl = document.getElementById("rccustInput");
-    const rcCustomerID = rccustEl ? rccustEl.value.toUpperCase() : "";
+    const djcustEl = document.getElementById("djcustInput");
+    const djCustomerID = djcustEl ? djcustEl.value.toUpperCase() : "";
     const amountEl = document.getElementById("amountInput");
     const amountInput = amountEl ? amountEl.value : "";
     const amount = parseFloat(amountInput);
     const namaEl = document.getElementById("namaInput");
     namaPelangganGlobal = namaEl ? namaEl.value : "Customer";
-    rcCustomerIdGlobal = rcCustomerID;
+    djCustomerIdGlobal = djCustomerID;
     amountGlobal = amount;
 
-    if (!rcCustomerID || !amount || amount <= 0) {
+    if (!djCustomerID || !amount || amount <= 0) {
         alert(t("home.alertFillAll"));
         qrGenerated = false;
         return;
     }
 
-    const qrData = `RC:${rcCustomerID}|${amount}|${Date.now()}`;
+    const qrData = `DJ:${djCustomerID}|${amount}|${Date.now()}`;
     const qrCodeElement = document.getElementById("qrCode");
 
     if (!qrCodeElement) {
@@ -247,7 +247,7 @@ function finalSubmission() {
     if (summary) {
         const rows = [
             [t("confirmation.summaryName"), namaPelangganGlobal],
-            [t("confirmation.summaryId"), rcCustomerIdGlobal],
+            [t("confirmation.summaryId"), djCustomerIdGlobal],
             [t("confirmation.summaryAmount"), "RM " + amountGlobal.toFixed(2)]
         ];
         summary.innerHTML = rows.map(([label, value]) =>
@@ -281,8 +281,8 @@ function loadComponent(containerId, filePath) {
     })
     .then(data => {
       container.innerHTML = data;
-      window.RC_I18N?.applyTranslations(container);
-      document.dispatchEvent(new CustomEvent("rcash:component-loaded", { detail: { containerId } }));
+      window.DJ_I18N?.applyTranslations(container);
+      document.dispatchEvent(new CustomEvent("duitjom:component-loaded", { detail: { containerId } }));
       return true;
     })
     .catch(error => {
@@ -313,14 +313,14 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 /* =========================================================
-   VALIDATE RCCUST INPUT
+   VALIDATE DJCUST INPUT
 ========================================================= */
-function validateRCCust(input) {
-    const errorElement = document.getElementById('rccustError');
+function validateDJCust(input) {
+    const errorElement = document.getElementById('djcustError');
     const value = input.value.toUpperCase();
     input.value = value;
     
-    const isValid = /^(?:D[0-9]+|J[0-9]+|RC[0-9]+|CUST[0-9]+)$/.test(value);
+    const isValid = /^(?:D[0-9]+|J[0-9]+|DJ[0-9]+|CUST[0-9]+)$/.test(value);
 
     if (value.length > 0 && !isValid) {
         if (errorElement) errorElement.classList.remove('hidden');
@@ -396,8 +396,8 @@ function closeEmailPopup() {
     }, 300);
 }
 
-async function copyRcashEmail() {
-    const email = document.getElementById('rcashEmail')?.textContent.trim();
+async function copyDuitjomEmail() {
+    const email = document.getElementById('duitjomEmail')?.textContent.trim();
     if (!email) return;
 
     try {
@@ -429,7 +429,6 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
-document.addEventListener('DOMContentLoaded', function() {
     // ---------- Logik untuk tab login (jika ada dalam auth-login.html anda) ----------
     // Jika anda mempunyai tab login seperti 'Email', 'Phone', 'TOTP',
     // pastikan logik ini juga ada dalam script.js anda.
@@ -459,5 +458,3 @@ document.addEventListener('DOMContentLoaded', function() {
     if (loginMethods.length > 0) {
         loginMethods[0].click(); // Simulasikan klik pada tab pertama
     }
-});
-

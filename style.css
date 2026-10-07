@@ -38,7 +38,7 @@ select:focus-visible {
 /* =========================================================
    LOADING / TRANSITION OVERLAY
 ========================================================= */
-@keyframes rcashLoadingFloat {
+@keyframes duitjomLoadingFloat {
     0%, 100% { transform: translateY(0); opacity: .92; }
     50% { transform: translateY(-4px); opacity: 1; }
 }
@@ -52,7 +52,7 @@ select:focus-visible {
     border-radius: 1.25rem;
     background: #f8fafc;
     border: 1px solid #e2e8f0;
-    animation: rcashLoadingFloat 3s ease-in-out infinite;
+    animation: duitjomLoadingFloat 3s ease-in-out infinite;
 }
 
 .loading-message {
@@ -147,7 +147,7 @@ select:focus-visible {
 
 
 /* =========================================================
-   DUITJOM PREMIUM ADMINISTRATION GLASS OVERLAY
+   R-Cash PREMIUM ADMINISTRATION GLASS OVERLAY
 ========================================================= */
 
 .admin-glass-overlay {
@@ -356,7 +356,7 @@ select:focus-visible {
     }
 
     .admin-glass-overlay,
-    .rcash-news {
+    .duitjom-news {
         width: calc(100% - 1rem);
         max-width: 100%;
         min-width: 0;
@@ -409,10 +409,10 @@ select:focus-visible {
 
 
 /* =========================================================
-   DUITJOM NEWS — PREMIUM GLASSMORPHISM
+   R-Cash NEWS — PREMIUM GLASSMORPHISM
 ========================================================= */
 
-.rcash-news {
+.duitjom-news {
     position: relative;
 
     width: 100%;
@@ -447,7 +447,7 @@ select:focus-visible {
 
 /* Background glow */
 
-.rcash-news::before {
+.duitjom-news::before {
     content: "";
 
     position: absolute;
@@ -474,7 +474,7 @@ select:focus-visible {
     pointer-events: none;
 }
 
-.rcash-news::after {
+.duitjom-news::after {
     content: "";
 
     position: absolute;
@@ -950,7 +950,7 @@ select:focus-visible {
 
 @media (max-width: 380px) {
 
-    .rcash-news {
+    .duitjom-news {
         padding: 19px 14px 15px;
         border-radius: 25px;
     }
@@ -971,7 +971,7 @@ select:focus-visible {
 }
 
 /* =========================================================
-   DUITJOM PREMIUM PAGE LOADING PROGRESS
+   R-Cash PREMIUM PAGE LOADING PROGRESS
 ========================================================= */
 
 #pageTransitionSpinner {
@@ -1018,10 +1018,10 @@ select:focus-visible {
 }
 
 /* =========================================================
-   DUITJOM PREMIUM STATUS BADGE
+   R-Cash PREMIUM STATUS BADGE
 ========================================================= */
 
-.rcash-status-badge {
+.duitjom-status-badge {
     position: relative;
 
     display: inline-flex;
@@ -1062,7 +1062,7 @@ select:focus-visible {
 
 /* LIVE indicator */
 
-.rcash-status-dot {
+.duitjom-status-dot {
     width: 7px;
     height: 7px;
 
@@ -1076,10 +1076,10 @@ select:focus-visible {
         0 0 0 3px rgba(16,185,129,.12),
         0 0 10px rgba(16,185,129,.65);
 
-    animation: rcashStatusPulse 1.8s ease-in-out infinite;
+    animation: duitjomStatusPulse 1.8s ease-in-out infinite;
 }
 
-@keyframes rcashStatusPulse {
+@keyframes duitjomStatusPulse {
 
     0%, 100% {
         transform: scale(1);
@@ -1095,7 +1095,7 @@ select:focus-visible {
 
 /* LIVE pill */
 
-.rcash-status-live {
+.duitjom-status-live {
     padding: 3px 6px;
 
     border-radius: 999px;
@@ -1114,7 +1114,7 @@ select:focus-visible {
 
 /* Subtle shine */
 
-.rcash-status-badge::after {
+.duitjom-status-badge::after {
     content: "";
 
     position: absolute;
@@ -1135,12 +1135,12 @@ select:focus-visible {
 
     transform: skewX(-20deg);
 
-    animation: rcashBadgeShine 4.5s ease-in-out infinite;
+    animation: duitjomBadgeShine 4.5s ease-in-out infinite;
 
     pointer-events: none;
 }
 
-@keyframes rcashBadgeShine {
+@keyframes duitjomBadgeShine {
 
     0%, 65% {
         left: -80%;

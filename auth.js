@@ -1,144 +1,132 @@
-(() => {
-  "use strict";
+import {
+  auth,
+  authPersistenceReady,
+  db,
+  googleProvider,
+  githubProvider,
+  signInWithPopup,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
+  sendEmailVerification,
+  reload,
+  updateProfile,
+  signOut,
+  onAuthStateChanged,
+  sendSignInLinkToEmail,
+  isSignInWithEmailLink,
+  signInWithEmailLink
+} from "./firebase-config.js?v=20260914";
 
-  const GOOGLE_CLIENT_ID =
-    "246834525616-hlbjha10qjgi4cp6tpgdrisqe2fajrte.apps.googleusercontent.com";
+// SELEPAS (NPM) - Tukar kepada format ini:
+import {
+  doc,
+  getDoc,
+  setDoc,
+  serverTimestamp
+} from "firebase/firestore";
 
-  const status = document.querySelector("#authStatus");
-  const googleBtn = document.querySelector("#googleLoginBtn");
-  const emailToggleBtn = document.querySelector("#toggleEmailBtn");
-  const emailForm = document.querySelector("#emailAuthForm");
-  const divider = document.querySelector(".divider");
+export async function loginWithGoogle() {
+  await authPersistenceReady;
+  return signInWithPopup(auth, googleProvider);
+}
 
-  let currentUser = null;
-  let currentCredential = null;
+export async function loginWithGithub() {
+  await authPersistenceReady;
+  return signInWithPopup(auth, githubProvider);
+}
 
-  function setStatus(message = "", type = "info") {
-    if (!status) return;
+export async function loginWithEmail(email, password) {
+  await authPersistenceReady;
+  return signInWithEmailAndPassword(auth, email, password);
+}
 
-    status.textContent = message;
-    status.style.color =
-      type === "error" ? "#ff9e9e" :
-      type === "success" ? "#35f28b" :
-      "#ffd479";
-  }
-
-  // Google OAuth is the only supported authentication method.
-  // Keep legacy email elements hidden if an older index.html still contains them.
-  function hideEmailLogin() {
-    [emailToggleBtn, emailForm, divider].forEach((element) => {
-      if (element) element.remove();
-    });
-  }
-
-  function decodeJwtPayload(token) {
-    try {
-      const payload = token.split(".")[1];
-      const normalized = payload.replace(/-/g, "+").replace(/_/g, "/");
-      const padded = normalized + "=".repeat((4 - (normalized.length % 4)) % 4);
-      const binary = atob(padded);
-      const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
-      return JSON.parse(new TextDecoder().decode(bytes));
-    } catch (error) {
-      console.error("Gagal membaca Google ID token:", error);
-      return null;
+export async function registerWithEmail(displayName, email, password) {
+  await authPersistenceReady;
+  try {
+    const credential = await createUserWithEmailAndPassword(auth, email, password);
+    const cleanName = displayName?.trim() || "";
+    if (cleanName) {
+      await updateProfile(credential.user, { displayName: cleanName });
     }
+    await sendEmailVerification(credential.user);
+    return credential;
+  } catch (error) {
+    console.error("Ralat pendaftaran:", error);
+    throw error;
   }
+}
 
-  function handleGoogleCredential(response) {
-    if (!response?.credential) {
-      setStatus("Log masuk Google tidak berjaya. Sila cuba lagi.", "error");
-      return;
-    }
+export function sendVerificationEmail(user = auth.currentUser, actionCodeSettings) {
+  if (!user) return Promise.reject(new Error("No user is currently signed in."));
+  return sendEmailVerification(user, actionCodeSettings);
+}
 
-    const payload = decodeJwtPayload(response.credential);
-    if (!payload?.sub || !payload?.email) {
-      setStatus("Maklumat akaun Google tidak dapat dibaca.", "error");
-      return;
-    }
+export async function refreshCurrentUser(user = auth.currentUser) {
+  if (!user) return null;
+  await reload(user);
+  return auth.currentUser;
+}
 
-    currentCredential = response.credential;
-    currentUser = {
-      id: payload.sub,
-      name: payload.name || payload.given_name || "Google User",
-      email: payload.email,
-      picture: payload.picture || "",
-      emailVerified: Boolean(payload.email_verified)
+export function resetPassword(email) {
+  return sendPasswordResetEmail(auth, email);
+}
+
+export async function sendMagicLink(email, actionCodeSettings) {
+  await authPersistenceReady;
+  return sendSignInLinkToEmail(auth, email, actionCodeSettings);
+}
+
+export function isMagicLink(url = window.location.href) {
+  return isSignInWithEmailLink(auth, url);
+}
+
+export async function completeMagicLink(email, url = window.location.href) {
+  await authPersistenceReady;
+  return signInWithEmailLink(auth, email, url);
+}
+
+export async function ensureUserProfile(user = auth.currentUser) {
+  if (!user) return null;
+  try {
+    const profileRef = doc(db, "users", user.uid);
+    const existingProfile = await getDoc(profileRef);
+    const provider = user.providerData.map((item) => item.providerId).join(",") || "password";
+    const providerVerified = user.providerData.some(({ providerId }) => providerId === "google.com" || providerId === "github.com");
+    
+    const profile = {
+      uid: user.uid,
+      displayName: user.displayName || "",
+      email: user.email || "",
+      photoURL: user.photoURL || "",
+      provider,
+      emailVerified: Boolean(user.emailVerified || providerVerified),
+      updatedAt: serverTimestamp(),
+      lastLoginAt: serverTimestamp()
     };
 
-    setStatus("Log masuk berjaya.", "success");
-    window.dispatchEvent(new CustomEvent("rcash:google-login", {
-      detail: currentUser
-    }));
-
-    if (window.RCashUI?.showApp) window.RCashUI.showApp();
+    if (!existingProfile.exists()) profile.createdAt = serverTimestamp();
+    await setDoc(profileRef, profile, { merge: true });
+    return profile;
+  } catch (error) {
+    console.warn("Profil gagal disimpan di Firestore (E-mel belum disahkan):", error.message);
+    return null; // Menghalang aplikasi daripada crash
   }
+}
 
-  function initializeGoogleSignIn() {
-    hideEmailLogin();
+export function logOut() {
+  return signOut(auth);
+}
 
-    if (!window.google?.accounts?.id) {
-      setStatus(
-        "Google Sign-In tidak dapat dimuatkan. Sila muat semula halaman.",
-        "error"
-      );
-      return;
-    }
+export function monitorAuthState(callback) {
+  return onAuthStateChanged(auth, callback);
+}
 
-    google.accounts.id.initialize({
-      client_id: GOOGLE_CLIENT_ID,
-      callback: handleGoogleCredential,
-      ux_mode: "popup",
-      context: "signin",
-      auto_select: false
-    });
-
-    if (!googleBtn) {
-      console.error("Butang #googleLoginBtn tidak dijumpai.");
-      return;
-    }
-
-    const googleContainer = document.createElement("div");
-    googleContainer.id = "googleOfficialButton";
-    googleContainer.style.width = "100%";
-    googleContainer.style.display = "flex";
-    googleContainer.style.justifyContent = "center";
-    googleContainer.style.alignItems = "center";
-    googleBtn.replaceWith(googleContainer);
-
-    requestAnimationFrame(() => {
-      const containerWidth = googleContainer.getBoundingClientRect().width;
-      const buttonWidth = Math.max(250, Math.min(400, Math.floor(containerWidth || 360)));
-
-      google.accounts.id.renderButton(googleContainer, {
-        type: "standard",
-        theme: "outline",
-        size: "large",
-        text: "continue_with",
-        shape: "rectangular",
-        logo_alignment: "left",
-        width: buttonWidth
-      });
-    });
-
-    setStatus("");
+export function getFriendlyAuthError(error) {
+  const key = error?.code ? `auth.errors.${error.code}` : null;
+  if (window.DJ_I18N && key) {
+    const translated = window.DJ_I18N.t(key);
+    if (translated !== key) return translated;
   }
-
-  async function signOut() {
-    currentUser = null;
-    currentCredential = null;
-    google.accounts?.id?.disableAutoSelect();
-    setStatus("");
-    window.dispatchEvent(new CustomEvent("rcash:logout"));
-    if (window.RCashUI?.showAuth) window.RCashUI.showAuth();
-  }
-
-  window.RCashAuth = {
-    signOut,
-    getUser: () => currentUser,
-    getCredential: () => currentCredential,
-    isSignedIn: () => Boolean(currentUser && currentCredential)
-  };
-
-  window.addEventListener("load", initializeGoogleSignIn);
-})();
+  return window.DJ_I18N ? window.DJ_I18N.t("auth.genericError") : "The auth operation failed. Please try again.";
+}
