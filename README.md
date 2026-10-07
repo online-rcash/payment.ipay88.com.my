@@ -1,10 +1,10 @@
-# duitjom.my
+# r-cash.my
 
 <a href="https://app.codacy.com/gh/DuitJom/payment.ipay88.com/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade">
   <img src="https://app.codacy.com/project/badge/Grade/9d770654e9aa4085921a4f5555e1b8e2"/>
 </a>
 
-DuitJom
+R-CASH
 
 Digital Financial Services & Payment Platform
 
@@ -16,7 +16,7 @@ Project Status: Development / Prototype
 Platform: Web
 Primary Language: HTML, CSS, JavaScript
 Interface: Responsive / Mobile-first
-Brand: DuitJom
+Brand: R-CASH
 
 ⸻
 
