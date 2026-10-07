@@ -1,5 +1,5 @@
 /* =========================================================
-   DUITJOM PAGE TRANSITION / LOADING OVERLAY
+   R-Cash PAGE TRANSITION / LOADING OVERLAY
    Cosmetic-only overlay for in-app navigation. Never blocks
    or delays the real async work — runs in parallel and is
    dismissed immediately if the underlying action errors.
@@ -92,7 +92,7 @@
   }
 
   /**
-   * Shows the DuitJom transition overlay for a minimum of ~7.5s (cosmetic)
+   * Shows the R-Cash transition overlay for a minimum of ~7.5s (cosmetic)
    * while `action` runs concurrently in the background. If `action` rejects,
    * the overlay is dismissed immediately so the real error UI can take over.
    * @param {() => (void | Promise<void>)} action
