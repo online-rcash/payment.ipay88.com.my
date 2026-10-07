@@ -19,7 +19,7 @@
       totpSecretInstance = await window.firebaseAuth.TotpMultiFactorGenerator.generateSecret(multiFactorSession);
 
       // Dapatkan URL/QR Code daripada Firebase TOTP secret
-      const qrCodeUrl = totpSecretInstance.generateQrCodeUrl(user.email || 'User', 'DuitJom');
+      const qrCodeUrl = totpSecretInstance.generateQrCodeUrl(user.email || 'User', 'R-Cash');
       
       // Jika anda menggunakan pustaka luaran untuk memapar QR Code dari URL:
       const qrImgElement = document.getElementById('totpQrCode');
@@ -55,7 +55,7 @@
         code
       );
 
-      await window.firebaseAuth.multiFactor(user).enroll(multiFactorAssertion, 'DuitJom Authenticator');
+      await window.firebaseAuth.multiFactor(user).enroll(multiFactorAssertion, 'R-Cash Authenticator');
       setMessage('TOTP berjaya diaktifkan.', 'success');
     } catch (error) {
       console.error('Pengesahan TOTP gagal:', error);
