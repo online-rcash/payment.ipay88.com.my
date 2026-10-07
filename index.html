@@ -9,14 +9,14 @@
       
     <link rel="preconnect" href="https://challenges.cloudflare.com">
       
-    <title>DuitJom - Secure Digital Loan Repayment Portal</title>
+    <title>R-Cash - Secure Digital Loan Repayment Portal</title>
 
     <!-- Google Identity Services Script -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://duitjom.my/">
-    <meta property="og:title" content="DuitJom - Payment Portal">
-    <meta property="og:description" content="The official DuitJom loan repayment portal. Safe, fast, and encrypted.">
-    <meta property="og:image" content="IMG_6715.png">
+    <meta property="og:url" content="https://rcash.my/">
+    <meta property="og:title" content="R-Cash - Payment Portal">
+    <meta property="og:description" content="The official R-Cash loan repayment portal. Safe, fast, and encrypted.">
+    <meta property="og:image" content="IMG_7456.png">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -51,7 +51,7 @@
     <header class="fixed top-0 left-0 right-0 z-40 bg-white shadow-sm border-b border-gray-100">
         <div class="max-w-md mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-2">
-                <img src="IMG_6715.png" alt="DuitJom Logo" class="h-8 object-contain" onerror="this.outerHTML='<span class=\'font-semibold text-xl text-slate-800\'>Duit<span class=\'text-blue-400\'>Jom</span></span>'">
+                <img src="IMG_7456.png" alt="R-Cash Logo" class="h-8 object-contain" onerror="this.outerHTML='<span class=\'font-semibold text-xl text-slate-800\'>Duit<span class=\'text-blue-400\'>Jom</span></span>'">
                 <span class="font-semibold text-sm text-slate-800 hidden sm:inline">Payment Hub</span>
             </div>
 
@@ -83,7 +83,7 @@
         </div>
     </header>
 
-    <!-- DuitJom welcome popup -->
+    <!-- R-Cash welcome popup -->
     <div id="welcomePopup" class="welcome-overlay" aria-hidden="true">
         <section class="welcome-popup" role="dialog" aria-modal="true"
             aria-labelledby="welcomePopupTitle" aria-describedby="welcomePopupMessage"
@@ -100,7 +100,7 @@
             <div class="welcome-content">
                 <div class="welcome-artwork">
                     <img id="welcomePopupImage" class="welcome-poster" src="images/4602E986-7085-4B0D-B540-AF33DA5C2EAF.png"
-                        width="1024" height="1536" alt="Sistem Pembayaran Baharu DuitJom. Mudah, selamat dan untuk semua."
+                        width="1024" height="1536" alt="Sistem Pembayaran Baharu R-Cash. Mudah, selamat dan untuk semua."
                         fetchpriority="high" decoding="async">
                 </div>
                 <div class="welcome-details">
@@ -114,9 +114,9 @@
                     </div>
                     <p class="welcome-label">Email :</p>
                     <div class="welcome-email-row">
-                        <a id="welcomePopupEmail" class="welcome-email" href="mailto:support@duitjom.my">support@duitjom.my</a>
+                        <a id="welcomePopupEmail" class="welcome-email" href="mailto:support@rcash.my">support@rcash.my</a>
                         <button id="welcomePopupCopyEmail" class="welcome-copy" type="button"
-                            aria-label="Salin emel support@duitjom.my" title="Salin emel">
+                            aria-label="Salin emel support@rcash.my" title="Salin emel">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
                                 <rect x="8" y="8" width="12" height="13" rx="2"/>
                                 <path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3"/>
@@ -127,7 +127,7 @@
                     <div class="welcome-application">
                         <p class="welcome-application-title">Mohon Pinjaman :</p>
                         <p id="welcomePopupMessage">Sila layari laman web rasmi di
-                            <a id="welcomePopupWebsite" href="https://www.duitjom.com/" target="_blank" rel="noopener noreferrer">www.duitjom.com
+                            <a id="welcomePopupWebsite" href="https://www.r-cash.my/" target="_blank" rel="noopener noreferrer">www.r-cash.my
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                     <path d="M14 4h6v6m0-6L10 14M20 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h4"/>
                                 </svg>
@@ -138,7 +138,7 @@
             </div>
             <div class="welcome-actions">
                 <button id="welcomePopupClose" class="welcome-button welcome-button-close" type="button">Tutup 10s</button>
-                <a id="welcomePopupSupport" class="welcome-button welcome-button-support" href="mailto:support@duitjom.my">
+                <a id="welcomePopupSupport" class="welcome-button welcome-button-support" href="mailto:support@rcash.my">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
                         <rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 7 9 6 9-6"/>
                     </svg>
@@ -154,8 +154,8 @@
         <div class="login-live-background" aria-hidden="true"><span class="login-live-orb login-live-orb-one"></span><span class="login-live-orb login-live-orb-two"></span><span class="login-live-orb login-live-orb-three"></span></div>
         <div id="authLoginPanel" class="login-card">
             <p class="login-kicker" data-i18n="auth.kickerLogin">JAMINAN KESELAMATAN PENGGUNA</p>
-            <h2 id="authTitle" class="login-title" data-i18n="auth.loginTitle">Log Masuk ke DuitJom</h2>
-            <p class="login-subtitle" data-i18n="auth.loginSubtitle">Sila pilih kaedah log masuk pilihan anda untuk meneruskan ke akaun DuitJom.</p>
+            <h2 id="authTitle" class="login-title" data-i18n="auth.loginTitle">Log Masuk ke R-Cash</h2>
+            <p class="login-subtitle" data-i18n="auth.loginSubtitle">Sila pilih kaedah log masuk pilihan anda untuk meneruskan ke akaun R-Cash.</p>
 
             <button id="googleLoginButton" type="button" class="login-provider-button">
                 <svg class="google-provider-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
@@ -243,10 +243,10 @@
 
      <main class="max-w-md mx-auto px-4 py-4 text-center flex-grow flex flex-col justify-center items-center">
 
-            <div class="duitjom-status-badge">
-                <span class="duitjom-status-dot"></span>
+            <div class="r-cash-status-badge">
+                <span class="r-cash-status-dot"></span>
                 <span data-i18n="home.statusBadge">DIGITAL • SECURE • ONLINE</span>
-                <span class="duitjom-status-live" data-i18n="home.statusLive">On Going</span>
+                <span class="r-cash-status-live" data-i18n="home.statusLive">On Going</span>
             </div>
 
             <!-- PREMIUM ADMINISTRATION OVERLAY -->
@@ -286,8 +286,8 @@
                 </div>
             </div>
 
-            <!-- DUITJOM NEWS PREMIUM SLIDER -->
-            <section class="duitjom-news">
+            <!-- R-Cash NEWS PREMIUM SLIDER -->
+            <section class="r-cash.my-news">
                 <!-- News Header -->
                 <div class="news-header">
                     <div class="news-brand-icon">
@@ -307,13 +307,13 @@
                     </div>
                     <div class="news-heading">
                         <span class="news-kicker" data-i18n="home.newsKicker">
-                            DUITJOM NEWS
+                            R-Cash NEWS
                         </span>
                         <h2 data-i18n="home.newsTitle">
                             Latest Updates
                         </h2>
                         <p data-i18n="home.newsSubtitle">
-                            DuitJom systems & services
+                            R-Cash systems & services
                         </p>
                     </div>
                     <div class="news-live-status">
@@ -344,7 +344,7 @@
                                 </span>
                             </div>
                             <h3 data-i18n="home.news1Title">
-                                DuitJom Digital System x GitHub
+                                R-Cash Digital System x iPay88 🇲🇾
                             </h3>
                             <p data-i18n="home.news1Body">
                                 A modern digital payment system designed to keep
@@ -473,7 +473,7 @@
 
 <!-- FOOTER LEGAL LINKS -->
 <footer id="siteFooter" class="bg-[#111827] text-gray-400 py-6 text-xs text-center border-t border-gray-800 w-full">
-    <p data-i18n="footer.copyright">&copy; 2026 DuitJom. All rights reserved.</p>
+    <p data-i18n="footer.copyright">&copy; 2026 R-Cash. All rights reserved.</p>
 
     <p class="mt-3 flex flex-wrap justify-center gap-2 px-4">
         <a href="page/privacy-policy.html" class="hover:text-white transition" data-i18n="footer.privacyPolicy">Privacy Policy</a> |
@@ -483,7 +483,7 @@
 
     <!-- Codacy Code Quality Badge -->
     <p class="mt-4">
-        <a href="https://app.codacy.com/gh/DuitJom/payment.ipay88.com/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade"
+        <a href="https://app.codacy.com/gh/online-rcash/payment.ipay88.com/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade"
            target="_blank"
            rel="noopener noreferrer">
             <img src="https://app.codacy.com/project/badge/Grade/9d770654e9aa4085921a4f5555e1b8e2"
@@ -493,7 +493,7 @@
     
     <!-- SonarQube Cloud Quality Badge -->
     <p class="mt-3">
-    <a href="https://sonarcloud.io/summary/new_code?id=DuitJom_payment.ipay88.com"
+    <a href="https://sonarcloud.io/summary/new_code?id=online-rcash_payment.ipay88.com"
        target="_blank"
        rel="noopener noreferrer">
         <img src="https://sonarcloud.io/images/project_badges/sonarcloud-light.svg"
@@ -517,7 +517,7 @@
 <div class="flex flex-col items-center gap-7 w-full max-w-xs">
     <!-- LOGO -->
     <div class="loading-logo-wrap">
-        <img src="IMG_6715.png" alt="DuitJom Logo" class="w-16 h-16 object-contain">
+        <img src="IMG_7456.png" alt="R-Cash Logo" class="w-16 h-16 object-contain">
     </div>
 
     <!-- LOADING TEXT -->
@@ -557,7 +557,7 @@
         <div class="relative w-28 h-28 mb-4 flex items-center justify-center">
             <div class="absolute inset-0 rounded-[32px] bg-gradient-to-br from-blue-100 via-sky-50 to-cyan-100 blur-xl opacity-80"></div>
             <div class="relative w-24 h-24 rounded-[28px] bg-white/70 backdrop-blur-xl border border-white/90 shadow-[0_15px_40px_rgba(37,99,235,0.12)] flex items-center justify-center overflow-hidden">
-                <img src="IMG_6715.png" alt="Logo DuitJom" class="w-[82px] h-[82px] object-contain">
+                <img src="IMG_7456.png" alt="Logo R-Cash" class="w-[82px] h-[82px] object-contain">
             </div>
         </div>
         <p class="text-slate-500 font-medium text-xs max-w-xs leading-relaxed" data-i18n="home.paymentIntro">
@@ -621,7 +621,7 @@
             </label>
             <input type="text" id="djcustInput" required data-i18n-placeholder="home.loanIdPlaceholder" placeholder="Sila masukkan ID Loan atau CUST00000 anda" autocomplete="off" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:outline-none text-sm" oninput="validateDJCust(this)">
             <p id="djcustError" class="text-red-500 text-[11px] mt-1 hidden" data-i18n="home.loanIdError">Enter a valid "DJ" or "CUST" loan ID.</p>
-            <p class="text-[10px] text-sky-500 mt-1"><a href="https://www.duitjom.com/" target="_blank" rel="noopener noreferrer" data-i18n="home.loanIdHelp">Visit www.duitjom.com to get your Loan ID</a></p>
+            <p class="text-[10px] text-sky-500 mt-1"><a href="https://www.r-cash.my.com/" target="_blank" rel="noopener noreferrer" data-i18n="home.loanIdHelp">Visit www.r-cash.my.com to get your Loan ID</a></p>
         </div>
 
         <!-- NOMBOR TELEFON -->
@@ -659,7 +659,7 @@
         <div>
             <label class="flex items-start gap-2 text-xs text-slate-600 cursor-pointer">
                 <input type="checkbox" id="termsCheckbox" class="mt-0.5 w-4 h-4 rounded border-gray-300 text-blue-500 focus:ring-blue-400">
-                <span data-i18n="home.termsText">By continuing, you agree to the Terms & Conditions and Privacy Policy set by DuitJom.</span>
+                <span data-i18n="home.termsText">By continuing, you agree to the Terms & Conditions and Privacy Policy set by R-Cash.</span>
             </label>
             <p id="termsError" class="text-red-500 text-[11px] mt-1 hidden" data-i18n="home.termsError">Please accept the terms to continue</p>
         </div>
@@ -703,7 +703,7 @@
 <!-- THANKS / CONFIRMATION PAGE -->
 <div id="thanksPage" class="hidden flex-col min-h-screen -mt-[72px] pt-[72px] bg-white justify-center items-center" style="padding-bottom: env(safe-area-inset-bottom, 0);">
 <div class="confirmation-card max-w-md w-full mx-auto px-6 py-10 text-center">
-    <img src="IMG_6715.png" alt="DuitJom" class="h-6 object-contain mx-auto mb-8 opacity-80">
+    <img src="IMG_7456.png" alt="R-Cash" class="h-6 object-contain mx-auto mb-8 opacity-80">
 
     <div class="confirmation-check-ring mx-auto mb-6">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-7 h-7 text-emerald-600" aria-hidden="true">
