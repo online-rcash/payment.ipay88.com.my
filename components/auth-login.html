@@ -1,148 +1,275 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ms">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>R-Cash - Log Masuk</title>
     <link rel="stylesheet" href="login.css">
-    <!-- Fail JavaScript utama anda -->
     <script src="app-auth.js" defer></script>
     <script src="auth-ui.js" defer></script>
 </head>
 <body>
-
-    <!-- =========================================================
-         POPUP NOTIS PENYELENGGARAAN (BARU)
-         ========================================================= -->
-    <div id="maintenanceNotificationPopup" class="notification-overlay">
+    <div
+        id="maintenanceNotificationPopup"
+        class="notification-overlay"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="maintenanceTitle"
+        aria-describedby="maintenanceDescription"
+    >
         <div class="notification-popup-content">
             <div class="close-icon-container">
-                <span class="close-popup-button" id="closePopupButtonX">&times;</span>
+                <button
+                    type="button"
+                    class="close-popup-button"
+                    id="closePopupButtonX"
+                    aria-label="Tutup notis"
+                >
+                    &times;
+                </button>
             </div>
-       <div class="popup-logo-placeholder">
-           <img 
-              src="/images/rcash-logo.svg" 
-              alt="R-Cash Logo" 
-              class="popup-logo"
-           >
-       </div>
-            <h2 class="popup-title">⚙ NOTIS PENTING</h2>
+
+            <div class="popup-logo-placeholder">
+                <img
+                    src="/images/rcash-logo.svg"
+                    alt="Logo R-Cash"
+                    class="popup-logo"
+                >
+            </div>
+
+            <h2 class="popup-title" id="maintenanceTitle">⚙ NOTIS PENTING</h2>
             <h3 class="popup-subtitle">Laman www.r-cash.my Sedang Dalam Penyelenggaraan</h3>
             <hr class="popup-divider">
-            <p class="popup-paragraph">Pelanggan yang dihormati,</p>
-            <p class="popup-paragraph">Website www.r-cash.my sedang menjalani kerja-kerja penyelenggaraan dan penambahbaikan bagi memastikan pengalaman penggunaan yang lebih selamat, lancar dan berkualiti.</p>
-            <p class="popup-paragraph">Buat sementara waktu, sesetengah fungsi mungkin tidak dapat digunakan seperti biasa.</p>
-            <p class="popup-paragraph">Untuk sebarang urusan pembayaran atau pertanyaan, sila hubungi Pasukan Sokongan R-Cash melalui:</p>
-            <p class="popup-contact-email">✉ support@rcash.my</p>
-            <p class="popup-paragraph">Pasukan kami akan membantu anda sebaik mungkin.</p>
+
+            <div id="maintenanceDescription">
+                <p class="popup-paragraph">Pelanggan yang dihormati,</p>
+                <p class="popup-paragraph">
+                    Laman web www.r-cash.my sedang menjalani kerja-kerja penyelenggaraan dan
+                    penambahbaikan bagi memastikan pengalaman penggunaan yang lebih selamat,
+                    lancar dan berkualiti.
+                </p>
+                <p class="popup-paragraph">
+                    Buat sementara waktu, sesetengah fungsi mungkin tidak dapat digunakan seperti biasa.
+                </p>
+                <p class="popup-paragraph">
+                    Untuk sebarang urusan pembayaran atau pertanyaan, sila hubungi Pasukan Sokongan
+                    R-Cash melalui:
+                </p>
+                <p class="popup-contact-email">✉ support@rcash.my</p>
+                <p class="popup-paragraph">Pasukan kami akan membantu anda sebaik mungkin.</p>
+            </div>
+
             <div class="popup-actions">
-                <button type="button" class="popup-action-button close-btn" id="closeButtonBottom">Tutup</button>
-                <a href="mailto:support@rcash.my" class="popup-action-button support-btn">Hubungi Support</a>
+                <button
+                    type="button"
+                    class="popup-action-button close-btn"
+                    id="closeButtonBottom"
+                >
+                    Tutup
+                </button>
+                <a href="mailto:support@rcash.my" class="popup-action-button support-btn">
+                    Hubungi Sokongan
+                </a>
             </div>
         </div>
     </div>
 
-    <!-- =========================================================
-         R-Cash AUTH BANNER — fintech design (light, high-contrast)
-         ========================================================= -->
-    <div class="auth-banner">
+    <header class="auth-banner">
         <h1>Selamat Datang ke R-Cash</h1>
         <p>Log masuk atau daftar untuk menguruskan kewangan anda.</p>
-        <img src="https://duitjom.my/images/banner-placeholder.png" alt="R-Cash Banner" class="banner-image">
-    </div>
+        <img
+            src="https://duitjom.my/images/banner-placeholder.png"
+            alt="Banner R-Cash"
+            class="banner-image"
+        >
+    </header>
 
-    <!-- =========================================================
-         R-Cash AUTH LOGIN CONTAINER — main login form
-         ========================================================= -->
-    <div id="auth-login-container">
-        <!-- Google Sign-In Button -->
+    <main id="auth-login-container">
         <button type="button" class="login-provider-button">
-            <img src="https://duitjom.my/images/google-icon.png" alt="Google" style="width:20px; height:20px; margin-right: 8px;">
+            <img
+                src="https://duitjom.my/images/google-icon.png"
+                alt=""
+                width="20"
+                height="20"
+            >
             Log Masuk dengan Google
         </button>
 
-        <!-- Separator atau pilihan lain -->
-        <div style="text-align: center; margin: 1.5rem 0; color: #cbd5e1; font-size: 0.875rem;">
-            ATAU
+        <div class="login-separator" aria-hidden="true">ATAU</div>
+
+        <div class="login-methods" role="tablist" aria-label="Kaedah log masuk">
+            <button
+                type="button"
+                class="login-method active"
+                id="email-tab"
+                role="tab"
+                aria-selected="true"
+                aria-controls="email-login-panel"
+                data-method="email"
+            >
+                E-mel
+            </button>
+            <button
+                type="button"
+                class="login-method"
+                id="phone-tab"
+                role="tab"
+                aria-selected="false"
+                aria-controls="phone-login-panel"
+                data-method="phone"
+                tabindex="-1"
+            >
+                Telefon
+            </button>
+            <button
+                type="button"
+                class="login-method"
+                id="totp-tab"
+                role="tab"
+                aria-selected="false"
+                aria-controls="totp-login-panel"
+                data-method="totp"
+                tabindex="-1"
+            >
+                TOTP
+            </button>
         </div>
 
-        <!-- Tab Kaedah Log Masuk (Email/Phone/TOTP) -->
-        <div class="login-methods">
-            <button type="button" class="login-method active" data-method="email">E-mel</button>
-            <button type="button" class="login-method" data-method="phone">Telefon</button>
-            <button type="button" class="login-method" data-method="totp">TOTP</button>
-        </div>
+        <section
+            id="email-login-panel"
+            class="login-panel"
+            role="tabpanel"
+            aria-labelledby="email-tab"
+        >
+            <form>
+                <label class="visually-hidden" for="email">Alamat e-mel</label>
+                <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="Alamat E-mel"
+                    class="login-input"
+                    autocomplete="email"
+                    required
+                >
 
-        <!-- Panel Log Masuk E-mel -->
-        <div id="email-login-panel" class="login-panel">
-            <input type="email" placeholder="Alamat E-mel" class="login-input">
-            <input type="password" placeholder="Kata Laluan" class="login-input">
-            <button type="submit" class="login-button">Log Masuk</button>
+                <label class="visually-hidden" for="password">Kata laluan</label>
+                <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    placeholder="Kata Laluan"
+                    class="login-input"
+                    autocomplete="current-password"
+                    required
+                >
+
+                <button type="submit" class="login-button">Log Masuk</button>
+            </form>
             <a href="#" class="magic-link">Hantar Pautan Ajaib</a>
-        </div>
+        </section>
 
-        <!-- Panel Log Masuk Telefon (tersembunyi secara lalai) -->
-        <div id="phone-login-panel" class="login-panel hidden">
-            <input type="tel" placeholder="Nombor Telefon" class="login-input">
-            <button type="submit" class="login-button">Hantar OTP</button>
-        </div>
+        <section
+            id="phone-login-panel"
+            class="login-panel hidden"
+            role="tabpanel"
+            aria-labelledby="phone-tab"
+            hidden
+        >
+            <form>
+                <label class="visually-hidden" for="phone">Nombor telefon</label>
+                <input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    placeholder="Nombor Telefon"
+                    class="login-input"
+                    autocomplete="tel"
+                    required
+                >
+                <button type="submit" class="login-button">Hantar OTP</button>
+            </form>
+        </section>
 
-        <!-- Panel Log Masuk TOTP (tersembunyi secara lalai) -->
-        <div id="totp-login-panel" class="login-panel hidden">
-            <input type="text" placeholder="Kod TOTP" class="login-input">
-            <button type="submit" class="login-button">Sahkan</button>
-        </div>
-    </div>
+        <section
+            id="totp-login-panel"
+            class="login-panel hidden"
+            role="tabpanel"
+            aria-labelledby="totp-tab"
+            hidden
+        >
+            <form>
+                <label class="visually-hidden" for="totp">Kod TOTP</label>
+                <input
+                    id="totp"
+                    name="totp"
+                    type="text"
+                    placeholder="Kod TOTP"
+                    class="login-input"
+                    inputmode="numeric"
+                    autocomplete="one-time-code"
+                    required
+                >
+                <button type="submit" class="login-button">Sahkan</button>
+            </form>
+        </section>
+    </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             const popupOverlay = document.getElementById('maintenanceNotificationPopup');
-            const closeButtonX = document.getElementById('closePopupButtonX');
-            const closeButtonBottom = document.getElementById('closeButtonBottom');
+            const closeButtons = [
+                document.getElementById('closePopupButtonX'),
+                document.getElementById('closeButtonBottom')
+            ];
 
-            // Fungsi untuk membuka popup
-            function openPopup() {
-                popupOverlay.style.display = 'flex';
-            }
+            const closePopup = () => {
+                popupOverlay.hidden = true;
+            };
 
-            // Fungsi untuk menutup popup
-            function closePopup() {
-                popupOverlay.style.display = 'none';
-            }
+            popupOverlay.hidden = false;
+            closeButtons.forEach((button) => {
+                button.addEventListener('click', closePopup);
+            });
 
-            // Buka popup secara automatik apabila halaman dimuatkan
-            openPopup();
-
-            // Tutup popup apabila butang 'x' diklik
-            closeButtonX.addEventListener('click', closePopup);
-
-            // Tutup popup apabila butang 'Tutup' di bahagian bawah diklik
-            closeButtonBottom.addEventListener('click', closePopup);
-
-            // Tutup popup apabila klik di luar kandungan popup
-            popupOverlay.addEventListener('click', function(event) {
+            popupOverlay.addEventListener('click', (event) => {
                 if (event.target === popupOverlay) {
                     closePopup();
                 }
             });
 
-            // Logik untuk tab log masuk yang sedia ada
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && !popupOverlay.hidden) {
+                    closePopup();
+                }
+            });
+
             const loginMethods = document.querySelectorAll('.login-method');
             const loginPanels = document.querySelectorAll('.login-panel');
 
-            loginMethods.forEach(methodButton => {
-                methodButton.addEventListener('click', function() {
-                    // Buang kelas 'active' dari semua butang kaedah
-                    loginMethods.forEach(btn => btn.classList.remove('active'));
-                    // Tambah kelas 'active' pada butang yang diklik
-                    this.classList.add('active');
+            loginMethods.forEach((button) => {
+                button.addEventListener('click', () => {
+                    const targetMethod = button.dataset.method;
+                    const targetPanel = document.getElementById(
+                        `${targetMethod}-login-panel`
+                    );
 
-                    // Sembunyikan semua panel
-                    loginPanels.forEach(panel => panel.classList.add('hidden'));
+                    if (!targetPanel) {
+                        return;
+                    }
 
-                    // Paparkan panel yang berkaitan
-                    const targetMethod = this.dataset.method;
-                    document.getElementById(`${targetMethod}-login-panel`).classList.remove('hidden');
+                    loginMethods.forEach((methodButton) => {
+                        const isSelected = methodButton === button;
+                        methodButton.classList.toggle('active', isSelected);
+                        methodButton.setAttribute('aria-selected', String(isSelected));
+                        methodButton.tabIndex = isSelected ? 0 : -1;
+                    });
+
+                    loginPanels.forEach((panel) => {
+                        const isSelected = panel === targetPanel;
+                        panel.hidden = !isSelected;
+                        panel.classList.toggle('hidden', !isSelected);
+                    });
                 });
             });
         });
