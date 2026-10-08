@@ -430,4 +430,3 @@ async function restore() {
 }
 
 restore();
-```
