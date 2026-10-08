@@ -3,14 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="referrer" content="no-referrer">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script async src="https://cdn.webdecoy.com/bot-detection/v1/bot-detection.min.js" data-aid="c7ecc7f5-4af2-410e-9df7-b0f3e794fff7" data-sid="4cec1b6c-fdd2-4230-bf77-d286d7f77e4e" data-endpoint="https://ingest.webdecoy.com/api/v1/detect/public"></script>
-    
-    <!-- Sentry -->
-    <script
-      src="https://js.sentry-cdn.com/5ff72752bc39b49369bd3128c7f9d072.min.js"
-      crossorigin="anonymous"
-    ></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
@@ -710,99 +703,61 @@
             });
         }
 
-        function goToPaymentPage() {
-            window.showPageTransition(() => {
-                document.getElementById('mainPage')?.classList.add('hidden');
-                document.getElementById('firebaseAuthContainer')?.classList.add('hidden');
-                document.getElementById('siteFooter')?.classList.add('hidden');
-                document.getElementById('features-container')?.classList.add('hidden'); // ← TAMBAH INI
-                document.getElementById('paymentPage')?.classList.remove('hidden');
-                window.scrollTo({top: 0, behavior: 'smooth'});
-            });
-        }
+        </script>
+  (() => {
+    const form = document.querySelector("#paymentPage form");
+    const termsCheckbox = document.getElementById("termsCheckbox");
+    const termsError = document.getElementById("termsError");
 
-        function goToNextStepPage(event) {
+    if (!form) return;
 
-    event?.preventDefault();
+    termsCheckbox?.addEventListener("change", () => {
+      if (termsCheckbox.checked) {
+        termsError?.classList.add("hidden");
+      }
+    });
 
-    const nama = document.getElementById("namaInput")?.value.trim();
-    const icDigits = (document.getElementById("icInput")?.value || '').replace(/\D/g, '');
-    const loanId = (document.getElementById("djcustInput")?.value || '').trim().toUpperCase();
-    const phone = (document.getElementById("phoneInput")?.value || '').replace(/\D/g, '');
-    const amount = parseFloat(document.getElementById("amountInput")?.value || '0');
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
 
-    const termsChecked =
-        document.getElementById("termsCheckbox")?.checked;
+      const name = document.getElementById("namaInput")?.value.trim() ?? "";
+      const ic = document.getElementById("icInput")?.value.replace(/\D/g, "") ?? "";
+      const loanId = document.getElementById("djcustInput")?.value.trim().toUpperCase() ?? "";
+      const phone = document.getElementById("phoneInput")?.value.replace(/\D/g, "") ?? "";
+      const amount = Number(document.getElementById("amountInput")?.value);
+      const acceptedTerms = termsCheckbox?.checked === true;
 
-    if (!termsChecked) {
-        document.getElementById("termsError")
-            ?.classList.remove("hidden");
-    }
-
-    if (
-        !nama ||
-        icDigits.length !== 12 ||
-        !/^(?:D[0-9]+|J[0-9]+|DJ[0-9]+|CUST[0-9]+)$/.test(loanId) ||
-        !/^1[0-9]{8,9}$/.test(phone) ||
-        amount <= 0 ||
-        !termsChecked
-    ) {
+      if (!acceptedTerms) {
+        termsError?.classList.remove("hidden");
+        termsCheckbox?.focus();
         return;
-    }
+      }
 
-    window.location.href =
-       "components/payment.html?nama=" +
-        encodeURIComponent(nama) +
-        "&id=" +
-        encodeURIComponent(loanId) +
-        "&jumlah=" +
-        encodeURIComponent(amount);
-}
+      if (
+        !name ||
+        ic.length !== 12 ||
+        !/^(?:D\d+|J\d+|DJ\d+|CUST\d+)$/.test(loanId) ||
+        !/^1\d{8,9}$/.test(phone) ||
+        !Number.isFinite(amount) ||
+        amount <= 0 ||
+        !form.reportValidity()
+      ) {
+        return;
+      }
 
+      // Validate the Turnstile response on the server before processing payment.
+      // Do not treat a client-side response as proof of a valid challenge.
+      const params = new URLSearchParams({
+        nama: name,
+        id: loanId,
+        jumlah: String(amount),
+        phone
+      });
 
-        function formatIC(input) {
-            let digits = input.value.replace(/\D/g, '').slice(0, 12);
-            if (digits.length >= 6) {
-                input.value = digits.slice(0, 6) + '-' + digits.slice(6, 8) + '-' + digits.slice(8, 12);
-            } else if (digits.length > 0) {
-                input.value = digits;
-            } else {
-                input.value = '';
-            }
-            const error = document.getElementById('icError');
-            if (error) {
-                if (digits.length > 0 && digits.length !== 12) {
-                    error.classList.remove('hidden');
-                } else {
-                    error.classList.add('hidden');
-                }
-            }
-        }
-
-        function validatePhone(input) {
-            input.value = input.value.replace(/\D/g, '');
-            const phoneError = document.getElementById('phoneError');
-            const value = input.value;
-            if (value.length > 0 && !/^1[0-9]{8,9}$/.test(value)) {
-                phoneError?.classList.remove('hidden');
-            } else {
-                phoneError?.classList.add('hidden');
-            }
-        }
-
-        // Terms checkbox gate
-        (function() {
-            var cb = document.getElementById("termsCheckbox");
-            var btn = document.getElementById("continueBtn");
-            if (cb && btn) {
-                cb.addEventListener("change", function() {
-                    btn.disabled = !cb.checked;
-                    btn.classList.toggle("opacity-50", !cb.checked);
-                    btn.classList.toggle("cursor-not-allowed", !cb.checked);
-                });
-            }
-        })();
-    </script>
+      window.location.assign(`components/payment.html?${params.toString()}`);
+    });
+  })();
+</script>
     
 <!-- Start of LiveChat (www.livechat.com) code -->
 <script>
