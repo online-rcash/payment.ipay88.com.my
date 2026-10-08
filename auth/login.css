@@ -596,3 +596,26 @@ body.login-page {
 @media (prefers-reduced-motion: reduce) {
   .login-live-orb, .sidebar-menu { animation: none; transition-duration: .01ms; }
 }
+
+[hidden] {
+    display: none !important;
+}
+
+.login-separator {
+    margin: 1.5rem 0;
+    color: #cbd5e1;
+    font-size: 0.875rem;
+    text-align: center;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
