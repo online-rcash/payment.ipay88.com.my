@@ -1,12 +1,3 @@
-## Baikan utama
-
-- Menghalang ralat apabila elemen DOM atau konfigurasi tidak tersedia.
-- Mengelakkan respons daripada operasi lama mengubah keadaan selepas pengguna bertukar aliran atau log keluar.
-- Memastikan keadaan butang dan borang dipulihkan dengan betul selepas operasi gagal.
-- Memastikan pemasa OTP disegarkan apabila masa menunggu berubah.
-- Menangani ralat pemulihan sesi dan Google Login dengan lebih konsisten.
-
-```js
 // Workers handles email authentication; Firebase is used only for Google.
 const $ = id => document.getElementById(id);
 const config = window.RCASH_AUTH_CONFIG;
