@@ -10,6 +10,9 @@
     <link rel="preconnect" href="https://challenges.cloudflare.com">
       
     <title>R-Cash - Secure Digital Loan Repayment Portal</title>
+    
+    <meta name="description"
+      content="RCash (R-Cash) is a secure digital loan repayment portal in Malaysia. Manage accounts and make online loan payments safely and conveniently.">
 
     <!-- Google Identity Services Script -->
     <meta property="og:type" content="website">
@@ -20,7 +23,6 @@
     <meta property="og:image:type" content="image/svg+xml">
     <meta property="og:image:width" content="1523">
     <meta property="og:image:height" content="334">
-    <meta name="robots" content="noimageindex">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -180,10 +182,14 @@
 
      <main class="max-w-md mx-auto px-4 py-4 text-center flex-grow flex flex-col justify-center items-center">
 
-            <div class="duitjom-status-badge">
-                <span class="duitjom-status-dot"></span>
+    <h1 style="position:absolute;left:-9999px;">
+        R-Cash Malaysia Loan Repayment Portal
+    </h1>
+
+            <div class="rcash-status-badge">
+                <span class="rcash-status-dot"></span>
                 <span data-i18n="home.statusBadge">DIGITAL • SECURE • ONLINE</span>
-                <span class="duitjom-status-live" data-i18n="home.statusLive">On Going</span>
+                <span class="rcash-status-live" data-i18n="home.statusLive">On Going</span>
             </div>
 
             <!-- PREMIUM ADMINISTRATION OVERLAY -->
@@ -207,10 +213,10 @@
                     <span class="admin-overlay-label" data-i18n="home.adminLabel">
                         DIGITAL ADMINISTRATION
                     </span>
-                    <h1>
+                    <h2>
                         <span data-i18n="home.adminTitleLine1">Efficient Administration</span>
                         <span data-i18n="home.adminTitleLine2">Control System</span>
-                    </h1>
+                    </h2>
                     <p data-i18n="home.adminDescription">
                         All administrative processes are managed digitally with
                         intelligent A.I. assistance for faster, accurate and
@@ -237,7 +243,7 @@
             </div>
 
             <!-- R-Cash NEWS PREMIUM SLIDER -->
-            <section class="duitjom-news">
+            <section class="rcash-news">
                 <!-- News Header -->
                 <div class="news-header">
                     <div class="news-brand-icon">
@@ -684,79 +690,92 @@
     <script src="js/welcome-popup.js?v=20261007-poster"></script>
     <script type="module" src="auth/app-auth.js?v=20261007-otp-magic"></script>
 
-    
     <!-- Firebase Authentication UI -->
     <!-- Firebase auth controller: auth/app-auth.js -->
     <!-- QR Code Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
     <!-- Payment Page Navigation Functions -->
-    <script>
-        function backToMainFromPayment() {
-            window.showPageTransition(() => {
-                document.getElementById('paymentPage')?.classList.add('hidden');
-                document.getElementById('mainPage')?.classList.remove('hidden');
-                document.getElementById('firebaseAuthContainer')?.classList.remove('hidden');
-                document.getElementById('siteFooter')?.classList.remove('hidden');
-                document.getElementById('features-container')?.classList.remove('hidden'); // ← TAMBAH INI
-                window.scrollTo({top: 0, behavior: 'smooth'});
+<script>
+    function backToMainFromPayment() {
+        window.showPageTransition(() => {
+            document.getElementById('paymentPage')?.classList.add('hidden');
+            document.getElementById('mainPage')?.classList.remove('hidden');
+            document.getElementById('firebaseAuthContainer')?.classList.remove('hidden');
+            document.getElementById('siteFooter')?.classList.remove('hidden');
+            document.getElementById('features-container')?.classList.remove('hidden');
+
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
-        }
+        });
+    }
 
-        </script>
-  (() => {
-    const form = document.querySelector("#paymentPage form");
-    const termsCheckbox = document.getElementById("termsCheckbox");
-    const termsError = document.getElementById("termsError");
+    (() => {
+        const form = document.querySelector("#paymentPage form");
+        const termsCheckbox = document.getElementById("termsCheckbox");
+        const termsError = document.getElementById("termsError");
 
-    if (!form) return;
+        if (!form) return;
 
-    termsCheckbox?.addEventListener("change", () => {
-      if (termsCheckbox.checked) {
-        termsError?.classList.add("hidden");
-      }
-    });
+        termsCheckbox?.addEventListener("change", () => {
+            if (termsCheckbox.checked) {
+                termsError?.classList.add("hidden");
+            }
+        });
 
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
 
-      const name = document.getElementById("namaInput")?.value.trim() ?? "";
-      const ic = document.getElementById("icInput")?.value.replace(/\D/g, "") ?? "";
-      const loanId = document.getElementById("djcustInput")?.value.trim().toUpperCase() ?? "";
-      const phone = document.getElementById("phoneInput")?.value.replace(/\D/g, "") ?? "";
-      const amount = Number(document.getElementById("amountInput")?.value);
-      const acceptedTerms = termsCheckbox?.checked === true;
+            const name =
+                document.getElementById("namaInput")?.value.trim() ?? "";
 
-      if (!acceptedTerms) {
-        termsError?.classList.remove("hidden");
-        termsCheckbox?.focus();
-        return;
-      }
+            const ic =
+                document.getElementById("icInput")?.value.replace(/\D/g, "") ?? "";
 
-      if (
-        !name ||
-        ic.length !== 12 ||
-        !/^(?:D\d+|J\d+|DJ\d+|CUST\d+)$/.test(loanId) ||
-        !/^1\d{8,9}$/.test(phone) ||
-        !Number.isFinite(amount) ||
-        amount <= 0 ||
-        !form.reportValidity()
-      ) {
-        return;
-      }
+            const loanId =
+                document.getElementById("djcustInput")?.value.trim().toUpperCase() ?? "";
 
-      // Validate the Turnstile response on the server before processing payment.
-      // Do not treat a client-side response as proof of a valid challenge.
-      const params = new URLSearchParams({
-        nama: name,
-        id: loanId,
-        jumlah: String(amount),
-        phone
-      });
+            const phone =
+                document.getElementById("phoneInput")?.value.replace(/\D/g, "") ?? "";
 
-      window.location.assign(`components/payment.html?${params.toString()}`);
-    });
-  })();
+            const amount =
+                Number(document.getElementById("amountInput")?.value);
+
+            const acceptedTerms =
+                termsCheckbox?.checked === true;
+
+            if (!acceptedTerms) {
+                termsError?.classList.remove("hidden");
+                termsCheckbox?.focus();
+                return;
+            }
+
+            if (
+                !name ||
+                ic.length !== 12 ||
+                !/^(?:D\d+|J\d+|DJ\d+|CUST\d+)$/.test(loanId) ||
+                !/^1\d{8,9}$/.test(phone) ||
+                !Number.isFinite(amount) ||
+                amount <= 0 ||
+                !form.reportValidity()
+            ) {
+                return;
+            }
+
+            const params = new URLSearchParams({
+                nama: name,
+                id: loanId,
+                jumlah: String(amount),
+                phone
+            });
+
+            window.location.assign(
+                `components/payment.html?${params.toString()}`
+            );
+        });
+    })();
 </script>
     
 <!-- Start of LiveChat (www.livechat.com) code -->
