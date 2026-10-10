@@ -187,17 +187,17 @@ function generateNoRef() {
   if (currentRef) return currentRef;
 
   try {
-    currentRef = sessionStorage.getItem("dj_noref") || "";
+    currentRef = sessionStorage.getItem("rc_noref") || "";
   } catch {}
 
   if (!currentRef) {
     currentRef =
       "iP8-" +
       Math.floor(10000000 + Math.random() * 90000000) +
-      "-DJO";
+      "-RCO";
 
     try {
-      sessionStorage.setItem("dj_noref", currentRef);
+      sessionStorage.setItem("rc_noref", currentRef);
     } catch {}
   }
 
@@ -404,7 +404,7 @@ function selectBank(id) {
 
 function prepareQRDownloads() {
   const fileName =
-    "DuitJom-QR-" +
+    "R-Cash-QR-" +
     generateNoRef().replace(/[^a-zA-Z0-9_-]/g, "") +
     ".jpeg";
 
@@ -666,7 +666,7 @@ function closeTransferModal() {
 
 function contactWhatsapp() {
   window.open(
-    "https://wa.me/601168462807?text=PMDuitJom",
+    "https://wa.me/601168462807?text=PMR-Cash",
     "_blank",
     "noopener,noreferrer"
   );
