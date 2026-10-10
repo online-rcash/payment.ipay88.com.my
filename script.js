@@ -3,7 +3,7 @@
 // =====================================================
 let timerInstance = null;
 let namaPelangganGlobal = "";
-let djCustomerIdGlobal = "";
+let rcCustomerIdGlobal = "";
 let amountGlobal = 0;
 
 function t(key, vars) {
@@ -151,23 +151,23 @@ function generateQR() {
     if (qrGenerated) return;
     qrGenerated = true;
 
-    const djcustEl = document.getElementById("djcustInput");
-    const djCustomerID = djcustEl ? djcustEl.value.toUpperCase() : "";
+    const rccustEl = document.getElementById("rccustInput");
+    const rcCustomerID = rccustEl ? rccustEl.value.toUpperCase() : "";
     const amountEl = document.getElementById("amountInput");
     const amountInput = amountEl ? amountEl.value : "";
     const amount = parseFloat(amountInput);
     const namaEl = document.getElementById("namaInput");
     namaPelangganGlobal = namaEl ? namaEl.value : "Customer";
-    djCustomerIdGlobal = djCustomerID;
+    rcCustomerIdGlobal = rcCustomerID;
     amountGlobal = amount;
 
-    if (!djCustomerID || !amount || amount <= 0) {
+    if (!rcCustomerID || !amount || amount <= 0) {
         alert(t("home.alertFillAll"));
         qrGenerated = false;
         return;
     }
 
-    const qrData = `DJ:${djCustomerID}|${amount}|${Date.now()}`;
+    const qrData = `RC:${rcCustomerID}|${amount}|${Date.now()}`;
     const qrCodeElement = document.getElementById("qrCode");
 
     if (!qrCodeElement) {
@@ -247,7 +247,7 @@ function finalSubmission() {
     if (summary) {
         const rows = [
             [t("confirmation.summaryName"), namaPelangganGlobal],
-            [t("confirmation.summaryId"), djCustomerIdGlobal],
+            [t("confirmation.summaryId"), rcCustomerIdGlobal],
             [t("confirmation.summaryAmount"), "RM " + amountGlobal.toFixed(2)]
         ];
         summary.innerHTML = rows.map(([label, value]) =>
@@ -282,7 +282,7 @@ function loadComponent(containerId, filePath) {
     .then(data => {
       container.innerHTML = data;
       window.DJ_I18N?.applyTranslations(container);
-      document.dispatchEvent(new CustomEvent("duitjom:component-loaded", { detail: { containerId } }));
+      document.dispatchEvent(new CustomEvent("rcash:component-loaded", { detail: { containerId } }));
       return true;
     })
     .catch(error => {
@@ -313,14 +313,14 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 /* =========================================================
-   VALIDATE DJCUST INPUT
+   VALIDATE RCCUST INPUT
 ========================================================= */
-function validateDJCust(input) {
-    const errorElement = document.getElementById('djcustError');
+function validateRCCust(input) {
+    const errorElement = document.getElementById('rccustError');
     const value = input.value.toUpperCase();
     input.value = value;
     
-    const isValid = /^(?:D[0-9]+|J[0-9]+|DJ[0-9]+|CUST[0-9]+)$/.test(value);
+    const isValid = /^(?:D[0-9]+|J[0-9]+|RC[0-9]+|CUST[0-9]+)$/.test(value);
 
     if (value.length > 0 && !isValid) {
         if (errorElement) errorElement.classList.remove('hidden');
@@ -396,8 +396,8 @@ function closeEmailPopup() {
     }, 300);
 }
 
-async function copyDuitjomEmail() {
-    const email = document.getElementById('duitjomEmail')?.textContent.trim();
+async function copyRCashEmail() {
+    const email = document.getElementById('rcashEmail')?.textContent.trim();
     if (!email) return;
 
     try {
