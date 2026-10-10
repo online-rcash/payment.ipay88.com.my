@@ -38,7 +38,7 @@ select:focus-visible {
 /* =========================================================
    LOADING / TRANSITION OVERLAY
 ========================================================= */
-@keyframes duitjomLoadingFloat {
+@keyframes rcashLoadingFloat {
     0%, 100% { transform: translateY(0); opacity: .92; }
     50% { transform: translateY(-4px); opacity: 1; }
 }
@@ -52,7 +52,7 @@ select:focus-visible {
     border-radius: 1.25rem;
     background: #f8fafc;
     border: 1px solid #e2e8f0;
-    animation: duitjomLoadingFloat 3s ease-in-out infinite;
+    animation: rcashLoadingFloat 3s ease-in-out infinite;
 }
 
 .loading-message {
@@ -356,7 +356,7 @@ select:focus-visible {
     }
 
     .admin-glass-overlay,
-    .duitjom-news {
+    .rcash-news {
         width: calc(100% - 1rem);
         max-width: 100%;
         min-width: 0;
@@ -412,7 +412,7 @@ select:focus-visible {
    R-Cash NEWS — PREMIUM GLASSMORPHISM
 ========================================================= */
 
-.duitjom-news {
+.rcash-news {
     position: relative;
 
     width: 100%;
@@ -447,7 +447,7 @@ select:focus-visible {
 
 /* Background glow */
 
-.duitjom-news::before {
+.rcash-news::before {
     content: "";
 
     position: absolute;
@@ -474,7 +474,7 @@ select:focus-visible {
     pointer-events: none;
 }
 
-.duitjom-news::after {
+.rcash-news::after {
     content: "";
 
     position: absolute;
@@ -950,7 +950,7 @@ select:focus-visible {
 
 @media (max-width: 380px) {
 
-    .duitjom-news {
+    .rcash-news {
         padding: 19px 14px 15px;
         border-radius: 25px;
     }
@@ -1021,7 +1021,7 @@ select:focus-visible {
    R-Cash PREMIUM STATUS BADGE
 ========================================================= */
 
-.duitjom-status-badge {
+.rcash-status-badge {
     position: relative;
 
     display: inline-flex;
@@ -1062,7 +1062,7 @@ select:focus-visible {
 
 /* LIVE indicator */
 
-.duitjom-status-dot {
+.rcash-status-dot {
     width: 7px;
     height: 7px;
 
@@ -1076,10 +1076,10 @@ select:focus-visible {
         0 0 0 3px rgba(16,185,129,.12),
         0 0 10px rgba(16,185,129,.65);
 
-    animation: duitjomStatusPulse 1.8s ease-in-out infinite;
+    animation: rcashStatusPulse 1.8s ease-in-out infinite;
 }
 
-@keyframes duitjomStatusPulse {
+@keyframes rcashStatusPulse {
 
     0%, 100% {
         transform: scale(1);
@@ -1095,7 +1095,7 @@ select:focus-visible {
 
 /* LIVE pill */
 
-.duitjom-status-live {
+.rcash-status-live {
     padding: 3px 6px;
 
     border-radius: 999px;
@@ -1114,7 +1114,7 @@ select:focus-visible {
 
 /* Subtle shine */
 
-.duitjom-status-badge::after {
+.rcash-status-badge::after {
     content: "";
 
     position: absolute;
@@ -1135,12 +1135,12 @@ select:focus-visible {
 
     transform: skewX(-20deg);
 
-    animation: duitjomBadgeShine 4.5s ease-in-out infinite;
+    animation: rcashBadgeShine 4.5s ease-in-out infinite;
 
     pointer-events: none;
 }
 
-@keyframes duitjomBadgeShine {
+@keyframes rcashBadgeShine {
 
     0%, 65% {
         left: -80%;
