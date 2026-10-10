@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.json$
+Disallow: /auth/
+Disallow: /components/payment.html
+
+# Sitemaps
+Sitemap: https://payment.ipay88.com.my/sitemap.xml
+
+# Crawl delay
+Crawl-delay: 1
+
+# Respect cache
+Cache-Control: public, max-age=2592000
