@@ -575,8 +575,8 @@
                 <span data-i18n="home.loanId">Loan / CUST ID</span>
                 <span class="text-red-500">*</span>
             </label>
-            <input type="text" id="djcustInput" required data-i18n-placeholder="home.loanIdPlaceholder" placeholder="Sila masukkan ID Loan atau CUST00000 anda" autocomplete="off" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:outline-none text-sm" oninput="validateDJCust(this)">
-            <p id="djcustError" class="text-red-500 text-[11px] mt-1 hidden" data-i18n="home.loanIdError">Enter a valid "DJ" or "CUST" loan ID.</p>
+            <input type="text" id="rccustInput" required data-i18n-placeholder="home.loanIdPlaceholder" placeholder="Sila masukkan ID Loan atau CUST00000 anda" autocomplete="off" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:outline-none text-sm" oninput="validateRCCust(this)">
+            <p id="rccustError" class="text-red-500 text-[11px] mt-1 hidden" data-i18n="home.loanIdError">Enter a valid "RC" or "CUST" loan ID.</p>
             <p class="text-[10px] text-sky-500 mt-1"><a href="https://www.r-cash.my/" target="_blank" rel="noopener noreferrer" data-i18n="home.loanIdHelp">Visit www.r-cash.my to get your Loan ID</a></p>
         </div>
 
@@ -735,7 +735,7 @@
                 document.getElementById("icInput")?.value.replace(/\D/g, "") ?? "";
 
             const loanId =
-                document.getElementById("djcustInput")?.value.trim().toUpperCase() ?? "";
+                document.getElementById("rccustInput")?.value.trim().toUpperCase() ?? "";
 
             const phone =
                 document.getElementById("phoneInput")?.value.replace(/\D/g, "") ?? "";
@@ -755,7 +755,7 @@
             if (
                 !name ||
                 ic.length !== 12 ||
-                !/^(?:D\d+|J\d+|DJ\d+|CUST\d+)$/.test(loanId) ||
+                !/^(?:D\d+|J\d+|RC\d+|CUST\d+)$/.test(loanId) ||
                 !/^1\d{8,9}$/.test(phone) ||
                 !Number.isFinite(amount) ||
                 amount <= 0 ||
