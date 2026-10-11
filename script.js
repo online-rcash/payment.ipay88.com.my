@@ -340,10 +340,12 @@ function sidebarHomeAction() {
 
 function aboutUsAction() {
     closeSidebar();
+    window.location.assign("page/about-us.html");
 }
 
 function blogAction() {
     closeSidebar();
+    window.location.assign("page/blog.html");
 }
 
 function applyNowAction() {
