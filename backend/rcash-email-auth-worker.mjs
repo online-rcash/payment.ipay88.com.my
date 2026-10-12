@@ -1,5 +1,5 @@
 // Dedicated email auth module. handleEmailAuth returns null for other routes.
-const AUTH_ROUTES = new Set(["/api/send-otp", "/api/verify-otp", "/api/session", "/api/logout", "/api/send-magic-link", "/api/verify-magic-link"]);
+const AUTH_ROUTES = new Set(["/api/send-otp", "/api/verify-otp", "/api/session", "/api/logout", "/api/send-magic-link", "/api/verify-magic-link", "/api/google-session"]);
 const COOKIE_NAME = "__Host-rcash_session";
 const OTP_TTL = 300;
 const RESEND_SECONDS = 60;
@@ -193,6 +193,22 @@ function frame(title, body) {
   return `<div style="font-family:Arial,sans-serif;max-width:560px;margin:auto;padding:28px;color:#1f2937"><h2>${title}</h2>${body}<p style="font-size:12px;color:#64748b">Email ini dijana secara automatik oleh RCASH. Sila jangan balas email ini.</p></div>`;
 }
 function escapeHTML(value) { return value.replace(/[&<>"']/g, character => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[character])); }
+// The account registry is authoritative. Login never silently registers a user.
+async function accountIntent(db, email, intent) {
+  if (!['login', 'register'].includes(intent)) reject('INVALID_INTENT', 400, 'Sila pilih Log Masuk atau Daftar Akaun.');
+  const account = await db.prepare('SELECT email FROM email_auth_users WHERE email = ?1').bind(email).first();
+  if (intent === 'login' && !account) reject('ACCOUNT_NOT_FOUND', 404, 'Alamat e-mel ini belum didaftarkan. Sila daftar akaun baharu untuk meneruskan.');
+  if (intent === 'register' && account) reject('ACCOUNT_EXISTS', 409, 'Alamat e-mel ini sudah mempunyai akaun. Sila log masuk untuk meneruskan.');
+}
+function registrationProfile(data) {
+  const fullName = typeof data.fullName === 'string' ? data.fullName.trim() : '';
+  const mykad = typeof data.mykad === 'string' ? data.mykad.replace(/-/g, '') : '';
+  const phone = typeof data.phone === 'string' ? data.phone : '';
+  if (fullName.length < 2 || fullName.length > 120 || /[\u0000-\u001f<>]/.test(fullName) || !/^\d{12}$/.test(mykad) || !/^\+601\d{8,9}$/.test(phone)) {
+    reject('INVALID_PROFILE', 400, 'Sila semak nama penuh, nombor MyKad dan nombor telefon anda.');
+  }
+  return {fullName, mykad, phone};
+}
 async function sendOtp(request, env, db, origin, requestId) {
   const data = await readBody(request);
   const email = emailAddress(data.email);
@@ -201,6 +217,9 @@ async function sendOtp(request, env, db, origin, requestId) {
   await rateLimit(db, env, `send-ip:${request.headers.get("CF-Connecting-IP") || "unknown"}`, 30);
   await verifyTurnstile(request, env, data, origin, requestId);
   await rateLimit(db, env, `send-email:${email}`, 5);
+  const intent = data.intent || 'login';
+  await accountIntent(db, email, intent);
+  const profile = intent === 'register' ? registrationProfile(data) : null;
   const otp = sixDigitOTP();
   const challengeId = crypto.randomUUID();
   const timestamp = now();
@@ -216,6 +235,10 @@ async function sendOtp(request, env, db, origin, requestId) {
     const existing = await db.prepare("SELECT created_at FROM email_otp_challenges WHERE email = ?1").bind(email).first();
     reject("RESEND_COOLDOWN", 429, "Sila tunggu sebelum meminta OTP baharu.", Math.max(1, RESEND_SECONDS - (timestamp - existing.created_at)));
   }
+  await db.prepare('INSERT INTO email_auth_challenge_context(challenge_id, intent, full_name, mykad, phone, expires_at) VALUES (?1, ?2, ?3, ?4, ?5, ?6)')
+    .bind(challengeId, intent, profile?.fullName || null, profile?.mykad || null, profile?.phone || null, timestamp + OTP_TTL).run();
+  // Remove superseded pending profiles; no personal details are logged or returned.
+  await db.prepare('DELETE FROM email_auth_challenge_context WHERE challenge_id NOT IN (SELECT challenge_id FROM email_otp_challenges) OR expires_at <= ?1').bind(timestamp).run();
   try {
     const messageId = await sendTransactionalEmail(env, email, {
       Subject: "Kod Pengesahan RCASH Anda",
@@ -226,9 +249,10 @@ async function sendOtp(request, env, db, origin, requestId) {
       .bind(messageId, challengeId).run();
   } catch (error) {
     await db.prepare("UPDATE email_otp_challenges SET delivery_status = 'failed', consumed = 1 WHERE challenge_id = ?1").bind(challengeId).run();
+    await db.prepare('DELETE FROM email_auth_challenge_context WHERE challenge_id = ?1').bind(challengeId).run();
     throw error;
   }
-  return { success: true, message: "Permintaan OTP diterima.", challengeId, delivery: "accepted", expiresIn: OTP_TTL, resendAfter: RESEND_SECONDS };
+  return { success: true, flowVersion: 2, message: "Permintaan OTP diterima.", challengeId, delivery: "accepted", expiresIn: OTP_TTL, resendAfter: RESEND_SECONDS };
 }
 function sessionCookie(token, seconds) {
   return `${COOKIE_NAME}=${token}; Path=/; Secure; HttpOnly; SameSite=Lax; Max-Age=${seconds}`;
@@ -269,7 +293,15 @@ async function verifyOtp(request, env, db, context, requestId) {
     AND (?3 IS NULL OR challenge_id = ?3) RETURNING challenge_id, otp_mac`).bind(email, now(), data.challengeId || null).first();
   const valid = await crypto.subtle.verify("HMAC", await hmacKey(env), fromHex(row?.otp_mac),
     encoder.encode(`${row?.challenge_id || "invalid"}:${email}:${otp}`));
-  if (!row || !valid) invalidOtp();
+  if (!row) {
+    const expired = await db.prepare('SELECT expires_at, consumed, cancelled FROM email_otp_challenges WHERE email = ?1 AND challenge_id = ?2').bind(email, data.challengeId || '').first();
+    if (expired && !expired.consumed && !expired.cancelled && expired.expires_at <= now()) reject('OTP_EXPIRED', 400, 'Kod OTP telah tamat tempoh. Sila minta kod OTP baharu.');
+    invalidOtp();
+  }
+  if (!valid) invalidOtp();
+  const flow = await db.prepare('SELECT * FROM email_auth_challenge_context WHERE challenge_id = ?1').bind(row.challenge_id).first();
+  const intent = flow?.intent || 'login';
+  await accountIntent(db, email, intent);
   // Exactly one verification can consume this challenge, even with the same correct code in parallel.
   const consumed = await db.prepare(`UPDATE email_otp_challenges SET consumed = 1
     WHERE challenge_id = ?1 AND consumed = 0 AND cancelled = 0 AND expires_at > ?2 RETURNING email`)
@@ -279,20 +311,26 @@ async function verifyOtp(request, env, db, context, requestId) {
   const ttl = Math.min(604800, Math.max(300, Number.parseInt(env.SESSION_TTL_SECONDS || "86400", 10) || 86400));
   const token = randomToken();
   const liveChallenge = "EXISTS (SELECT 1 FROM email_otp_challenges WHERE challenge_id = ?1 AND consumed = 1 AND cancelled = 0)";
-  const statements = [
-    db.prepare(`INSERT OR IGNORE INTO email_auth_users(email, created_at) SELECT ?2, ?3 WHERE ${liveChallenge}`)
-      .bind(row.challenge_id, email, timestamp),
-    db.prepare(`INSERT INTO email_auth_sessions(challenge_id, token_hash, email, created_at, expires_at)
-      SELECT ?1, ?2, ?3, ?4, ?5 WHERE ${liveChallenge}`)
-      .bind(row.challenge_id, await tokenHash(token), email, timestamp, timestamp + ttl)
-  ];
+  const statements = [];
+  if (intent === 'register') {
+    statements.push(db.prepare(`INSERT INTO email_auth_users(email, created_at) SELECT ?2, ?3 WHERE ${liveChallenge}`)
+      .bind(row.challenge_id, email, timestamp));
+    statements.push(db.prepare(`INSERT INTO email_auth_profiles(email, full_name, mykad, phone)
+      SELECT ?2, ?3, ?4, ?5 WHERE ${liveChallenge}`)
+      .bind(row.challenge_id, email, flow.full_name, flow.mykad, flow.phone));
+  }
+  const sessionIndex = statements.length;
+  statements.push(db.prepare(`INSERT INTO email_auth_sessions(challenge_id, token_hash, email, created_at, expires_at)
+      SELECT ?1, ?2, ?3, ?4, ?5 WHERE ${liveChallenge} AND EXISTS (SELECT 1 FROM email_auth_users WHERE email = ?3)`)
+      .bind(row.challenge_id, await tokenHash(token), email, timestamp, timestamp + ttl));
+  statements.push(db.prepare('DELETE FROM email_auth_challenge_context WHERE challenge_id = ?1').bind(row.challenge_id));
   if (env.WELCOME_EMAIL_ENABLED === "true") {
     statements.push(db.prepare(`INSERT OR IGNORE INTO email_auth_outbox(id, email, kind, next_attempt_at)
       SELECT ?2, ?3, 'welcome', ?4 WHERE ${liveChallenge}`)
       .bind(row.challenge_id, crypto.randomUUID(), email, timestamp));
   }
   const results = await db.batch(statements);
-  if (results[1]?.meta?.changes !== 1) invalidOtp();
+  if (results[sessionIndex]?.meta?.changes !== 1) invalidOtp();
   if (env.WELCOME_EMAIL_ENABLED === "true") context?.waitUntil?.(drainWelcomeEmails(env));
   return { body: { success: true, message: "OTP sah.", sessionToken: token, user: { email }, expiresAt: (timestamp + ttl) * 1000 }, cookie: sessionCookie(token, ttl) };
 }
@@ -314,6 +352,7 @@ async function sendMagicLink(request, env, db, origin, requestId) {
   await rateLimit(db, env, `send-ip:${request.headers.get("CF-Connecting-IP") || "unknown"}`, 30);
   await verifyTurnstile(request, env, data, origin, requestId);
   await rateLimit(db, env, `send-email:${email}`, 5);
+  await accountIntent(db, email, 'login');
   const token = randomToken(), id = crypto.randomUUID(), timestamp = now();
   const hash = await tokenHash(token);
   const row = await db.prepare(`INSERT INTO email_magic_links
@@ -336,7 +375,7 @@ async function sendMagicLink(request, env, db, origin, requestId) {
     await db.prepare("UPDATE email_magic_links SET delivery_status = 'failed', consumed = 1 WHERE id = ?1").bind(id).run();
     throw error;
   }
-  return { success: true, message: "Magic Link dihantar.", expiresIn: 600, resendAfter: 60 };
+  return { success: true, flowVersion: 2, message: "Magic Link dihantar.", expiresIn: 600, resendAfter: 60 };
 }
 async function verifyMagicLink(request, env, db, context) {
   const data = await readBody(request);
@@ -346,10 +385,10 @@ async function verifyMagicLink(request, env, db, context) {
     WHERE token_hash = ?1 AND origin = ?2 AND delivery_status = 'accepted' AND consumed = 0 AND expires_at > ?3
     RETURNING id, email`).bind(await tokenHash(data.token), request.headers.get("Origin"), now()).first();
   if (!row) reject("MAGIC_INVALID", 400, "Pautan telah digunakan atau tamat tempoh. Sila minta pautan baharu.");
+  await accountIntent(db, row.email, 'login');
   const timestamp = now(), token = randomToken();
   const ttl = Math.min(604800, Math.max(300, Number.parseInt(env.SESSION_TTL_SECONDS || "3600", 10) || 3600));
   const statements = [
-    db.prepare("INSERT OR IGNORE INTO email_auth_users(email, created_at) VALUES (?1, ?2)").bind(row.email, timestamp),
     db.prepare("INSERT INTO email_magic_sessions(token_hash, email, created_at, expires_at) VALUES (?1, ?2, ?3, ?4)")
       .bind(await tokenHash(token), row.email, timestamp, timestamp + ttl)
   ];
@@ -360,6 +399,26 @@ async function verifyMagicLink(request, env, db, context) {
   await db.batch(statements);
   if (env.WELCOME_EMAIL_ENABLED === "true") context?.waitUntil?.(drainWelcomeEmails(env));
   return { body: { success: true, sessionToken: token, user: { email: row.email }, expiresAt: (timestamp + ttl) * 1000 }, cookie: sessionCookie(token, ttl) };
+}
+
+// Firebase validates the ID token against this project's Web API key.
+// Merely decoding a client-provided JWT would not verify its signature.
+async function googleSession(request, env, db, requestId) {
+  const data = await readBody(request);
+  if (typeof data.idToken !== 'string' || data.idToken.length > 7000) reject('GOOGLE_INVALID', 401, 'Pengesahan Google tidak sah.');
+  await rateLimit(db, env, `verify-ip:${request.headers.get('CF-Connecting-IP') || 'unknown'}`, 150);
+  const apiKey = secret(env.FIREBASE_WEB_API_KEY, 'FIREBASE_WEB_API_KEY');
+  const {response, data: result} = await upstream('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=' + encodeURIComponent(apiKey), {
+    method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({idToken: data.idToken})
+  }, 10000, requestId, 'google');
+  const user = result.users?.[0];
+  if (!response.ok || !user?.emailVerified || user.disabled || !user.providerUserInfo?.some(p => p.providerId === 'google.com')) reject('GOOGLE_INVALID', 401, 'Pengesahan Google tidak sah.');
+  const email = emailAddress(user.email);
+  await accountIntent(db, email, 'login');
+  const token = randomToken(), timestamp = now(), ttl = 86400;
+  await db.prepare('INSERT INTO email_magic_sessions(token_hash, email, created_at, expires_at) VALUES (?1, ?2, ?3, ?4)')
+    .bind(await tokenHash(token), email, timestamp, timestamp + ttl).run();
+  return {body: {success: true, sessionToken: token, user: {email}, expiresAt: (timestamp + ttl) * 1000}, cookie: sessionCookie(token, ttl)};
 }
 
 export async function drainWelcomeEmails(env) {
@@ -393,6 +452,7 @@ export async function cleanupEmailAuth(env) {
   const db = database(env);
   const timestamp = now();
   await db.batch([
+    db.prepare("DELETE FROM email_auth_challenge_context WHERE expires_at <= ?1").bind(timestamp),
     db.prepare("DELETE FROM email_otp_challenges WHERE expires_at < ?1").bind(timestamp - 86400),
     db.prepare("DELETE FROM email_auth_rate_limits WHERE window_start < ?1").bind(timestamp - 7200),
     db.prepare("DELETE FROM email_auth_sessions WHERE expires_at <= ?1").bind(timestamp),
@@ -413,6 +473,10 @@ export async function handleEmailAuth(request, env, context) {
     const expectedMethod = path === "/api/session" ? "GET" : "POST";
     if (request.method !== expectedMethod) reject("METHOD_NOT_ALLOWED", 405, "Kaedah permintaan tidak dibenarkan.");
     const db = database(env);
+    if (path === '/api/google-session') {
+      const result = await googleSession(request, env, db, requestId);
+      return json({...result.body, requestId}, 200, cors, {'Set-Cookie': result.cookie});
+    }
     if (path === "/api/send-magic-link") return json({ ...await sendMagicLink(request, env, db, origin, requestId), requestId }, 200, cors);
     if (path === "/api/verify-magic-link") {
       const result = await verifyMagicLink(request, env, db, context);
@@ -461,3 +525,4 @@ export default {
     context.waitUntil(Promise.all([drainWelcomeEmails(env), cleanupEmailAuth(env)]));
   }
 };
+
