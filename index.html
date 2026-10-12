@@ -46,15 +46,18 @@
     <meta name="robots" content="noimageindex">
 
     <!-- CSS Files -->
-    <link rel="stylesheet" href="css/utilities.css?v=20261012">
+    <link rel="stylesheet" href="css/utilities.css?v=20261012-layout1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="features.css">
     <link rel="stylesheet" href="auth/login.css?v=20261012">
     <link rel="stylesheet" href="css/welcome-popup.css?v=20261012">
     <link rel="stylesheet" href="auth/auth-forms.css">
-    <link rel="stylesheet" href="css/portal-refresh.css?v=20261012">
+
     <link rel="stylesheet" href="auth/email-otp.css?v=20261012">
+
+    <link rel="stylesheet" href="css/rcash-theme.css?v=20261012-layout1">
+    <link rel="stylesheet" href="auth/account-flow.css?v=20261012-layout1">
 
     <!-- Cloudflare Turnstile API -->
     <script src="auth/otp-turnstile.js?v=20261012"></script>
@@ -62,7 +65,9 @@
 
     <!-- Centralized i18n -->
     <script src="i18n/translations.js?v=20261012"></script>
-    <script src="i18n/i18n.js?v=20261012"></script>
+    <script src="i18n/auth-flow.js?v=20261012-layout1"></script>
+    <script src="i18n/portal-copy.js?v=20261012-layout1"></script>
+    <script src="i18n/i18n.js?v=20261012-layout1"></script>
 
     <!-- Page transition / loading overlay -->
     <script src="js/loading-screen.js"></script>
@@ -79,42 +84,23 @@
             </div>
 
             <div class="flex items-center gap-3">
-                <!-- Language Switcher -->
-                <div class="relative inline-block text-left group">
-                    <button type="button" class="flex items-center gap-1.5 text-[10px] font-medium text-gray-700 bg-gray-50 px-2.5 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-100 transition" data-i18n-aria-label="lang.switcherLabel" aria-haspopup="true">
-                        <span class="lang-current-flag">🇺🇸</span> <span class="lang-current-label">English</span> <i class="fas fa-chevron-down text-[9px] text-gray-400"></i>
+                <div id="languageSwitcher" class="relative inline-block text-left">
+                    <button id="languageToggle" type="button" class="flex items-center gap-1.5 text-xs font-medium text-gray-700 bg-gray-50 px-3 py-2 rounded-lg border border-gray-200" data-i18n-aria-label="lang.switcherLabel" aria-expanded="false" aria-controls="languageOptions">
+                        <span class="lang-current-flag">🇺🇸</span> <span class="lang-current-label">English</span> <span aria-hidden="true">⌄</span>
                     </button>
-                    
-                 <!-- Dropdown -->
-                <!-- Tambah dekat header -->
-<div class="relative inline-block text-left group">
-    <button type="button" class="flex items-center gap-1.5 text-[10px] font-medium text-gray-700 bg-gray-50 px-2.5 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-100 transition">
-        <span class="lang-current-flag">🇺🇸</span>
-        <span class="lang-current-label">English</span>
-        <i class="fas fa-chevron-down text-[9px] text-gray-400"></i>
-    </button>
-
-    <div class="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150">
-        <button type="button" data-locale-option="en" class="lang-option w-full text-left block px-4 py-2.5 text-xs font-bold text-gray-500 hover:bg-gray-50">
-            <span class="mr-2">🇺🇸</span> <span>English</span>
-        </button>
-        <button type="button" data-locale-option="zh" class="lang-option w-full text-left block px-4 py-2.5 text-xs font-bold text-gray-500 hover:bg-gray-50">
-            <span class="mr-2">🇨🇳</span> <span>中文</span>
-        </button>
-        <button type="button" data-locale-option="ms" class="lang-option w-full text-left block px-4 py-2.5 text-xs font-bold text-gray-500 hover:bg-gray-50">
-            <span class="mr-2">🇲🇾</span> <span>Bahasa Malaysia</span>
-        </button>
-    </div>
-</div>
-
-<!-- Hamburger button -->
-<button id="sidebarToggleButton" type="button" aria-expanded="false" aria-label="Open menu">
-    <i class="fas fa-bars text-2xl" aria-hidden="true"></i>
-</button>
-
-<!-- Load scripts -->
-<script src="js/sidebar-handler.js"></script>
-<script src="js/language-switcher.js"></script>
+                    <div id="languageOptions" hidden class="absolute right-0 mt-2 w-44 bg-white border border-gray-200 rounded-xl shadow-lg z-50">
+                        <button type="button" data-locale-option="en" class="lang-option w-full text-left block px-4 py-3 text-sm text-gray-700">🇺🇸 English</button>
+                        <button type="button" data-locale-option="zh" class="lang-option w-full text-left block px-4 py-3 text-sm text-gray-700">🇨🇳 中文</button>
+                        <button type="button" data-locale-option="ms" class="lang-option w-full text-left block px-4 py-3 text-sm text-gray-700">🇲🇾 Bahasa Malaysia</button>
+                    </div>
+                </div>
+                <button id="sidebarToggleButton" type="button" onclick="openSidebar()" aria-expanded="false" aria-label="Open menu">
+                    <span aria-hidden="true">☰</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <script src="js/language-switcher.js?v=20261012-layout1" defer></script>
 
     <!-- =========================================================
          R-Cash MAINTENANCE / IMPORTANT NOTICE
@@ -737,8 +723,9 @@
 </div>
 
     <!-- Main Scripts -->
-    <script src="script.js?v=20261011"></script>
+    <script src="script.js?v=20261012-layout1"></script>
     <script src="js/welcome-popup.js?v=20261007-poster"></script>
+    <script src="auth/worker-config.js?v=20261012-layout1"></script>
     <script type="module" src="auth/app-auth.js?v=20261011-flow"></script>
 
     <!-- Firebase Authentication UI -->

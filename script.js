@@ -2,12 +2,7 @@
 // GLOBAL STATE
 // =====================================================
 function t(key, vars) {
-  var locale = getLocale();
-  var value = lookup(locale, key);
-  if (value === undefined) value = lookup(dict.defaultLocale || "en", key);
-  if (value === undefined) value = fallbackAuthFlowValue(key);
-  if (value === undefined) return key;
-  return interpolate(value, vars);
+  return window.DJ_I18N ? window.DJ_I18N.t(key, vars) : key;
 }
 
 // ---- KAWALAN SIDEBAR ----
