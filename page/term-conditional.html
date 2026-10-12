@@ -32,7 +32,10 @@
 >
 
 <!-- FONT AWESOME -->
-
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+>
 
 
 <style>
@@ -1799,11 +1802,14 @@ footer p {
 </style>
 
 <link rel="stylesheet" href="../css/rcash-theme.css?v=20261007-purple">
-<link rel="stylesheet" href="../css/rcash-pages.css?v=20261011">
+<script src="../i18n/translations.js"></script>
+<script src="../i18n/i18n.js?v=20261011"></script>
+<script src="../i18n/page-i18n.js?v=20261011"></script>
+<link rel="stylesheet" href="../css/rcash-theme.css">
 </head>
 
 
-<body class="rcash-page">
+<body>
 
 
 <!-- =====================================================
@@ -1840,7 +1846,7 @@ footer p {
     <div class="menu-header">
 
         <img
-            src="../images/rcash-logo.svg"
+            src="/images/rcash-logo.svg"
             alt="R-Cash Logo"
             class="menu-logo"
         >
@@ -1852,7 +1858,7 @@ footer p {
             aria-label="Tutup menu"
         >
 
-            <svg class="rc-page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 6 12 12M6 18 18 6"/></svg>
+            <i class="fas fa-xmark"></i>
 
         </button>
 
@@ -1880,7 +1886,7 @@ footer p {
             class="menu-link"
         >
 
-            <svg class="rc-page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7h.01"/></svg>
+            <i class="fas fa-circle-info"></i>
 
             <span>
                 About Us
@@ -1894,7 +1900,7 @@ footer p {
             class="menu-link"
         >
 
-            <svg class="rc-page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6l8-3Z"/><path d="m8 12 3 3 5-6"/></svg>
+            <i class="fas fa-shield-halved"></i>
 
             <span>
                 Privacy
@@ -1904,11 +1910,11 @@ footer p {
 
 
         <a
-            href="mailto:support@rcash.my"
+            href="contact-us.html"
             class="menu-link"
         >
 
-            <svg class="rc-page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 13V11a8 8 0 0 1 16 0v7a3 3 0 0 1-3 3h-5"/><rect x="2" y="11" width="4" height="7" rx="2"/><rect x="18" y="11" width="4" height="7" rx="2"/></svg>
+            <i class="fas fa-headset"></i>
 
             <span>
                 Contact Us
@@ -1918,11 +1924,11 @@ footer p {
 
 
         <a
-            href="term-conditional.html"
+            href="terms-and-conditions.html"
             class="menu-link"
         >
 
-            <svg class="rc-page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 2H5v20h14V7l-5-5Zm0 0v5h5M8 12h8M8 16h8"/></svg>
+            <i class="fas fa-file-contract"></i>
 
             <span>
                 Term &amp; Conditions
@@ -1935,11 +1941,11 @@ footer p {
 
 
     <a
-        href="https://www.r-cash.my/"
+        href="apply-loan.html"
         class="menu-apply"
     >
 
-        <svg class="rc-page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 3h6v18h-6M3 12h12m-5-5 5 5-5 5"/></svg>
+        <i class="fas fa-arrow-right-to-bracket"></i>
 
         Apply Loan
 
@@ -1964,7 +1970,7 @@ footer p {
         >
 
             <img
-                src="../images/rcash-logo.svg"
+                src="/images/rcash-logo.svg"
                 alt="R-Cash Logo"
             >
 
@@ -1995,7 +2001,7 @@ footer p {
                 aria-controls="sideMenu"
             >
 
-                <svg class="rc-page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+                <i class="fas fa-bars"></i>
 
             </button>
 
@@ -2023,7 +2029,7 @@ footer p {
 
         <div class="hero-label">
 
-            <svg class="rc-page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 2H5v20h14V7l-5-5Zm0 0v5h5M8 12h8M8 16h8"/></svg>
+            <i class="fas fa-file-contract"></i>
 
             R-Cash TERMS
 
@@ -2051,7 +2057,7 @@ footer p {
 
         <div class="last-updated">
 
-            <svg class="rc-page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            <i class="fas fa-clock"></i>
 
             Kemas kini terakhir: 2026
 
@@ -2077,7 +2083,7 @@ footer p {
 
             <div class="intro-header">
 
-                <svg class="rc-page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7h.01"/></svg>
+                <i class="fas fa-circle-info"></i>
 
                 <span>
                     Pengenalan
@@ -2184,7 +2190,7 @@ footer p {
 
                     <h3>
 
-                        <svg class="rc-page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>
+                        <i class="fas fa-check-circle"></i>
 
                         Penggunaan Yang Dibenarkan
 
@@ -2226,7 +2232,7 @@ footer p {
 
                     <h3>
 
-                        <svg class="rc-page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="m6 6 12 12"/></svg>
+                        <i class="fas fa-ban"></i>
 
                         Aktiviti Yang Dilarang
 
@@ -2447,7 +2453,7 @@ footer p {
 
                 <h3>
 
-                    <svg class="rc-page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6l8-3Z"/><path d="m8 12 3 3 5-6"/></svg>
+                    <i class="fas fa-shield-halved"></i>
 
                     Panduan Keselamatan
 
@@ -2679,7 +2685,7 @@ footer p {
 
                 <div class="faq-question">
 
-                    <svg class="rc-page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M9 9a3 3 0 0 1 6 0c0 2-3 2-3 5m0 3h.01"/></svg>
+                    <i class="fas fa-circle-question"></i>
 
                     <span>
                         Apakah R-Cash?
@@ -2705,7 +2711,7 @@ footer p {
 
                 <div class="faq-question">
 
-                    <svg class="rc-page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M9 9a3 3 0 0 1 6 0c0 2-3 2-3 5m0 3h.01"/></svg>
+                    <i class="fas fa-circle-question"></i>
 
                     <span>
                         Adakah menghantar permohonan menjamin kelulusan?
@@ -2731,7 +2737,7 @@ footer p {
 
                 <div class="faq-question">
 
-                    <svg class="rc-page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M9 9a3 3 0 0 1 6 0c0 2-3 2-3 5m0 3h.01"/></svg>
+                    <i class="fas fa-circle-question"></i>
 
                     <span>
                         Apakah maklumat keselamatan yang tidak boleh dikongsi?
@@ -2756,7 +2762,7 @@ footer p {
 
                 <div class="faq-question">
 
-                    <svg class="rc-page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M9 9a3 3 0 0 1 6 0c0 2-3 2-3 5m0 3h.01"/></svg>
+                    <i class="fas fa-circle-question"></i>
 
                     <span>
                         Bagaimana saya boleh mendapatkan bantuan?
@@ -2781,7 +2787,7 @@ footer p {
 
                 <div class="faq-question">
 
-                    <svg class="rc-page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M9 9a3 3 0 0 1 6 0c0 2-3 2-3 5m0 3h.01"/></svg>
+                    <i class="fas fa-circle-question"></i>
 
                     <span>
                         Adakah terma dan syarat boleh berubah?
@@ -2806,7 +2812,7 @@ footer p {
 
                 <div class="faq-question">
 
-                    <svg class="rc-page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M9 9a3 3 0 0 1 6 0c0 2-3 2-3 5m0 3h.01"/></svg>
+                    <i class="fas fa-circle-question"></i>
 
                     <span>
                         Apa yang perlu dilakukan jika menerima mesej mencurigakan?
@@ -2838,7 +2844,7 @@ footer p {
 
             <div class="contact-icon">
 
-                <svg class="rc-page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 13V11a8 8 0 0 1 16 0v7a3 3 0 0 1-3 3h-5"/><rect x="2" y="11" width="4" height="7" rx="2"/><rect x="18" y="11" width="4" height="7" rx="2"/></svg>
+                <i class="fas fa-headset"></i>
 
             </div>
 
@@ -2860,7 +2866,7 @@ footer p {
 
             <div class="email">
 
-                <svg class="rc-page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/></svg>
+                <i class="fas fa-envelope"></i>
 
                 support@rcash.my
 
@@ -2882,7 +2888,7 @@ footer p {
         class="back-button"
     >
 
-        <svg class="rc-page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 5-7 7 7 7M5 12h14"/></svg>
+        <i class="fas fa-arrow-left"></i>
 
         Kembali ke R-Cash
 
@@ -2900,7 +2906,7 @@ footer p {
 
 
     <img
-        src="../images/rcash-logo.svg"
+        src="/images/rcash-logo.svg"
         alt="R-Cash Logo"
     >
 
@@ -2927,12 +2933,12 @@ footer p {
         </a>
 
 
-        <a href="mailto:support@rcash.my">
+        <a href="contact-us.html">
             Contact Us
         </a>
 
 
-        <a href="term-conditional.html">
+        <a href="terms-and-conditions.html">
             Terms
         </a>
 
@@ -3017,7 +3023,6 @@ document.querySelectorAll(
 </script>
 
 
-<nav class="rc-page-nav" aria-label="Halaman R-Cash"><a href="../index.html"><svg class="rc-page-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 5-7 7 7 7M5 12h14"/></svg>Laman Utama</a><a href="about-us.html">Tentang Kami</a><a href="blog.html">Blog</a><a href="privacy-policy.html">Polisi Privasi</a><a href="term-conditional.html" aria-current="page">Terma &amp; Syarat</a><a href="data-deletion.html">Data Pengguna</a></nav>
 </body>
 
 </html>
