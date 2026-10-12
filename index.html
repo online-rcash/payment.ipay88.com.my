@@ -1,15 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8"></meta>
     <title>R Cash</title>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "R Cash",
+      "alternateName": "RCash",
+      "url": "https://www.r-cash.my/"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "R Cash",
+      "alternateName": "RCash",
+      "url": "https://www.r-cash.my/",
+      "logo": "https://www.r-cash.my/logo.png",
+      "sameAs": []
+    }
+    </script>
     
     <meta name="description" content="R Cash - The New Payment Website for Fast & Reliable Personal Loans in Malaysia. Quick processing, secure transaction">
     
     <!-- Tetapan Paparan Mudah Alih (Viewport & Format) -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width"></meta>
         
     <!-- Favicon & Ikon -->
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
@@ -29,14 +51,20 @@
     <!-- Open Graph (Metadata Media Sosial) -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://rcash.my/">
-    <meta property="og:title" content="R Cash - Fast & Reliable Repayment Loans in Malaysia">
-    <meta property="og:description" content="R Cash - The New Payment Portal for Fast & Reliable Personal Loans in Malaysia. Quick processing, secure transactions.">
-    <meta property="og:image" content="IMG_6715.png">
     <meta property="og:site_name" content="R Cash">
+    <meta property="og:title" content="R Cash - Fast & Reliable Personal Loans in Malaysia"></meta>
+    <meta property="og:description" content="Apply for a personal loan with R Cash. Quick approval, transparent terms, and trusted service in Malaysia."></meta>
+    <meta property="og:image" content="https://www.r-cash.my/logo.png"></meta>
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
     <meta property="og:locale" content="ms_MY">
+    
+    <meta name="twitter:card" content="summary"></meta>
+    <meta name="twitter:title" content="R Cash - Fast & Reliable Repayment Loans in Malaysia"></meta>
+    <meta name="twitter:description" content="Apply for a personal loan with R Cash. Quick approval, transparent terms, and trusted service in Malaysia."></meta>
+    <meta name="twitter:image" content="https://www.r-cash.my/logo.png"></meta>
+    
     
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary">
@@ -46,18 +74,15 @@
     <meta name="robots" content="noimageindex">
 
     <!-- CSS Files -->
-    <link rel="stylesheet" href="css/utilities.css?v=20261012-layout1">
+    <link rel="stylesheet" href="css/utilities.css?v=20261012">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="features.css">
     <link rel="stylesheet" href="auth/login.css?v=20261012">
     <link rel="stylesheet" href="css/welcome-popup.css?v=20261012">
     <link rel="stylesheet" href="auth/auth-forms.css">
-
+    <link rel="stylesheet" href="css/portal-refresh.css?v=20261012">
     <link rel="stylesheet" href="auth/email-otp.css?v=20261012">
-
-    <link rel="stylesheet" href="css/rcash-theme.css?v=20261012-layout1">
-    <link rel="stylesheet" href="auth/account-flow.css?v=20261012-layout1">
 
     <!-- Cloudflare Turnstile API -->
     <script src="auth/otp-turnstile.js?v=20261012"></script>
@@ -65,9 +90,7 @@
 
     <!-- Centralized i18n -->
     <script src="i18n/translations.js?v=20261012"></script>
-    <script src="i18n/auth-flow.js?v=20261012-layout1"></script>
-    <script src="i18n/portal-copy.js?v=20261012-layout1"></script>
-    <script src="i18n/i18n.js?v=20261012-layout1"></script>
+    <script src="i18n/i18n.js?v=20261012"></script>
 
     <!-- Page transition / loading overlay -->
     <script src="js/loading-screen.js"></script>
@@ -84,23 +107,42 @@
             </div>
 
             <div class="flex items-center gap-3">
-                <div id="languageSwitcher" class="relative inline-block text-left">
-                    <button id="languageToggle" type="button" class="flex items-center gap-1.5 text-xs font-medium text-gray-700 bg-gray-50 px-3 py-2 rounded-lg border border-gray-200" data-i18n-aria-label="lang.switcherLabel" aria-expanded="false" aria-controls="languageOptions">
-                        <span class="lang-current-flag">🇺🇸</span> <span class="lang-current-label">English</span> <span aria-hidden="true">⌄</span>
+                <!-- Language Switcher -->
+                <div class="relative inline-block text-left group">
+                    <button type="button" class="flex items-center gap-1.5 text-[10px] font-medium text-gray-700 bg-gray-50 px-2.5 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-100 transition" data-i18n-aria-label="lang.switcherLabel" aria-haspopup="true">
+                        <span class="lang-current-flag">🇺🇸</span> <span class="lang-current-label">English</span> <i class="fas fa-chevron-down text-[9px] text-gray-400"></i>
                     </button>
-                    <div id="languageOptions" hidden class="absolute right-0 mt-2 w-44 bg-white border border-gray-200 rounded-xl shadow-lg z-50">
-                        <button type="button" data-locale-option="en" class="lang-option w-full text-left block px-4 py-3 text-sm text-gray-700">🇺🇸 English</button>
-                        <button type="button" data-locale-option="zh" class="lang-option w-full text-left block px-4 py-3 text-sm text-gray-700">🇨🇳 中文</button>
-                        <button type="button" data-locale-option="ms" class="lang-option w-full text-left block px-4 py-3 text-sm text-gray-700">🇲🇾 Bahasa Malaysia</button>
-                    </div>
-                </div>
-                <button id="sidebarToggleButton" type="button" onclick="openSidebar()" aria-expanded="false" aria-label="Open menu">
-                    <span aria-hidden="true">☰</span>
-                </button>
-            </div>
-        </div>
-    </header>
-    <script src="js/language-switcher.js?v=20261012-layout1" defer></script>
+                    
+                 <!-- Dropdown -->
+                <!-- Tambah dekat header -->
+<div class="relative inline-block text-left group">
+    <button type="button" class="flex items-center gap-1.5 text-[10px] font-medium text-gray-700 bg-gray-50 px-2.5 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-100 transition">
+        <span class="lang-current-flag">🇺🇸</span>
+        <span class="lang-current-label">English</span>
+        <i class="fas fa-chevron-down text-[9px] text-gray-400"></i>
+    </button>
+
+    <div class="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150">
+        <button type="button" data-locale-option="en" class="lang-option w-full text-left block px-4 py-2.5 text-xs font-bold text-gray-500 hover:bg-gray-50">
+            <span class="mr-2">🇺🇸</span> <span>English</span>
+        </button>
+        <button type="button" data-locale-option="zh" class="lang-option w-full text-left block px-4 py-2.5 text-xs font-bold text-gray-500 hover:bg-gray-50">
+            <span class="mr-2">🇨🇳</span> <span>中文</span>
+        </button>
+        <button type="button" data-locale-option="ms" class="lang-option w-full text-left block px-4 py-2.5 text-xs font-bold text-gray-500 hover:bg-gray-50">
+            <span class="mr-2">🇲🇾</span> <span>Bahasa Malaysia</span>
+        </button>
+    </div>
+</div>
+
+<!-- Hamburger button -->
+<button id="sidebarToggleButton" type="button" aria-expanded="false" aria-label="Open menu">
+    <i class="fas fa-bars text-2xl" aria-hidden="true"></i>
+</button>
+
+<!-- Load scripts -->
+<script src="js/sidebar-handler.js"></script>
+<script src="js/language-switcher.js"></script>
 
     <!-- =========================================================
          R-Cash MAINTENANCE / IMPORTANT NOTICE
@@ -337,7 +379,7 @@
                                 </span>
                             </div>
                             <h3 data-i18n="home.news1Title">
-                                R-Cash Digital System x GitHub
+                                R-Cash New Repayment Loan Website
                             </h3>
                             <p data-i18n="home.news1Body">
                                 A modern digital payment system designed to keep
@@ -723,9 +765,8 @@
 </div>
 
     <!-- Main Scripts -->
-    <script src="script.js?v=20261012-layout1"></script>
+    <script src="script.js?v=20261011"></script>
     <script src="js/welcome-popup.js?v=20261007-poster"></script>
-    <script src="auth/worker-config.js?v=20261012-layout1"></script>
     <script type="module" src="auth/app-auth.js?v=20261011-flow"></script>
 
     <!-- Firebase Authentication UI -->
@@ -838,8 +879,6 @@ window.addEventListener('load', function () {
     }, 3000);
 });
 </script>
-
-
 
 </body>
 </html>
