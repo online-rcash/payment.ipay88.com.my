@@ -1,13 +1,13 @@
 // =====================================================
 // GLOBAL STATE
 // =====================================================
-let timerInstance = null;
-let namaPelangganGlobal = "";
-let rcCustomerIdGlobal = "";
-let amountGlobal = 0;
-
 function t(key, vars) {
-  return window.DJ_I18N ? window.DJ_I18N.t(key, vars) : key;
+  var locale = getLocale();
+  var value = lookup(locale, key);
+  if (value === undefined) value = lookup(dict.defaultLocale || "en", key);
+  if (value === undefined) value = fallbackAuthFlowValue(key);
+  if (value === undefined) return key;
+  return interpolate(value, vars);
 }
 
 // ---- KAWALAN SIDEBAR ----
