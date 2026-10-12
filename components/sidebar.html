@@ -1,32 +1,32 @@
 <!-- Navigation drawer. Authentication stays in the single main login card. -->
-<div id="sidebarOverlay" class="sidebar-overlay hidden opacity-0" aria-hidden="true" onclick="if (event.target === this) closeSidebar()">
-    <aside id="sidebarMenu" class="sidebar-menu translate-x-full" role="dialog" aria-modal="true" aria-labelledby="sidebarTitle">
+<div id="sidebarOverlay" class="sidebar-overlay hidden opacity-0" aria-hidden="true" hidden onclick="if (event.target === this) closeSidebar()">
+    <aside id="sidebarMenu" class="sidebar-menu translate-x-full" inert role="dialog" aria-modal="true" aria-labelledby="sidebarTitle">
         <div class="sidebar-header">
             <div class="sidebar-brand">
                 <img src="/images/rcash-logo.svg" alt="R-Cash" class="sidebar-logo">
                 <div>
                     <p class="sidebar-brand-kicker">R-Cash</p>
-                    <h2 id="sidebarTitle">Payment Hub</h2>
+                    <h2 id="sidebarTitle" data-i18n="authFlow.hub">Payment Hub</h2>
                 </div>
             </div>
-            <button type="button" class="sidebar-close" onclick="closeSidebar()" aria-label="Close menu">
+            <button type="button" class="sidebar-close" onclick="closeSidebar()" data-i18n-aria-label="authFlow.closeMenu" aria-label="Close menu">
                 <i class="fas fa-xmark" aria-hidden="true"></i>
             </button>
         </div>
 
-        <nav class="sidebar-nav" aria-label="Main navigation">
+        <nav class="sidebar-nav" data-i18n-aria-label="authFlow.navigation" aria-label="Main navigation">
             <button type="button" class="sidebar-nav-item is-active" onclick="sidebarHomeAction()">
                 <i class="fas fa-house" aria-hidden="true"></i>
                 <span data-i18n="sidebar.home">Home</span>
             </button>
-            <a href="page/about-us.html" class="sidebar-nav-item">
+            <button type="button" class="sidebar-nav-item" onclick="aboutUsAction()">
                 <i class="fas fa-circle-info" aria-hidden="true"></i>
                 <span data-i18n="sidebar.aboutUs">About Us</span>
-            </a>
-            <a href="page/blog.html" class="sidebar-nav-item">
+            </button>
+            <button type="button" class="sidebar-nav-item" onclick="blogAction()">
                 <i class="fas fa-newspaper" aria-hidden="true"></i>
                 <span data-i18n="sidebar.blog">Blog</span>
-            </a>
+            </button>
             <button type="button" class="sidebar-nav-item" onclick="applyNowAction()">
                 <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
                 <span data-i18n="sidebar.applyNow">Apply Now</span>
@@ -44,3 +44,4 @@
         </div>
     </aside>
 </div>
+
