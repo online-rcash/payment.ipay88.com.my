@@ -10,6 +10,11 @@
   var nodeSources = new WeakMap();
 
   var msOverrides = {
+    "Authentication": "Pengesahan",
+    "News &": "Berita dan",
+    "Updates": "Kemas Kini",
+    "Tiada yuran tersembunyi atau caj mengejut. Anda akan tahu dengan tepat apa yang perlu anda bayar sebelum memohon dengan clear fee structure kami.": "Semak struktur caj yang dinyatakan sebelum membuat permohonan.",
+    "Kriteria kelayakan yang fleksibel bermakna lebih ramai orang boleh mengakses dana yang mereka perlukan, walaupun dengan less-than-perfect credit.": "Kelayakan permohonan tertakluk pada syarat dan penilaian yang ditetapkan.",
     "About Us": "Tentang Kami",
     "Privacy": "Privasi",
     "Contact Us": "Hubungi Kami",
@@ -408,7 +413,7 @@
       updateSwitcher();
     }, 0);
   });
-  document.addEventListener("duitjom:component-loaded", function (event) {
+  document.addEventListener("rcash:component-loaded", function (event) {
     if (event.detail && event.detail.containerId) {
       apply(document.getElementById(event.detail.containerId) || document);
     }

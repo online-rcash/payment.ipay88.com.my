@@ -8,7 +8,9 @@
   var STORAGE_KEY = "duitjom_locale";
   var dict = window.DUITJOM_I18N || { defaultLocale: "en", locales: { en: {} } };
 
+  var memoryLocale = null;
   function getLocale() {
+    if (memoryLocale) return memoryLocale;
     try {
       var stored = window.localStorage.getItem(STORAGE_KEY);
       if (stored && dict.locales[stored]) return stored;
@@ -43,6 +45,7 @@
 
   function setLocale(locale) {
     if (!dict.locales[locale]) return;
+    memoryLocale = locale;
     try {
       window.localStorage.setItem(STORAGE_KEY, locale);
     } catch (e) {}
@@ -96,3 +99,4 @@
     applyTranslations(document);
   });
 })();
+
