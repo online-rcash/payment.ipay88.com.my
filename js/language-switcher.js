@@ -1,10 +1,6 @@
-/* =========================================================
-   LANGUAGE SWITCHER HANDLER
-   ========================================================= */
-
 document.addEventListener('DOMContentLoaded', () => {
     const langOptions = document.querySelectorAll('[data-locale-option]');
-    
+
     langOptions.forEach(option => {
         option.addEventListener('click', (event) => {
             event.preventDefault();
@@ -14,15 +10,27 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    const langGroup = document.querySelector('.group');
+    if (langGroup) {
+        const button = langGroup.querySelector('button');
+        if (button) {
+            button.addEventListener('click', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                langGroup.classList.toggle('is-open');
+            });
+        }
+    }
 });
 
-// Close language dropdown jika click di luar
 document.addEventListener('click', (event) => {
-    const langDropdown = event.target.closest('.relative.inline-block.text-left');
+    const langDropdown = event.target.closest('.group');
     if (!langDropdown) {
-        const allDropdowns = document.querySelectorAll('.group');
-        allDropdowns.forEach(dropdown => {
-            dropdown.classList.remove('group-hover:opacity-100', 'group-hover:visible');
+        document.querySelectorAll('.group').forEach((group) => {
+            group.classList.remove('is-open');
+            group.classList.remove('opacity-100');
+            group.classList.remove('visible');
         });
     }
 });
