@@ -87,22 +87,28 @@
                     
                  <!-- Dropdown -->
                 <div class="relative inline-block text-left group">
-                  <button type="button" class="flex items-center gap-1.5 ...">
-                    <span class="lang-current-flag">🇺🇸</span>
-                    <span class="lang-current-label">English</span>
-                    <i class="fas fa-chevron-down text-[9px] text-gray-400"></i>
-                  </button>
+  <button type="button" class="flex items-center gap-1.5 text-[10px] font-medium text-gray-700 bg-gray-50 px-2.5 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-100">
+    <span class="lang-current-flag">🇺🇸</span>
+    <span class="lang-current-label">English</span>
+    <i class="fas fa-chevron-down text-[9px] text-gray-400"></i>
+  </button>
 
-           <div class="absolute right-0 mt-2 w-36 ... opacity-0 invisible group-hover:opacity-100 group-hover:visible">
-                 <button type="button" data-locale-option="en">🇺🇸 English</button>
-                 <button type="button" data-locale-option="zh">🇨🇳 中文</button>
-                 <button type="button" data-locale-option="ms">🇲🇾 Bahasa Malaysia</button>
-               </div>
-            </div>
+  <div class="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150">
+    <button type="button" data-locale-option="en" class="lang-option w-full text-left block px-4 py-2.5 text-xs font-bold text-gray-500 hover:bg-gray-50">
+      <span class="mr-2">🇺🇸</span> <span>English</span>
+    </button>
+    <button type="button" data-locale-option="zh" class="lang-option w-full text-left block px-4 py-2.5 text-xs font-bold text-gray-500 hover:bg-gray-50">
+      <span class="mr-2">🇨🇳</span> <span>中文</span>
+    </button>
+    <button type="button" data-locale-option="ms" class="lang-option w-full text-left block px-4 py-2.5 text-xs font-bold text-gray-500 hover:bg-gray-50">
+      <span class="mr-2">🇲🇾</span> <span>Bahasa Malaysia</span>
+    </button>
+  </div>
+</div>
 
                 <!-- Hamburger Button -->
-                <button id="sidebarToggleButton" type="button" onclick="openSidebar(event)" class="text-gray-500 hover:text-black transition" data-i18n-aria-label="nav.menu" aria-label="Open menu" aria-controls="sidebarMenu" aria-expanded="false">
-                    <i class="fas fa-bars text-2xl" aria-hidden="true"></i>
+                <button id="sidebarToggleButton" type="button" aria-expanded="false" aria-label="Open menu">
+                   <i class="fas fa-bars text-2xl" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
