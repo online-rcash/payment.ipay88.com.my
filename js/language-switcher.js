@@ -1,36 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const langOptions = document.querySelectorAll('[data-locale-option]');
-
-    langOptions.forEach(option => {
-        option.addEventListener('click', (event) => {
-            event.preventDefault();
-            const locale = option.getAttribute('data-locale-option');
-            if (locale && window.DJ_I18N) {
-                window.DJ_I18N.setLocale(locale);
-            }
-        });
+    const group = document.getElementById('languageSwitcher');
+    const toggle = document.getElementById('languageToggle');
+    const options = document.getElementById('languageOptions');
+    if (!group || !toggle || !options) return;
+    const close = () => {
+        options.hidden = true;
+        toggle.setAttribute('aria-expanded', 'false');
+    };
+    toggle.addEventListener('click', () => {
+        options.hidden = !options.hidden;
+        toggle.setAttribute('aria-expanded', String(!options.hidden));
     });
-
-    const langGroup = document.querySelector('.group');
-    if (langGroup) {
-        const button = langGroup.querySelector('button');
-        if (button) {
-            button.addEventListener('click', (event) => {
-                event.preventDefault();
-                event.stopPropagation();
-                langGroup.classList.toggle('is-open');
-            });
+    options.addEventListener('click', event => {
+        const option = event.target.closest('[data-locale-option]');
+        if (!option) return;
+        window.DJ_I18N?.setLocale(option.dataset.localeOption);
+        close();
+        toggle.focus();
+    });
+    document.addEventListener('click', event => {
+        if (!group.contains(event.target)) close();
+    });
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && !options.hidden) {
+            close();
+            toggle.focus();
         }
-    }
-});
-
-document.addEventListener('click', (event) => {
-    const langDropdown = event.target.closest('.group');
-    if (!langDropdown) {
-        document.querySelectorAll('.group').forEach((group) => {
-            group.classList.remove('is-open');
-            group.classList.remove('opacity-100');
-            group.classList.remove('visible');
-        });
-    }
+    });
 });
