@@ -32,6 +32,7 @@ async function call(path, body, token, requestOrigin = origin) {
   return { response, data: await response.json() };
 }
 test('OTP, magic links and session lifecycle', async () => {
+  for (const email of ['alice@example.com','magic@example.com','expired@example.com','failed@example.com']) sql.prepare('INSERT INTO email_auth_users VALUES (?,?)').run(email,1);
   const rejected = await call('/api/send-otp', { email: 'alice@example.com', turnstileToken: 'test' }, null, 'https://evil.test');
   assert.equal(rejected.response.status, 403);
   assert.equal(rejected.response.headers.get('Access-Control-Allow-Origin'), null);
@@ -69,3 +70,4 @@ test('OTP, magic links and session lifecycle', async () => {
   assert.equal((await call('/api/send-magic-link', { email: 'failed@example.com', turnstileToken: 'test' })).data.code, 'MAILJET_REJECTED');
   assert.equal(sql.prepare('SELECT delivery_status FROM email_magic_links WHERE email = ?').get('failed@example.com').delivery_status, 'failed');
 });
+
