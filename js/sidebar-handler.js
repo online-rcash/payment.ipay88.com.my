@@ -7,17 +7,16 @@ let sidebarPreviousFocus = null;
 
 function openSidebar(event) {
     if (event) event.preventDefault();
-    
+
     const overlay = document.getElementById('sidebarOverlay');
     const menu = document.getElementById('sidebarMenu');
     const toggle = document.getElementById('sidebarToggleButton');
-    
+
     if (!overlay || !menu) {
         window.sidebarOpenPending = true;
         return;
     }
 
-    // Jika sidebar sudah terbuka, tutup dia
     if (!overlay.classList.contains('hidden') && !menu.classList.contains('translate-x-full')) {
         closeSidebar();
         return;
@@ -25,16 +24,16 @@ function openSidebar(event) {
 
     clearTimeout(sidebarCloseTimer);
     sidebarPreviousFocus = document.activeElement;
-    
+
     overlay.hidden = false;
     menu.inert = false;
     window.sidebarOpenPending = false;
     document.body.style.overflowY = 'hidden';
-    
+
     overlay.classList.remove('hidden');
     overlay.setAttribute('aria-hidden', 'false');
     toggle?.setAttribute('aria-expanded', 'true');
-    
+
     requestAnimationFrame(() => {
         overlay.classList.remove('opacity-0');
         menu.classList.remove('translate-x-full');
@@ -48,7 +47,7 @@ function closeSidebar() {
     const overlay = document.getElementById('sidebarOverlay');
     const menu = document.getElementById('sidebarMenu');
     const toggle = document.getElementById('sidebarToggleButton');
-    
+
     if (!overlay || !menu) return;
 
     window.sidebarOpenPending = false;
@@ -58,35 +57,33 @@ function closeSidebar() {
     overlay.setAttribute('aria-hidden', 'true');
     toggle?.setAttribute('aria-expanded', 'false');
     menu.classList.add('translate-x-full');
-    
+
     clearTimeout(sidebarCloseTimer);
     sidebarCloseTimer = setTimeout(() => {
         overlay.hidden = true;
         overlay.classList.add('hidden');
     }, 250);
-    
+
     if (sidebarPreviousFocus) {
         sidebarPreviousFocus.focus();
         sidebarPreviousFocus = null;
     }
 }
 
-// Listen untuk Escape key
 document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
         closeSidebar();
     }
 });
 
-// Keep keyboard focus dalam drawer
 document.addEventListener('keydown', event => {
     const overlay = document.getElementById('sidebarOverlay');
     if (event.key !== 'Tab' || overlay?.getAttribute('aria-hidden') !== 'false') return;
-    
+
     const focusable = [...overlay.querySelectorAll('button, a[href]')].filter(e => !e.disabled);
     const first = focusable[0];
     const last = focusable[focusable.length - 1];
-    
+
     if (event.shiftKey && document.activeElement === first) {
         event.preventDefault();
         last?.focus();
@@ -96,13 +93,12 @@ document.addEventListener('keydown', event => {
     }
 });
 
-// Inisialisasi saat halaman selesai dimuat
 document.addEventListener('DOMContentLoaded', () => {
     const toggle = document.getElementById('sidebarToggleButton');
     if (toggle) {
         toggle.addEventListener('click', openSidebar);
     }
-    
+
     const overlay = document.getElementById('sidebarOverlay');
     if (overlay) {
         overlay.addEventListener('click', (event) => {
@@ -111,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-    
+
     if (window.sidebarOpenPending) {
         openSidebar();
     }
