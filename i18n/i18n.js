@@ -28,6 +28,56 @@
     return node;
   }
 
+  function fallbackAuthFlowValue(key) {
+    if (!key || !/^authFlow\./.test(key)) return undefined;
+
+    var authKey = key.replace(/^authFlow\./, "");
+    var englishFallbacks = {
+      hub: "Payment Hub",
+      account: "Your Account",
+      chooseTitle: "Please select how you want to continue",
+      chooseSubtitle: "Please choose one of the options below based on your account status.",
+      login: "Log In",
+      register: "Register Account",
+      back: "Back to selection",
+      google: "Continue with Google",
+      emailMethod: "Log in with email",
+      magicMethod: "Log in with link",
+      email: "Email address",
+      emailPlaceholder: "name@example.com",
+      otpLabel: "Verification code",
+      otpHint: "The code is verified automatically after the sixth digit is entered.",
+      notReceived: "Didn't receive the code?",
+      resend: "Resend code",
+      changeEmail: "Change email address",
+      noAccount: "Don't have an account?",
+      registerLink: "Register",
+      forgot: "Forgot password",
+      backLogin: "Back to login",
+      confirmHint: "Press the button below to confirm your login link.",
+      success: "Verification successful.",
+      continue: "Continue",
+      welcome: "{name}, welcome back",
+      loginSubtitle: "Please choose one of the following options to continue.",
+      loginMessage: "Welcome back",
+      verifyTitle: "Verify your email",
+      verifySubtitle: "Check your inbox and enter the code we sent you.",
+      resendIn: "Resend in {seconds}s",
+      linkResendIn: "Send link in {seconds}s",
+      sendLink: "Send link",
+      getOtp: "Get code",
+      sendReset: "Send reset link",
+      forgotDescription: "We will help you recover your account.",
+      registerDescription: "Create a new account in a few steps.",
+      loginButton: "Continue",
+      empty: "",
+      paymentHub: "Payment Hub",
+      authTitle: "Please select a method"
+    };
+
+    return englishFallbacks[authKey];
+  }
+
   function interpolate(str, vars) {
     if (!vars) return str;
     return str.replace(/\{(\w+)\}/g, function (match, name) {
@@ -38,7 +88,10 @@
   function t(key, vars) {
     var locale = getLocale();
     var value = lookup(locale, key);
-    if (value === undefined) value = lookup(dict.defaultLocale, key);
+    if (value === undefined) value = lookup(dict.defaultLocale || "en", key);
+    if (value === undefined) value = fallbackAuthFlowValue(key);
+    if (value === undefined) value = lookup(locale, key.replace(/^authFlow\./, "auth."));
+    if (value === undefined) value = lookup(dict.defaultLocale || "en", key.replace(/^authFlow\./, "auth."));
     if (value === undefined) return key;
     return interpolate(value, vars);
   }
@@ -99,4 +152,3 @@
     applyTranslations(document);
   });
 })();
-
