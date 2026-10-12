@@ -11,6 +11,8 @@ function t(key, vars) {
 }
 
 // ---- KAWALAN SIDEBAR ----
+let sidebarCloseTimer = null;
+let sidebarPreviousFocus = null;
 function openSidebar() {
     const overlay = document.getElementById('sidebarOverlay');
     const menu = document.getElementById('sidebarMenu');
@@ -25,6 +27,10 @@ function openSidebar() {
         return;
     }
 
+    clearTimeout(sidebarCloseTimer);
+    sidebarPreviousFocus = document.activeElement;
+    overlay.hidden = false;
+    menu.inert = false;
     window.sidebarOpenPending = false;
     document.body.style.overflowY = 'hidden';
     overlay.classList.remove('hidden');
@@ -33,7 +39,7 @@ function openSidebar() {
     requestAnimationFrame(() => {
         overlay.classList.remove('opacity-0');
         menu.classList.remove('translate-x-full');
-        menu.querySelector('button, a')?.focus();
+        if (overlay.getAttribute('aria-hidden') === 'false') menu.querySelector('button, a')?.focus();
     });
 }
 
@@ -43,14 +49,17 @@ function closeSidebar() {
     const toggle = document.getElementById('sidebarToggleButton');
     if (!overlay || !menu) return;
 
+    window.sidebarOpenPending = false;
     document.body.style.overflowY = '';
+    menu.inert = true;
     overlay.classList.add('opacity-0');
     overlay.setAttribute('aria-hidden', 'true');
     toggle?.setAttribute('aria-expanded', 'false');
     menu.classList.add('translate-x-full');
-    setTimeout(() => {
-        overlay.classList.add('hidden');
-    }, 300);
+    clearTimeout(sidebarCloseTimer);
+    overlay.hidden = true;
+    overlay.classList.add('hidden');
+    if (sidebarPreviousFocus) { sidebarPreviousFocus.focus(); sidebarPreviousFocus = null; }
 }
 
 /* =========================================================
@@ -288,7 +297,8 @@ function loadComponent(containerId, filePath) {
     .catch(error => {
       console.error('Component error:', error);
       if (containerId === "features-container") {
-        container.innerHTML = '<p class="features-load-error">This section could not be loaded. Please reload the page.</p>';
+        container.innerHTML = '<p class="features-load-error" data-i18n="authFlow.featuresError"></p>';
+        window.DJ_I18N?.applyTranslations(container);
       }
       return false;
     });
@@ -340,12 +350,12 @@ function sidebarHomeAction() {
 
 function aboutUsAction() {
     closeSidebar();
-    window.location.assign("page/about-us.html");
+    window.location.assign('page/about-us.html');
 }
 
 function blogAction() {
     closeSidebar();
-    window.location.assign("page/blog.html");
+    window.location.assign('page/blog.html');
 }
 
 function applyNowAction() {
@@ -460,3 +470,14 @@ document.addEventListener('keydown', (event) => {
     if (loginMethods.length > 0) {
         loginMethods[0].click(); // Simulasikan klik pada tab pertama
     }
+
+
+// Keep keyboard focus in the open navigation drawer.
+document.addEventListener('keydown', event => {
+  const overlay = document.getElementById('sidebarOverlay');
+  if (event.key !== 'Tab' || overlay?.getAttribute('aria-hidden') !== 'false') return;
+  const focusable = [...overlay.querySelectorAll('button, a[href]')].filter(e => !e.disabled);
+  const first = focusable[0], last = focusable[focusable.length - 1];
+  if (event.shiftKey && document.activeElement === first) {event.preventDefault();last?.focus();}
+  else if (!event.shiftKey && document.activeElement === last) {event.preventDefault();first?.focus();}
+});
