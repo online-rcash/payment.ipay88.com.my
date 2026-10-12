@@ -1,0 +1,117 @@
+{
+  "repository": "online-rcash/payment.ipay88.com.my",
+  "source_branch": "main",
+  "date": "2026-10-11",
+  "files": [
+    {
+      "path": "auth/account-flow.css",
+      "previous_sha256": null,
+      "sha256": "b4c0d831676b185c85037fb379f401ca57d54f55304a10f1c131f3fe9767a3b1"
+    },
+    {
+      "path": "auth/app-auth.js",
+      "previous_sha256": "a62f6f9fd8a9743d5f83ba54f2a63487b7f62b25047b6b97d01c927028491f85",
+      "sha256": "a4f51e0143c967eeb47bda8528334cecca0c56e9f91d3817b39d58a0e04ba022"
+    },
+    {
+      "path": "backend/migration-20261011.sql",
+      "previous_sha256": null,
+      "sha256": "1a7104f4953950eef6ee54d13375cab75c00f21f3b8b21cf1a80557c748f1b17"
+    },
+    {
+      "path": "backend/rcash-email-auth-worker.mjs",
+      "previous_sha256": "c4af61a227b0128c94a65d77520a3c4f51b01eb394a865eba9e7142c82e87a66",
+      "sha256": "4e2a6eb06aa4a1b34812410b28d23918f95a29ac47a5d835cde7e639736b8318"
+    },
+    {
+      "path": "backend/schema.sql",
+      "previous_sha256": "26dc791a9786643f0399ee39cda5577e80227759709e5ce3d7cf5deae997b581",
+      "sha256": "8c05840375fe801b0b006ea85e03596408f32175375d4d8eaf2ae9ecd1ffb430"
+    },
+    {
+      "path": "backend/tests/auth.test.mjs",
+      "previous_sha256": "cef120d464de067dba21376f72721e086628d91c213811a2ed167e34db6e6fe8",
+      "sha256": "985786d3e396a524f41f51370001add9618967a0c0218b29c572cc8844d08590"
+    },
+    {
+      "path": "backend/tests/frontend.test.mjs",
+      "previous_sha256": "009c22fd29913a6b8e8ef04b3fac42748cd495509bf92400cc8adf92e9492106",
+      "sha256": "7bfda57cfe6c05e35efe95aa1a07d7971207eaf98cff0d5c9c424250fca32c5f"
+    },
+    {
+      "path": "backend/tests/registration.test.mjs",
+      "previous_sha256": null,
+      "sha256": "491a5e2df918c3de3e12dc56ad23dd7acb45e692dbd3c5f1f13ab014df5e3889"
+    },
+    {
+      "path": "backend/tests/sidebar.test.mjs",
+      "previous_sha256": null,
+      "sha256": "029e2e7dfbf0d6ec31ad443e217d9489d2ae0735b84fc78efa2417353bc3989b"
+    },
+    {
+      "path": "components/sidebar.html",
+      "previous_sha256": "b9d03e4916333c5e3c8672e5206678bee9ff9b1ed64ea77b64e243a4604d6298",
+      "sha256": "e1befd1ef96c25b5ad97ce6a888c2c0583c32a761fda77b0ca8b6e76d19df18c"
+    },
+    {
+      "path": "features.html",
+      "previous_sha256": "3323f25841f5b58544a490613bb886791e208b7a785353430fe03043d33a4516",
+      "sha256": "72a2482627ca89a79f502a7960becd77fcc5d92bf6d1be3deb9123d11adf8f0a"
+    },
+    {
+      "path": "i18n/auth-flow.js",
+      "previous_sha256": null,
+      "sha256": "51753732050caf0836fb46ee463c9e2e3de11e1c0f512158d11435bac39b4f7c"
+    },
+    {
+      "path": "i18n/i18n.js",
+      "previous_sha256": "1544f98bc5e65533ee23f3bdd58a8772e18cc06cc0129b46e54057c8ddb12e6d",
+      "sha256": "d80ea8fa964d15b0ad0e53fd718f061ba85c8f9d87f97e024d8182db07d13626"
+    },
+    {
+      "path": "i18n/page-i18n.js",
+      "previous_sha256": "71cc8f3d09ac829c1e1c1d621d2f78d83dac7f700d886f23bac41fb7b7cb1f5b",
+      "sha256": "8a57055d2a089f14d4784d5454fbd897c4b076d213281279c16ecc5d903d6999"
+    },
+    {
+      "path": "i18n/portal-copy.js",
+      "previous_sha256": null,
+      "sha256": "86cf44b0cf734df091a3f01cf117337ab7e8ac7797348082c5d48bc6e3759c66"
+    },
+    {
+      "path": "index.html",
+      "previous_sha256": "841861ca2717374b018f1c8ee57d21279497157f39203995b02591254ea119da",
+      "sha256": "1264f71c23b8ad5171bd0f6b2103ac115d426b7fe3fadeadb216f1dd23a1adbc"
+    },
+    {
+      "path": "page/about-us.html",
+      "previous_sha256": "ba31b2008adf7bf3c553a92b96ae6863949754a5bbb25756436df0d89972b758",
+      "sha256": "83c5af29794ac4b4654ba7a27c1469a8fedeee45125388daf33659395a47c6ae"
+    },
+    {
+      "path": "page/blog.html",
+      "previous_sha256": "fe75a08b26b44609c1123c92add2e0f59749b091ff0c5301a1aac8936a3798d7",
+      "sha256": "dd7db673a1830445bfd2f6fc386a8ed63827e08d675f639a4d13979953060c4f"
+    },
+    {
+      "path": "page/data-deletion.html",
+      "previous_sha256": "c8a27d5bb63396d9d2ddb912e5620be8f63ff5ce5dc4b4abbef00fc9c39036c9",
+      "sha256": "828753c9d506f24dde76457d9fd1b8d23b998f302fee0a849204dcc99e325191"
+    },
+    {
+      "path": "page/privacy-policy.html",
+      "previous_sha256": "62740a8538f3e4a2074a673174fd5b4f795297a653addf8b9ce3ca666b1987d7",
+      "sha256": "87f908a4832d125f32b46bd6a491ed209da902b4c8fe2473e4e4b372d0ccc1cf"
+    },
+    {
+      "path": "page/term-conditional.html",
+      "previous_sha256": "a6ebcc7cbdca513a6048e41ba2d6f89761796d3d98045a2b5ba7e30bc32330bc",
+      "sha256": "8d0199bcbd6149a1ed46fdd82e0f088e128527be6b9290f881d0266c0596526c"
+    },
+    {
+      "path": "script.js",
+      "previous_sha256": "607af19c306e5b7e49034a0d505292e172c95967b6e6725e809face7dd3b751c",
+      "sha256": "495739170cef32cc2fec906289070437e9657e5ee8f4e8f97f642329770c0a06"
+    }
+  ]
+}
