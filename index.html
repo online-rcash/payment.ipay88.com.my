@@ -21,7 +21,7 @@
       "name": "R Cash",
       "alternateName": "RCash",
       "url": "https://www.rcash.my/",
-      "logo": "https://www.r-cash.my/logo.png",
+      "logo": "https://rcash.my/logo.png",
       "sameAs": []
     }
     </script>
@@ -54,7 +54,7 @@
     <meta property="og:site_name" content="R Cash">
     <meta property="og:title" content="R Cash - Fast & Reliable Personal Loans in Malaysia"></meta>
     <meta property="og:description" content="Apply for a personal loan with R Cash. Quick approval, transparent terms, and trusted service in Malaysia."></meta>
-    <meta property="og:image" content="https://www.r-cash.my/logo.png"></meta>
+    <meta property="og:image" content="https://rcash.my/logo.png"></meta>
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
@@ -63,14 +63,14 @@
     <meta name="twitter:card" content="summary"></meta>
     <meta name="twitter:title" content="R Cash - Fast & Reliable Repayment Loans in Malaysia"></meta>
     <meta name="twitter:description" content="Apply for a personal loan with R Cash. Quick approval, transparent terms, and trusted service in Malaysia."></meta>
-    <meta name="twitter:image" content="https://www.r-cash.my/logo.png"></meta>
+    <meta name="twitter:image" content="https://rcash.my/logo.png"></meta>
     
     
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="R Cash - Fast & Reliable Repayment Loans in Malaysia">
     <meta name="twitter:description" content="Apply for a personal loan with R Cash. Quick approval, transparent terms, and trusted service in Malaysia.">
-    <meta name="twitter:image" content="https://www.r-cash.my/logo.png">
+    <meta name="twitter:image" content="https://rcash.my/logo.png">
         
     <!-- CSS Files -->
     <link rel="stylesheet" href="css/utilities.css?v=20261012">
@@ -80,7 +80,8 @@
     <link rel="stylesheet" href="auth/login.css?v=20261012">
     <link rel="stylesheet" href="css/welcome-popup.css?v=20261012">
     <link rel="stylesheet" href="auth/auth-forms.css">
-    <link rel="stylesheet" href="css/portal-refresh.css?v=20261012">
+    <link rel="stylesheet" href="css/rcash-theme.css?v=20261013">
+    <link rel="stylesheet" href="auth/account-flow.css?v=20261013">
     <link rel="stylesheet" href="auth/email-otp.css?v=20261012">
 
     <!-- Cloudflare Turnstile API -->
@@ -89,6 +90,8 @@
 
     <!-- Centralized i18n -->
     <script src="i18n/translations.js?v=20261012"></script>
+    <script src="i18n/auth-flow.js?v=20261013"></script>
+    <script src="i18n/portal-copy.js?v=20261013"></script>
     <script src="i18n/i18n.js?v=20261012"></script>
 
     <!-- Page transition / loading overlay -->
@@ -101,47 +104,31 @@
     <header class="fixed top-0 left-0 right-0 z-40 bg-white shadow-sm border-b border-gray-100">
         <div class="max-w-md mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-2">
-                <img src="/images/rcash-logo.svg" alt="R-Cash Logo" class="h-8 object-contain" onerror="this.outerHTML='<span class=\'font-semibold text-xl text-slate-800\'>R-<span class=\'text-blue-400\'>Cash</span></span>'">
+                <img src="/logo.png" alt="R-Cash Logo" class="h-8 object-contain" onerror="this.outerHTML='<span class=\'font-semibold text-xl text-slate-800\'>R-<span class=\'text-blue-400\'>Cash</span></span>'">
                 <span class="font-semibold text-sm text-slate-800 hidden sm:inline" data-i18n="authFlow.hub">Payment Hub</span>
             </div>
 
             <div class="flex items-center gap-3">
-                <!-- Language Switcher -->
-                <div class="relative inline-block text-left group">
-                    <button type="button" class="flex items-center gap-1.5 text-[10px] font-medium text-gray-700 bg-gray-50 px-2.5 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-100 transition" data-i18n-aria-label="lang.switcherLabel" aria-haspopup="true">
-                        <span class="lang-current-flag">🇺🇸</span> <span class="lang-current-label">English</span> <i class="fas fa-chevron-down text-[9px] text-gray-400"></i>
+                <!-- One language control, shared by mouse and touch. -->
+                <div id="languageSwitcher" class="relative inline-block text-left">
+                    <button id="languageToggle" type="button" class="flex items-center gap-1.5 text-[10px] font-medium text-gray-700 bg-gray-50 px-2.5 py-1.5 rounded-lg border border-gray-200" data-i18n-aria-label="lang.switcherLabel" aria-expanded="false" aria-controls="languageOptions">
+                        <span class="lang-current-flag">🇺🇸</span>
+                        <span class="lang-current-label">English</span>
+                        <i class="fas fa-chevron-down" aria-hidden="true"></i>
                     </button>
-                    
-                 <!-- Dropdown -->
-                <!-- Tambah dekat header -->
-<div class="relative inline-block text-left group">
-    <button type="button" class="flex items-center gap-1.5 text-[10px] font-medium text-gray-700 bg-gray-50 px-2.5 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-100 transition">
-        <span class="lang-current-flag">🇺🇸</span>
-        <span class="lang-current-label">English</span>
-        <i class="fas fa-chevron-down text-[9px] text-gray-400"></i>
-    </button>
-
-    <div class="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150">
-        <button type="button" data-locale-option="en" class="lang-option w-full text-left block px-4 py-2.5 text-xs font-bold text-gray-500 hover:bg-gray-50">
-            <span class="mr-2">🇺🇸</span> <span>English</span>
-        </button>
-        <button type="button" data-locale-option="zh" class="lang-option w-full text-left block px-4 py-2.5 text-xs font-bold text-gray-500 hover:bg-gray-50">
-            <span class="mr-2">🇨🇳</span> <span>中文</span>
-        </button>
-        <button type="button" data-locale-option="ms" class="lang-option w-full text-left block px-4 py-2.5 text-xs font-bold text-gray-500 hover:bg-gray-50">
-            <span class="mr-2">🇲🇾</span> <span>Bahasa Malaysia</span>
-        </button>
-    </div>
-</div>
-
-<!-- Hamburger button -->
-<button id="sidebarToggleButton" type="button" aria-expanded="false" aria-label="Open menu">
-    <i class="fas fa-bars text-2xl" aria-hidden="true"></i>
-</button>
-
-<!-- Load scripts -->
-<script src="js/sidebar-handler.js"></script>
-<script src="js/language-switcher.js"></script>
+                    <div id="languageOptions" hidden class="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded-xl shadow-lg">
+                        <button type="button" data-locale-option="en" class="lang-option w-full text-left block px-4 py-2.5 text-xs font-bold text-gray-500">🇺🇸 English</button>
+                        <button type="button" data-locale-option="zh" class="lang-option w-full text-left block px-4 py-2.5 text-xs font-bold text-gray-500">🇨🇳 中文</button>
+                        <button type="button" data-locale-option="ms" class="lang-option w-full text-left block px-4 py-2.5 text-xs font-bold text-gray-500">🇲🇾 Bahasa Malaysia</button>
+                    </div>
+                </div>
+                <button id="sidebarToggleButton" type="button" onclick="openSidebar()" aria-expanded="false" aria-controls="sidebarOverlay" aria-label="Open menu">
+                    <i class="fas fa-bars text-2xl" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+    <script src="js/language-switcher.js?v=20261013" defer></script>
 
     <!-- =========================================================
          R-Cash MAINTENANCE / IMPORTANT NOTICE
@@ -187,7 +174,7 @@
     <section id="firebaseAuthContainer" class="login-shell w-full mx-auto px-4 pt-2" aria-labelledby="authTitle">
       <div class="login-live-background" aria-hidden="true"><span class="login-live-orb login-live-orb-one"></span><span class="login-live-orb login-live-orb-two"></span></div>
       <div id="authLoginPanel" class="login-card">
-        <img class="auth-brand-logo" src="images/rcash-logo.svg" alt="R-Cash">
+        <img class="auth-brand-logo" src="/logo.png" alt="R-Cash">
         <div id="accountChoice">
           <p class="login-kicker" data-i18n="authFlow.account">Akaun Anda</p>
           <h2 id="authTitle" class="login-title" data-i18n="authFlow.chooseTitle">Sila Pilih Kaedah untuk Meneruskan</h2>
@@ -244,7 +231,7 @@
         <p id="authMessage" class="login-message" role="status" aria-live="polite" aria-atomic="true"></p>
       </div>
       <div id="authUserPanel" class="login-card" hidden>
-        <img class="auth-brand-logo" src="images/rcash-logo.svg" alt="R-Cash">
+        <img class="auth-brand-logo" src="/logo.png" alt="R-Cash">
         <h2 class="login-title" data-i18n="authFlow.success">Pengesahan berjaya.</h2>
         <p id="userDisplay" class="login-subtitle" aria-live="polite"></p>
         <button id="authContinueButton" type="button" class="login-primary-button" data-i18n="authFlow.continue">Teruskan</button>
@@ -551,7 +538,7 @@
 <div class="flex flex-col items-center gap-7 w-full max-w-xs">
     <!-- LOGO -->
     <div class="loading-logo-wrap">
-        <img src="/images/rcash-logo.svg" alt="R-Cash Logo" class="w-16 h-16 object-contain">
+        <img src="/logo.png" alt="R-Cash Logo" class="w-16 h-16 object-contain">
     </div>
 
     <!-- LOADING TEXT -->
@@ -591,7 +578,7 @@
         <div class="relative w-28 h-28 mb-4 flex items-center justify-center">
             <div class="absolute inset-0 rounded-[32px] bg-gradient-to-br from-blue-100 via-sky-50 to-cyan-100 blur-xl opacity-80"></div>
             <div class="relative w-24 h-24 rounded-[28px] bg-white/70 backdrop-blur-xl border border-white/90 shadow-[0_15px_40px_rgba(37,99,235,0.12)] flex items-center justify-center overflow-hidden">
-                <img src="/images/rcash-logo.svg" alt="Logo R-Cash" class="w-[82px] h-[82px] object-contain">
+                <img src="/logo.png" alt="Logo R-Cash" class="w-[82px] h-[82px] object-contain">
             </div>
         </div>
         <p class="text-slate-500 font-medium text-xs max-w-xs leading-relaxed" data-i18n="home.paymentIntro">
@@ -737,7 +724,7 @@
 <!-- THANKS / CONFIRMATION PAGE -->
 <div id="thanksPage" class="hidden flex-col min-h-screen -mt-[72px] pt-[72px] bg-white justify-center items-center" style="padding-bottom: env(safe-area-inset-bottom, 0);">
 <div class="confirmation-card max-w-md w-full mx-auto px-6 py-10 text-center">
-    <img src="/images/rcash-logo.svg" alt="R-Cash" class="h-6 object-contain mx-auto mb-8 opacity-80">
+    <img src="/logo.png" alt="R-Cash" class="h-6 object-contain mx-auto mb-8 opacity-80">
 
     <div class="confirmation-check-ring mx-auto mb-6">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-7 h-7 text-emerald-600" aria-hidden="true">
