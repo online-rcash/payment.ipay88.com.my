@@ -20,7 +20,7 @@ const db = {
     catch (error) { sql.exec('ROLLBACK'); throw error; }
   }
 };
-const env = { AUTH_DB: db, OTP_PEPPER: 'x'.repeat(32), MAIL_FROM_EMAIL: 'noreply@rcash.my', MJ_APIKEY_PUBLIC: 'test', MJ_APIKEY_PRIVATE: 'test', TURNSTILE_SECRET_KEY: 'test' };
+const env = { AUTH_DB: db, OTP_PEPPER: 'x'.repeat(32), MAIL_FROM_EMAIL: 'no-reply@rcash.my', MJ_APIKEY_PUBLIC: 'test', MJ_APIKEY_PRIVATE: 'test', TURNSTILE_SECRET_KEY: 'test' };
 let emailContent, failMail = false;
 globalThis.fetch = async (url, init) => {
   if (url.includes('siteverify')) return Response.json({ success: true, hostname: 'www.rcash.my', action: 'auth' });
