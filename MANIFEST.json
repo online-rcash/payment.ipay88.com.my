@@ -79,10 +79,11 @@
       "sha256": "86cf44b0cf734df091a3f01cf117337ab7e8ac7797348082c5d48bc6e3759c66"
     },
     {
-      "path": "index.html",
-      "previous_sha256": "841861ca2717374b018f1c8ee57d21279497157f39203995b02591254ea119da",
-      "sha256": "1264f71c23b8ad5171bd0f6b2103ac115d426b7fe3fadeadb216f1dd23a1adbc"
-    },
+  "path": "index.html",
+  "previous_sha256": "841861ca2717374b018f1c8ee57d21279497157f39203995b02591254ea119da",
+  "sha256": "1264f71c23b8ad5171bd0f6b2103ac115d426b7fe3fadeadb216f1dd23a1adbc"
+}
+
     {
       "path": "page/about-us.html",
       "previous_sha256": "ba31b2008adf7bf3c553a92b96ae6863949754a5bbb25756436df0d89972b758",
