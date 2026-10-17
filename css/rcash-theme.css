@@ -1,54 +1,112 @@
-/* Palette matched to www.r-cash.my: purple hero, lavender actions, pale sections. */
+/* R-Cash Dark Purple-Black Theme — production-ready palette per design brief */
 :root {
-  --rcash-purple: #8b5cf6;
+  --rcash-bg: #09090e; /* deep obsidian */
+  --rcash-card: rgba(26, 22, 43, 0.75); /* dark violet glassmorphism */
+  --rcash-card-border: rgba(139, 92, 246, 0.25); /* subtle purple border */
+  --rcash-purple-1: #8b5cf6; /* vibrant purple */
+  --rcash-purple-2: #6d28d9; /* deep royal purple */
   --rcash-lavender: #a78bfa;
-  --rcash-ink: #1e0e33;
-  --rcash-pale: #f3f0f7;
-  --rcash-border: #d8cfe6;
-  --rcash-gradient: linear-gradient(160deg, #1e0e33 0%, #2d1549 30%, #5b2d8e 55%, #3a1b5e 100%);
+  --rcash-text-1: #e9e6ff; /* light text */
+  --rcash-muted: #9aa0b4;
 }
-body.login-page { background: var(--rcash-gradient); background-attachment: fixed; }
-body:not(.login-page) { background-color: var(--rcash-pale); }
-#firebaseAuthContainer.login-shell { background: var(--rcash-gradient); border-color: #8b5cf64d; box-shadow: 0 24px 70px #1e0e334d; }
-#firebaseAuthContainer .login-live-background { background: var(--rcash-gradient); }
-#firebaseAuthContainer .login-live-background::before { background-image: linear-gradient(#8b5cf614 1px, transparent 1px), linear-gradient(90deg, #8b5cf614 1px, transparent 1px); }
-#firebaseAuthContainer .login-live-orb-one { background: #8b5cf6; }
-#firebaseAuthContainer .login-live-orb-two { background: #5b2d8e; }
-#firebaseAuthContainer .login-live-orb-three { background: #a78bfa; }
-#firebaseAuthContainer .login-card { background: linear-gradient(145deg, #0f1932f2, #0a1226f2); border-color: #8b5cf640; box-shadow: 0 24px 60px #0000004d; }
-#firebaseAuthContainer .login-title { color: #fafaf9; }
-#firebaseAuthContainer .login-subtitle, #firebaseAuthContainer .login-divider { color: #bdb6cc; }
-#firebaseAuthContainer .login-panel label { color: #e4e4e7; }
-#firebaseAuthContainer .login-kicker, #firebaseAuthContainer .login-link-button, #firebaseAuthContainer .login-link, #firebaseAuthContainer .login-forgot-link { color: #a78bfa; }
-#firebaseAuthContainer .login-divider::before, #firebaseAuthContainer .login-divider::after { background: #8b5cf640; }
-#firebaseAuthContainer .login-panel input { background: #8b5cf60f; border-color: #8b5cf659; color: #fafaf9; }
-#firebaseAuthContainer .login-panel input::placeholder { color: #a1a1aa; }
-#firebaseAuthContainer .login-panel input:focus { border-color: #a78bfa; box-shadow: 0 0 0 3px #8b5cf633; }
-#firebaseAuthContainer .login-primary-button, .confirmation-primary-button, #continueBtn, #btnPembayaranPinjaman button:first-child {
-  background: linear-gradient(135deg, #a78bfa, #8b5cf6); border-color: #8b5cf6; color: #1e0e33; box-shadow: 0 9px 20px #8b5cf633;
+
+/* Page background */
+body.login-page {
+  background: var(--rcash-bg);
+  color: var(--rcash-text-1);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-#firebaseAuthContainer .login-primary-button:hover, .confirmation-primary-button:hover, #continueBtn:hover, #btnPembayaranPinjaman button:first-child:hover { background: linear-gradient(135deg, #8b5cf6, #5b2d8e); color: #fff; }
-#firebaseAuthContainer .login-secondary-button { background: #8b5cf61a; border-color: #8b5cf659; color: #e4e4e7; }
-#features-container { background: var(--rcash-pale); color: var(--rcash-ink); }
-#features-container .background-orb { background: #8b5cf626; }
-#features-container .hero h1, #features-container .section-title h2, #features-container .feature-card h3, #features-container .blog-content h3 { color: var(--rcash-ink); }
-#features-container .hero h1 span { background: linear-gradient(135deg, #5b2d8e, #8b5cf6); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-#features-container .feature-card, #features-container .blog-card { background: #fff; border-color: var(--rcash-border); box-shadow: 0 18px 45px #5b2d8e0f; }
-#features-container .feature-card:hover, #features-container .blog-card:hover { border-color: #8b5cf680; box-shadow: 0 20px 45px #8b5cf61f; }
-#features-container .live-icon, #features-container .glass-badge, #features-container .luxury-label { color: #5b2d8e; background: #8b5cf61a; border-color: #8b5cf633; }
-#features-container .featured-card { background: var(--rcash-gradient); border-color: #8b5cf640; }
-#features-container .featured-content h2 { color: #fafaf9; }
-#features-container .featured-content p { color: #e4e4e7; }
-#features-container .featured-badge, #features-container .read-featured { color: #e4e4e7; background: #8b5cf626; border-color: #8b5cf640; }
-#features-container .blog-category, #features-container .read-more { color: #5b2d8e; }
-.sidebar-nav-item:hover, .sidebar-nav-item.is-active { background: #8b5cf61a; border-color: #d8cfe6; color: #5b2d8e; }
-.sidebar-brand-kicker { color: #5b2d8e; }
-#siteFooter { background: linear-gradient(135deg, #1a1a1a, #2d2d2d); border-color: #ffffff1a; color: #ccc; }
-button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline-color: #a78bfa; }
-#pageLoadingProgress { background: linear-gradient(90deg, #a78bfa, #8b5cf6); }
-/* Email authentication controls */
-#firebaseAuthContainer #otpCode { text-align: center; font-size: 1.5rem; letter-spacing: .45rem; font-weight: 700; }
-#firebaseAuthContainer .login-message { color: #e4e4e7; font-size: .875rem; }
-#firebaseAuthContainer .login-message.error { color: #fca5a5; }
-#firebaseAuthContainer .login-panel label, #firebaseAuthContainer .login-subtitle, #firebaseAuthContainer .login-provider-button, #firebaseAuthContainer .login-primary-button, #firebaseAuthContainer .login-secondary-button { font-size: .875rem; }
-#firebaseAuthContainer button:disabled { opacity: .55; cursor: not-allowed; }
+
+/* Auth shell */
+#firebaseAuthContainer.login-shell {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid var(--rcash-card-border);
+  box-shadow: 0 24px 70px rgba(2,2,6,0.6);
+}
+
+.login-live-background { background: transparent; }
+.login-live-orb-one { background: linear-gradient(90deg, var(--rcash-purple-1), var(--rcash-purple-2)); }
+.login-live-orb-two { background: rgba(139,92,246,0.14); }
+
+#firebaseAuthContainer .login-card {
+  background: linear-gradient(180deg, rgba(20,12,34,0.8), rgba(12,8,24,0.85));
+  border: 1px solid var(--rcash-card-border);
+  box-shadow: 0 20px 60px rgba(6,6,10,0.7);
+  color: var(--rcash-text-1);
+}
+
+#firebaseAuthContainer .login-title { color: var(--rcash-text-1); }
+#firebaseAuthContainer .login-subtitle, #firebaseAuthContainer .login-divider { color: var(--rcash-muted); }
+#firebaseAuthContainer .login-panel label { color: var(--rcash-muted); }
+#firebaseAuthContainer .login-kicker, .login-link-button { color: var(--rcash-lavender); }
+
+#firebaseAuthContainer .login-panel input {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  color: var(--rcash-text-1);
+}
+#firebaseAuthContainer .login-panel input::placeholder { color: rgba(255,255,255,0.36); }
+#firebaseAuthContainer .login-panel input:focus { border-color: rgba(139,92,246,0.5); box-shadow: 0 0 0 4px rgba(139,92,246,0.07); }
+
+/* Primary buttons: purple gradient */
+.button--primary, .login-primary-button, .confirmation-primary-button, #continueBtn {
+  background: linear-gradient(135deg, var(--rcash-purple-1), var(--rcash-purple-2));
+  border: 1px solid rgba(139,92,246,0.6);
+  color: var(--rcash-bg);
+  box-shadow: 0 12px 28px rgba(109,40,217,0.18);
+}
+.button--primary:hover, .login-primary-button:hover { transform: translateY(-1px); }
+
+/* Secondary (ghost) */
+.button--ghost, .login-secondary-button { background: transparent; border: 1px solid rgba(139,92,246,0.12); color: var(--rcash-text-1); }
+
+/* Features container: dark glass cards on page area */
+#features-container { background: transparent; color: var(--rcash-text-1); }
+#features-container .feature-card, #features-container .blog-card {
+  background: var(--rcash-card);
+  border: 1px solid var(--rcash-card-border);
+  box-shadow: 0 10px 30px rgba(13,10,23,0.6);
+}
+#features-container .feature-card:hover { box-shadow: 0 20px 50px rgba(139,92,246,0.12); transform: translateY(-4px); }
+
+/* Sidebar active */
+.sidebar-nav-item:hover, .sidebar-nav-item.is-active { background: linear-gradient(90deg, rgba(139,92,246,0.06), rgba(109,40,217,0.04)); color: var(--rcash-lavender); border-color: rgba(139,92,246,0.12); }
+
+#siteFooter { background: linear-gradient(180deg, #05050a, #0f0d14); color: #9aa0b4; }
+
+/* Focus outlines */
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline-color: rgba(139,92,246,0.6); }
+
+/* Loading/progress accents */
+#pageLoadingProgress { background: linear-gradient(90deg, var(--rcash-purple-1), var(--rcash-purple-2)); }
+
+/* OTP/message */
+#firebaseAuthContainer .login-message { color: var(--rcash-text-1); }
+#firebaseAuthContainer .login-message.error { color: #ff8b94; }
+
+/* Small loan module styles (scoped) */
+.rcash-loan-card { background: var(--rcash-card); border: 1px solid var(--rcash-card-border); padding: 1rem; border-radius: 1rem; box-shadow: 0 20px 50px rgba(3,3,6,0.6); }
+.loan-header-row { display:flex; justify-content:space-between; align-items:center; gap:1rem; }
+.loan-kicker { color: var(--rcash-lavender); font-weight:700; font-size:0.8rem; }
+.loan-hero-grid { display:grid; gap:1rem; grid-template-columns: 1fr 320px; margin-top:1rem; }
+.loan-range-wrap { margin-bottom:1rem; }
+.loan-label-row { display:flex; justify-content:space-between; align-items:center; color:var(--rcash-text-1); }
+input[type="range"] { width:100%; -webkit-appearance:none; height:6px; background: linear-gradient(90deg,var(--rcash-purple-1),var(--rcash-purple-2)); border-radius:6px; }
+.loan-summary-panel { border-left: 1px solid rgba(255,255,255,0.03); padding-left:1rem; }
+.loan-primary-button { background: linear-gradient(90deg,var(--rcash-purple-1),var(--rcash-purple-2)); color: var(--rcash-bg); padding:0.6rem 1rem; border-radius:0.75rem; border:0; }
+.loan-secondary-button { background: transparent; border:1px solid rgba(255,255,255,0.06); color:var(--rcash-text-1); padding:0.55rem 0.9rem; border-radius:0.75rem; }
+.loan-application-form { margin-top:1rem; }
+.loan-step-panel { display:none; }
+.loan-step-panel.is-visible { display:block; }
+.loan-form-grid { display:grid; gap:0.75rem; grid-template-columns: 1fr 1fr; }
+.loan-form-grid label span { display:block; color:var(--rcash-muted); margin-bottom:0.35rem; }
+.loan-form-grid input, .loan-form-grid textarea { background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); color:var(--rcash-text-1); padding:0.65rem; border-radius:0.6rem; }
+.loan-amount-boxes { display:flex; gap:1rem; justify-content:space-between; margin-top:1rem; }
+.loan-progress-wrap { margin-top:1rem; display:flex; gap:0.6rem; }
+.loan-status-item { display:flex; gap:0.6rem; align-items:center; padding:0.6rem 0.8rem; border-radius:0.6rem; background: rgba(255,255,255,0.01); color:var(--rcash-muted); }
+.loan-status-item.is-active { background: linear-gradient(90deg, rgba(139,92,246,0.08), rgba(109,40,217,0.04)); color:var(--rcash-lavender); }
+.loan-status-dot { display:inline-grid; place-items:center; width:28px; height:28px; border-radius:999px; background: rgba(255,255,255,0.03); color:var(--rcash-text-1); font-weight:700; }
+
+/* Responsive tweaks */
+@media (max-width: 880px) { .loan-hero-grid { grid-template-columns: 1fr; } .loan-form-grid { grid-template-columns: 1fr; } }
