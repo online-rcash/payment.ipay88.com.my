@@ -1,78 +1,121 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  onAuthStateChanged,
-  signInWithPopup,
-  signOut,
-  type User,
-} from "firebase/auth";
-import { auth, googleProvider } from "@/lib/firebase";
+import { Turnstile } from "@marsidev/react-turnstile";
+
+const API_BASE = "https://mail.rcash.my";
 
 export default function Home() {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [step, setStep] = useState<"email" | "otp">("email");
+  const [email, setEmail] = useState("");
+  const [otp, setOtp] = useState("");
+  const [token, setToken] = useState("");
+  const [error, setError] = useState("");
+  const [info, setInfo] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState<{ email: string } | null>(null);
 
+  // Periksa session sedia ada
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
-    });
-
-    return unsubscribe;
+    fetch(`${API_BASE}/api/session`, { credentials: "include" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => d?.email && setUser({ email: d.email }))
+      .catch(() => {});
   }, []);
 
-  async function handleLogin() {
-    setErrorMessage("");
+  async function sendOtp(e: React.FormEvent) {
+    e.preventDefault();
+    setError("");
+    if (!token) { setError("Sahkan anda bukan robot (Turnstile)."); return; }
 
+    setLoading(true);
     try {
-      await signInWithPopup(auth, googleProvider);
-    } catch (error) {
-      console.error("Login gagal:", error);
-      setErrorMessage("Log masuk gagal. Sila cuba lagi.");
+      const res = await fetch(`${API_BASE}/api/send-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ email, turnstileToken: token }),
+      });
+      const data = await res.json();
+      if (!res.ok) { setError(data.error || "Gagal hantar OTP."); }
+      else { setInfo("OTP dihantar ke email anda."); setStep("otp"); }
+    } catch {
+      setError("Tidak dapat hubungi server.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function verifyOtp(e: React.FormEvent) {
+    e.preventDefault();
+    setError("");
+    if (!/^\d{6}$/.test(otp)) { setError("OTP mesti 6 digit."); return; }
+
+    setLoading(true);
+    try {
+      const res = await fetch(`${API_BASE}/api/verify-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ email, otp }),
+      });
+      const data = await res.json();
+      if (!res.ok) { setError(data.error || "OTP salah."); }
+      else { setUser({ email }); setOtp(""); setStep("email"); setInfo(""); }
+    } catch {
+      setError("Tidak dapat hubungi server.");
+    } finally {
+      setLoading(false);
     }
   }
 
   async function handleLogout() {
-    setErrorMessage("");
-
-    try {
-      await signOut(auth);
-    } catch (error) {
-      console.error("Log keluar gagal:", error);
-      setErrorMessage("Log keluar gagal. Sila cuba lagi.");
-    }
+    await fetch(`${API_BASE}/api/logout`, { method: "POST", credentials: "include" });
+    setUser(null); setEmail(""); setStep("email"); setInfo("");
   }
 
-  if (loading) {
+  if (user) {
     return (
       <main>
-        <p>Memuatkan...</p>
+        <h1>R-Cash</h1>
+        <p>Anda telah log masuk: {user.email}</p>
+        <button type="button" onClick={handleLogout}>Log Keluar</button>
       </main>
     );
   }
 
   return (
     <main>
-      <h1>Firebase Authentication</h1>
+      <h1>{step === "email" ? "Log Masuk / Daftar" : "Sahkan OTP"}</h1>
+      {error && <p>{error}</p>}
+      {info && <p>{info}</p>}
 
-      {errorMessage && <p>{errorMessage}</p>}
-
-      {user ? (
-        <section>
-          <p>Anda telah log masuk.</p>
-          <p>Nama: {user.displayName || "Tiada nama"}</p>
-          <p>E-mel: {user.email || "Tiada e-mel"}</p>
-
-          <button type="button" onClick={handleLogout}>
-            Log Keluar
-          </button>
-        </section>
+      {step === "email" ? (
+        <form onSubmit={sendOtp}>
+          <label>
+            E-mel
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          </label>
+          <Turnstile siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!} onSuccess={setToken} />
+          <button type="submit" disabled={loading}>{loading ? "Memproses..." : "Hantar OTP"}</button>
+        </form>
       ) : (
-        <button type="button" onClick={handleLogin}>
-          Log Masuk dengan Google
-        </button>
+        <form onSubmit={verifyOtp}>
+          <label>
+            Kod OTP 6-digit
+            <input
+              type="text"
+              inputMode="numeric"
+              pattern="\d{6}"
+              maxLength={6}
+              value={otp}
+              onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
+              required
+            />
+          </label>
+          <button type="submit" disabled={loading}>{loading ? "Memproses..." : "Sahkan"}</button>
+          <button type="button" onClick={() => setStep("email")}>Tukar e-mel</button>
+        </form>
       )}
     </main>
   );
