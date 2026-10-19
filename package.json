@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@marsidev/react-turnstile": "^1.2.0",
+    "firebase": "^10.14.1",
     "next": "^15.3.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0"
