@@ -15,7 +15,6 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<{ email: string } | null>(null);
 
-  // Periksa session sedia ada
   useEffect(() => {
     fetch(`${API_BASE}/api/session`, { credentials: "include" })
       .then((r) => (r.ok ? r.json() : null))
