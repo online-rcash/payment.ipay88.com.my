@@ -1,9 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Turnstile } from "@marsidev/react-turnstile";
 
 const API_BASE = "https://mail.rcash.my";
+const TURNSTILE_SITE_KEY = "0x4AAAAAAFDZ5bKGW2izQzbZ";
+
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (el: HTMLElement, opts: Record<string, unknown>) => string;
+      reset: (id: string) => void;
+    };
+  }
+}
 
 export default function Home() {
   const [step, setStep] = useState<"email" | "otp">("email");
@@ -14,13 +23,40 @@ export default function Home() {
   const [info, setInfo] = useState("");
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<{ email: string } | null>(null);
+  const [turnstileId, setTurnstileId] = useState<string | null>(null);
 
+  // Periksa session sedia ada
   useEffect(() => {
     fetch(`${API_BASE}/api/session`, { credentials: "include" })
       .then((r) => (r.ok ? r.json() : null))
       .then((d) => d?.email && setUser({ email: d.email }))
       .catch(() => {});
   }, []);
+
+  // Load Turnstile script
+  useEffect(() => {
+    if (document.getElementById("turnstile-script")) return;
+    const script = document.createElement("script");
+    script.id = "turnstile-script";
+    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+  }, []);
+
+  // Render widget bila masuk step email
+  useEffect(() => {
+    if (step !== "email") return;
+    const el = document.getElementById("turnstile-widget");
+    if (!el || !window.turnstile) return;
+    if (turnstileId) return;
+    const id = window.turnstile.render(el, {
+      sitekey: TURNSTILE_SITE_KEY,
+      action: "auth",
+      callback: (t: string) => setToken(t),
+    });
+    setTurnstileId(id as string);
+  }, [step, turnstileId]);
 
   async function sendOtp(e: React.FormEvent) {
     e.preventDefault();
@@ -95,7 +131,7 @@ export default function Home() {
             E-mel
             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </label>
-          <Turnstile siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!} onSuccess={setToken} />
+          <div id="turnstile-widget" />
           <button type="submit" disabled={loading}>{loading ? "Memproses..." : "Hantar OTP"}</button>
         </form>
       ) : (
