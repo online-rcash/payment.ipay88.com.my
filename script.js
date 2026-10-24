@@ -1,3 +1,6 @@
+// =====================================================
+// GLOBAL STATE
+// =====================================================
 function buildCleanRoute(page, extraParams = {}) {
   const params = new URLSearchParams(extraParams);
   const sessionId =
