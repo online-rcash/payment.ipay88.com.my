@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ms">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment - R Cash</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #eff6ff;
+        color: #0f172a;
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+      }
+      .card {
+        width: min(90vw, 520px);
+        background: white;
+        border: 1px solid #dbeafe;
+        border-radius: 20px;
+        padding: 32px 24px;
+        box-shadow: 0 25px 60px rgba(37, 99, 235, 0.08);
+      }
+      h1 {
+        margin: 0 0 14px;
+        font-size: 30px;
+      }
+      p {
+        margin: 0 0 24px;
+        color: #475569;
+      }
+      .meta {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 14px 16px;
+        margin-bottom: 20px;
+        font-size: 14px;
+      }
+      a {
+        display: inline-block;
+        background: linear-gradient(135deg, #0284c7, #2563eb, #4f46e5);
+        color: white;
+        padding: 12px 18px;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>Payment</h1>
+      <p>Halaman pembayaran pelanggan dalam URL bersih.</p>
+      <div class="meta" id="sessionMeta">Session: -</div>
+      <a href="/">Kembali ke Laman Utama</a>
+    </div>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const session = params.get('session') || 'guest';
+      document.getElementById('sessionMeta').textContent = 'Session: ' + session;
+    </script>
+  </body>
+</html>
