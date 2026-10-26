@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
-  title: "Firebase Auth",
-  description: "Firebase Authentication dengan Next.js",
+  title: "R Cash",
+  description: "R Cash",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
