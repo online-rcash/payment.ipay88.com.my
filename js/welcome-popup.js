@@ -9,6 +9,7 @@
         const closeButton = document.getElementById("maintenancePopupClose");
         const closeX = document.getElementById("maintenancePopupCloseX");
         const countdown = document.getElementById("maintenancePopupCountdown");
+        
         if (!overlay || !popup || !poster || !closeButton || !closeX || !countdown || overlay.dataset.initialized) return;
         overlay.dataset.initialized = "true";
 
@@ -39,16 +40,21 @@
         }
 
         function openNotice() {
-            if (hasOpened || !poster.naturalWidth) return;
+            // KITA BUANG SYARAT !poster.naturalWidth DI SINI
+            if (hasOpened) return; 
             hasOpened = true;
             isOpen = true;
             previousFocus = document.activeElement;
             deadline = Date.now() + 10000;
+            
+            // Tunjuk popup
             overlay.setAttribute("aria-hidden", "false");
             document.body.classList.add("maintenance-popup-open");
+            
             updateCountdown();
             interval = window.setInterval(updateCountdown, 1000);
             autoClose = window.setTimeout(closeNotice, 10000);
+            
             window.requestAnimationFrame(function () {
                 if (isOpen) closeX.focus({ preventScroll: true });
             });
@@ -56,13 +62,15 @@
 
         closeButton.addEventListener("click", closeNotice);
         closeX.addEventListener("click", closeNotice);
+        
         popup.querySelectorAll("a[href]").forEach(function (link) {
-            // Keep the anchor's default action so mailto retains the customer's tap.
             link.addEventListener("click", closeNotice);
         });
+        
         overlay.addEventListener("click", function (event) {
             if (event.target === overlay) closeNotice();
         });
+        
         document.addEventListener("keydown", function (event) {
             if (!isOpen) return;
             if (event.key === "Escape") {
@@ -82,14 +90,27 @@
                 }
             }
         });
+        
         document.addEventListener("visibilitychange", function () {
             if (!document.hidden) updateCountdown();
         });
+        
         window.addEventListener("pageshow", updateCountdown);
         window.addEventListener("pagehide", closeNotice);
+        
+        // Trigger Bila Gambar Selesai Load
         poster.addEventListener("load", openNotice, { once: true });
-        poster.addEventListener("error", closeNotice, { once: true });
-        if (poster.complete) openNotice();
+        
+        // Trigger Jika Gambar Error (Contoh: 404, tapi popup tetap keluar)
+        poster.addEventListener("error", openNotice, { once: true }); 
+        
+        // Trigger Jika Gambar Dah Ada Dalam Cache
+        if (poster.complete) {
+            openNotice();
+        } else {
+            // FALLBACK: Kalau gambar lambat sangat load, paksa keluar selepas 1.5 saat
+            setTimeout(openNotice, 1500); 
+        }
     }
 
     if (document.readyState === "loading") {
